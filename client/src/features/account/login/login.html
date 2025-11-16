@@ -1,0 +1,101 @@
+<div class="login-page">
+  <div class="login-card">
+    <div class="brand">
+      <!-- <div class="brand-mark"> -->
+        <img src="/logo1.png" alt="Festivaz" width="110"/>
+      <!-- </div> -->
+      <h1 class="title">Welcome back</h1>
+      <p class="subtitle">Sign in to continue planning with FesivaZ.</p>
+    </div>
+
+    <form (ngSubmit)="submit()" class="login-form">
+      <label class="field">
+        <span class="field-label">Email or Username</span>
+        <span class="field-control">
+          <span class="field-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M2 6.75A2.75 2.75 0 0 1 4.75 4h14.5A2.75 2.75 0 0 1 22 6.75v10.5A2.75 2.75 0 0 1 19.25 20H4.75A2.75 2.75 0 0 1 2 17.25Zm1.5 0v.26l8.5 5.11 8.5-5.1V6.75a1.25 1.25 0 0 0-1.25-1.25H4.75A1.25 1.25 0 0 0 3.5 6.75Zm17 2.65-7.88 4.74a.75.75 0 0 1-.74 0L4 9.4V17.2a1.25 1.25 0 0 0 1.25 1.25h13.5A1.25 1.25 0 0 0 20.5 17.2Z" fill="currentColor" />
+            </svg>
+          </span>
+          <input
+            name="email"
+            [(ngModel)]="creds.email"
+            type="text"
+            placeholder="you@example.com"
+            autocomplete="username"
+            required
+          />
+        </span>
+        <span *ngIf="!creds.email && errorMsg" class="field-error">Email or username is required</span>
+      </label>
+
+      <label class="field">
+        <span class="field-label">Password</span>
+        <span class="field-control">
+          <span class="field-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M17.25 9.5h-.75V6.75a4.5 4.5 0 1 0-9 0V9.5H6.75A2.75 2.75 0 0 0 4 12.25v6A2.75 2.75 0 0 0 6.75 21h10.5A2.75 2.75 0 0 0 20 18.25v-6A2.75 2.75 0 0 0 17.25 9.5Zm-8.25-2.75a3 3 0 0 1 6 0V9.5h-6Zm9 11.5a1.25 1.25 0 0 1-1.25 1.25H6.75A1.25 1.25 0 0 1 5.5 18.25v-6A1.25 1.25 0 0 1 6.75 11h10.5a1.25 1.25 0 0 1 1.25 1.25Z" fill="currentColor" />
+            </svg>
+          </span>
+          <input
+            name="password"
+            [(ngModel)]="creds.password"
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="Password"
+            required
+          />
+          <button
+            type="button"
+            class="field-toggle"
+            (click)="showPassword = !showPassword"
+            [attr.aria-pressed]="showPassword"
+          >
+            <svg *ngIf="!showPassword" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 5C6.75 5 2.73 8.11 1 12c1.73 3.89 5.75 7 11 7s9.27-3.11 11-7c-1.73-3.89-5.75-7-11-7Zm0 11.5A4.5 4.5 0 1 1 16.5 12 4.5 4.5 0 0 1 12 16.5Zm0-7A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5Z" fill="currentColor" />
+            </svg>
+            <svg *ngIf="showPassword" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m5.47 4.22 14.31 14.3-1.06 1.07-2.09-2.09A11.19 11.19 0 0 1 12 19c-5.25 0-9.27-3.11-11-7a11.64 11.64 0 0 1 4.11-4.86L4.4 5.28Zm6.53 4.03a4.5 4.5 0 0 1 4.5 4.5 4.45 4.45 0 0 1-.47 2l-6-6a4.45 4.45 0 0 1 2-.47Zm-7 4.5a1.25 1.25 0 0 0 0 .5c1.39 3.1 4.78 5.75 9 5.75a9.56 9.56 0 0 0 3.13-.53l-1.55-1.55a4.5 4.5 0 0 1-5.84-5.84l-1.71-1.71A9.46 9.46 0 0 0 5.5 12.75Z" fill="currentColor" />
+            </svg>
+          </button>
+        </span>
+      </label>
+
+      <div class="helper-row">
+        <label class="remember">
+          <input type="checkbox" />
+          <span>Remember me</span>
+        </label>
+        <a class="helper-link" href="#">Forgot password?</a>
+      </div>
+
+      <div *ngIf="errorMsg" class="form-error">{{ errorMsg }}</div>
+
+      <button type="submit" class="primary-btn" [disabled]="loading">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7.75 9V6.75A4.25 4.25 0 0 1 12 2.5a4.25 4.25 0 0 1 4.25 4.25V9h.75A2.5 2.5 0 0 1 19.5 11.5v8A2.5 2.5 0 0 1 17 22H7a2.5 2.5 0 0 1-2.5-2.5v-8A2.5 2.5 0 0 1 7 9h.75Zm1.5 0h5.5V6.75A2.75 2.75 0 0 0 12 4a2.75 2.75 0 0 0-2.75 2.75Zm-2.25 2.5A1 1 0 0 0 6 12.5v7A1 1 0 0 0 7 20.5h10a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1Z" fill="currentColor" />
+        </svg>
+        {{ loading ? 'Signing in…' : 'Sign In' }}
+      </button>
+<!-- <button type="button" class="google-btn"  aria-label="Sign in with Google">
+  <span class="google-icon" aria-hidden="true">
+    <svg viewBox="0 0 18 18">
+      <path d="M17.64 9.2c0-.64-.06-1.25-.18-1.84H9v3.48h4.84a4.16 4.16 0 0 1-1.8 2.73v2.27h2.9c1.7-1.56 2.7-3.85 2.7-6.64Z" fill="#4285F4"/>
+      <path d="M9 18c2.43 0 4.47-.8 5.96-2.16l-2.9-2.27c-.8.54-1.84.86-3.06.86-2.35 0-4.33-1.58-5.04-3.71H.96v2.34A9 9 0 0 0 9 18Z" fill="#34A853"/>
+      <path d="M3.96 10.72A5.4 5.4 0 0 1 3.68 9c0-.6.1-1.19.28-1.72V4.94H.96A9 9 0 0 0 0 9c0 1.43.34 2.77.96 3.96l2.99-2.24Z" fill="#FBBC05"/>
+      <path d="M9 3.58c1.32 0 2.5.45 3.43 1.34l2.57-2.57C13.45.91 11.43 0 9 0A9 9 0 0 0 .96 4.94l3 2.34C4.67 5.16 6.65 3.58 9 3.58Z" fill="#EA4335"/>
+    </svg>
+  </span>
+  <span>Sign in with Google</span>
+</button> -->
+
+<div id="google-signin-button"></div>
+
+
+
+      <div class="footer">
+        <span>New to FesivaZ?</span>
+        <a routerLink="/register" class="footer-link">Create an account</a>
+      </div>
+    </form>
+  </div>
+</div>

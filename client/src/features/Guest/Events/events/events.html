@@ -1,0 +1,90 @@
+<section class="events-page">
+  <header class="events-hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Discover Events</span>
+      <h1>Find the perfect experience for your celebration</h1>
+      <p>Browse curated event types crafted to your culture, mood, and guest list—then explore packages from trusted providers.</p>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <!-- Ring + person group: image will be centered inside the ring -->
+      <div class="ring-wrap ring-wrap--one" aria-hidden="true">
+        <div class="ring ring--one"></div>
+        <!-- front arc that partially wraps the image -->
+        <svg class="ring-front" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="45" fill="none"/>
+        </svg>
+        <!-- responsive picture: replace the example files with real generated variants (320/640/960) in /public/Events/ -->
+        <picture>
+          <source type="image/avif" srcset="/Events/welcoming-girl-320.avif 320w, /Events/welcoming-girl-640.avif 640w, /Events/welcoming-girl-960.avif 960w" sizes="(max-width: 960px) 160px, 220px">
+          <source type="image/webp" srcset="/Events/welcoming-girl-320.webp 320w, /Events/welcoming-girl-640.webp 640w, /Events/welcoming-girl-960.webp 960w" sizes="(max-width: 960px) 160px, 220px">
+          <img src="/Events/welcoming%20girl.webp" alt="Welcoming girl" class="hero-person" loading="lazy">
+        </picture>
+      </div>
+
+      <div class="ring-wrap ring-wrap--two" aria-hidden="true">
+        <div class="ring ring--two"></div>
+        <svg class="ring-front" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="45" fill="none"/>
+        </svg>
+        <picture>
+          <source type="image/avif" srcset="/Events/young-indian-girl-320.avif 320w, /Events/young-indian-girl-640.avif 640w, /Events/young-indian-girl-960.avif 960w" sizes="(max-width: 960px) 120px, 140px">
+          <source type="image/webp" srcset="/Events/young-indian-girl-320.webp 320w, /Events/young-indian-girl-640.webp 640w, /Events/young-indian-girl-960.webp 960w" sizes="(max-width: 960px) 120px, 140px">
+          <img src="/Events/young-indian-girl-using.webp" alt="Young woman using phone" class="hero-person" loading="lazy">
+        </picture>
+      </div>
+
+      <div class="sparkle"></div>
+    </div>
+  </header>
+
+  <section class="filters" aria-label="Event filters">
+    <div class="chips" role="list">
+      @for (f of allFilters; track f.key) {
+        <button role="listitem" type="button" class="chip" [class.active]="active() === f.key" (click)="setActive(f.key)">{{ f.label }}</button>
+      }
+    </div>
+
+    <div class="search">
+      <input
+        type="search"
+        [ngModel]="search()"
+        (ngModelChange)="search.set($event)"
+        placeholder="Search events..."
+        aria-label="Search events"
+      />
+      <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10.5 3a7.5 7.5 0 015.964 12.1l3.218 3.218a1 1 0 11-1.414 1.415l-3.218-3.219A7.5 7.5 0 1110.5 3zm0 2a5.5 5.5 0 100 11 5.5 5.5 0 000-11z"/></svg>
+    </div>
+  </section>
+
+  <section class="cards" aria-live="polite">
+    @if (results().length === 0) {
+      <div class="empty">
+        <p>No matching events found. Try a different filter or search.</p>
+      </div>
+    } @else {
+      <div class="grid">
+        @for (ev of results(); track ev.id) {
+          <article class="card">
+            <div class="media">
+              <img [src]="ev.image" alt="{{ ev.title }}" title="{{ ev.title }}" loading="lazy" />
+              <div class="badge">{{ ev.tags.join(' · ') }}</div>
+            </div>
+            <div class="body">
+              <h3>{{ ev.title }}</h3>
+              <p>{{ ev.description }}</p>
+              <ul class="meta" role="list">
+                <li role="listitem"><strong>{{ ev.providersCount }}</strong> Providers</li>
+                <li role="listitem"><strong>{{ ev.servicesCount }}</strong> Services</li>
+                <li role="listitem"><strong>{{ ev.galleriesCount }}</strong> Galleries</li>
+              </ul>
+              <div class="actions">
+                <a [routerLink]="['/create-event']" [queryParams]="{ type: ev.id }" class="btn-primary">Book Now</a>
+                <a [routerLink]="['/events', ev.id]" class="btn-ghost">Explore</a>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    }
+  </section>
+</section>

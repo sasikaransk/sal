@@ -1,0 +1,145 @@
+<div class="p-6 lg:p-8 space-y-6 bg-[#FAF9F0] min-h-full">
+
+  <!-- Hero summary -->
+  <section class="rounded-3xl bg-gradient-to-r from-[#0F172A] via-[#1E1B4B] to-[#312E81] text-white p-6 lg:p-8 shadow-xl">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+      <div class="flex items-center gap-4">
+        <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur flex items-center justify-center text-2xl font-semibold">
+          {{ driverInitials }}
+        </div>
+        <div>
+          <p class="text-sm uppercase tracking-[0.3em] text-white/70">Third-Party Driver</p>
+          <h2 class="text-3xl font-semibold mt-1">{{ driver.name }}</h2>
+          <p class="text-white/70 mt-2">Delivering curated experiences for premium events.</p>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-6 text-sm">
+        <div>
+          <p class="text-white/60">Rating</p>
+          <p class="text-2xl font-semibold">{{ driver.rating }}</p>
+        </div>
+        <div>
+          <p class="text-white/60">Completed Runs</p>
+          <p class="text-2xl font-semibold">{{ driver.completed }}</p>
+        </div>
+        <div>
+          <p class="text-white/60">Response Time</p>
+          <p class="text-2xl font-semibold">{{ driver.responseTime }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KPI cards -->
+  <section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+    <article *ngFor="let stat of stats" class="rounded-2xl bg-white p-5 border border-[#E5E5E5] shadow-sm">
+      <p class="text-sm text-[#6B7280]">{{ stat.title }}</p>
+      <div class="flex items-baseline justify-between mt-3">
+        <span class="text-3xl font-semibold text-[#111827]">{{ stat.value }}</span>
+        <span class="text-xs font-medium px-2 py-1 rounded-full"
+          [ngClass]="{
+            'bg-green-50 text-green-700': stat.trend === 'up',
+            'bg-blue-50 text-blue-700': stat.trend === 'neutral',
+            'bg-red-50 text-red-700': stat.trend === 'down'
+          }">
+          {{ stat.change }}
+        </span>
+      </div>
+    </article>
+  </section>
+
+  <section class="grid gap-6 lg:grid-cols-3">
+
+    <!-- Active deliveries -->
+    <article class="lg:col-span-2 rounded-3xl bg-white border border-[#E5E5E5] shadow-sm p-6">
+      <header class="flex items-center justify-between mb-4">
+        <div>
+          <h3 class="text-xl font-semibold text-[#111827]">Live Event Logistics</h3>
+          <p class="text-sm text-[#6B7280]">Track every drop-off and stage call in real time.</p>
+        </div>
+        <button class="text-sm font-semibold text-[#1D4ED8] hover:text-[#1E40AF] transition">View routes</button>
+      </header>
+      <div class="space-y-4">
+        <div *ngFor="let delivery of deliveries" class="rounded-2xl border border-[#E5E5E5] p-4 hover:border-[#D1B280] transition">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <p class="text-xs text-[#9CA3AF] tracking-[0.3em] uppercase">{{ delivery.id }}</p>
+              <h4 class="text-lg font-semibold text-[#111827]">{{ delivery.event }}</h4>
+              <p class="text-sm text-[#6B7280]">{{ delivery.customer }} • {{ delivery.location }}</p>
+            </div>
+            <div class="flex flex-col items-end gap-2">
+              <span class="text-sm font-semibold text-[#111827]">{{ delivery.window }}</span>
+              <div class="flex gap-2">
+                <span class="text-xs font-medium px-3 py-1 rounded-full"
+                  [ngClass]="{
+                    'bg-emerald-50 text-emerald-700': delivery.status === 'Delivered',
+                    'bg-yellow-50 text-yellow-700': delivery.status === 'Stage Ready',
+                    'bg-blue-50 text-blue-700': delivery.status === 'On Route'
+                  }">
+                  {{ delivery.status }}
+                </span>
+                <span class="text-xs font-medium px-3 py-1 rounded-full border"
+                  [ngClass]="{
+                    'border-red-200 text-red-600': delivery.priority === 'High',
+                    'border-yellow-200 text-yellow-600': delivery.priority === 'Medium',
+                    'border-emerald-200 text-emerald-600': delivery.priority === 'Low'
+                  }">
+                  {{ delivery.priority }} Priority
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <div class="space-y-6">
+      <!-- Upcoming -->
+      <article class="rounded-3xl bg-white border border-[#E5E5E5] shadow-sm p-6">
+        <header class="mb-4">
+          <h3 class="text-xl font-semibold text-[#111827]">Upcoming Events</h3>
+          <p class="text-sm text-[#6B7280]">Next commitments for driver team.</p>
+        </header>
+        <div class="space-y-4">
+          <div *ngFor="let event of upcomingEvents" class="rounded-2xl border border-[#F3F4F6] p-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm text-[#6B7280]">{{ event.date }}</p>
+                <h4 class="text-lg font-semibold text-[#111827]">{{ event.name }}</h4>
+                <p class="text-sm text-[#6B7280]">{{ event.service }}</p>
+              </div>
+              <span class="text-xs font-medium px-3 py-1 rounded-full bg-[#EEF2FF] text-[#4C1D95]">{{ event.status }}</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Notifications -->
+      <article class="rounded-3xl bg-[#0F172A] text-white p-6 shadow-lg space-y-4">
+        <h3 class="text-xl font-semibold">Driver Broadcast</h3>
+        <p class="text-sm text-white/70">Ops updates for today’s shifts.</p>
+        <ul class="space-y-3">
+          <li *ngFor="let note of notifications" class="text-sm flex gap-3">
+            <span class="w-2 h-2 mt-2 rounded-full bg-[#FACC15]"></span>
+            <span>{{ note }}</span>
+          </li>
+        </ul>
+        <button class="mt-2 text-sm font-semibold text-[#FACC15] hover:text-white transition">View briefing</button>
+      </article>
+
+      <!-- Insights -->
+      <article class="rounded-3xl bg-white border border-[#E5E5E5] p-6 shadow-sm space-y-4">
+        <h3 class="text-xl font-semibold text-[#111827]">Performance Pulse</h3>
+        <div *ngFor="let insight of insights" class="space-y-2">
+          <div class="flex justify-between text-sm text-[#6B7280]">
+            <span>{{ insight.label }}</span>
+            <span class="font-semibold text-[#111827]">{{ insight.value }}%</span>
+          </div>
+          <div class="h-2 rounded-full bg-[#F3F4F6] overflow-hidden">
+            <div class="h-full rounded-full" [style.background]="insight.accent" [style.width.%]="insight.value"></div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</div>

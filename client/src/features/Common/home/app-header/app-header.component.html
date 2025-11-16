@@ -1,0 +1,274 @@
+<header
+  class="sticky top-0 z-50 border-b border-[#E5E5E5] bg-[#FAF9F0] lg:bg-[#FAF9F0]/90 lg:backdrop-blur shadow-sm"
+>
+  <div class="container mx-auto flex items-center justify-between px-4 py-3">
+    <!-- Brand -->
+    <a
+      [routerLink]="homeLink()"
+      class="flex items-center gap-3 shrink-0"
+      aria-label="Festivaz home"
+      (click)="closeMenu()"
+    >
+      <span
+        class="festivaz-crest relative inline-flex items-center justify-center rounded-full bg-[#D1B280]/25 text-[#D1B280] shadow"
+      >
+        <span
+          class="absolute -top-1 -right-1 inline-flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#D1B280]/80 shadow"
+        ></span>
+        <span class="inline-flex h-5 w-5 rounded-full bg-[#D1B280]/70"></span>
+      </span>
+      <span class="festivaz-nav-brand text-[#2F2F2F]">Festivaz</span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav
+      class="hidden lg:flex flex-1 items-center justify-center gap-10"
+      aria-label="Primary"
+    >
+      <a
+        [routerLink]="homeLink()"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="festivaz-nav-link"
+        >Home</a
+      >
+      <a routerLink="/events" routerLinkActive="active" class="festivaz-nav-link"
+        >Events</a
+      >
+      <a
+        routerLink="/create-event"
+        routerLinkActive="active"
+        class="festivaz-nav-link"
+        >Create Event</a
+      >
+      <a routerLink="/gallery" routerLinkActive="active" class="festivaz-nav-link"
+        >Gallery</a
+      >
+      <a routerLink="/about" routerLinkActive="active" class="festivaz-nav-link"
+        >About</a
+      >
+      <a
+        routerLink="/contact"
+        routerLinkActive="active"
+        class="festivaz-nav-link"
+        >Contact</a
+      >
+    </nav>
+
+    <!-- Right Side -->
+    <div class="flex items-center gap-3 lg:w-auto">
+      <!-- Desktop CTAs / User -->
+      <div class="hidden lg:flex items-center gap-3">
+        @if (currentUser()) {
+          <div class="relative" data-notifications-menu>
+            <button
+              type="button"
+              (click)="toggleNotifications()"
+              class="relative inline-flex h-11 w-11 items-center justify-center rounded-full bg-white border border-[#E5E5E5] shadow hover:scale-105 transition"
+              aria-label="Notifications"
+            >
+              <span class="text-lg" aria-hidden="true">🔔</span>
+              <span class="sr-only">Notifications</span>
+              <span *ngIf="unreadCount() > 0" class="absolute -top-1 -right-1 inline-flex items-center justify-center rounded-full bg-red-600 text-white text-xs font-semibold h-5 w-5">{{ unreadCount() }}</span>
+            </button>
+
+            @if (notificationOpen) {
+              <div class="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-[#E5E5E5] overflow-hidden z-50">
+                <div class="flex items-center justify-between px-4 py-3 border-b border-[#F3F3F3]">
+                  <h4 class="text-sm font-semibold">Notifications</h4>
+                  <button type="button" class="text-xs text-[#6C6C6C]" (click)="notifications = []">Clear</button>
+                </div>
+                <div class="max-h-64 overflow-y-auto">
+                  <div *ngFor="let n of notifications" class="flex items-start gap-3 px-4 py-3 hover:bg-[#FAF9F0]">
+                    <div class="flex-shrink-0 h-9 w-9 rounded-full bg-[#F1E6D1] flex items-center justify-center text-sm">{{ n.icon }}</div>
+                    <div class="flex-1">
+                      <p class="text-sm text-[#2F2F2F]">{{ n.text }}</p>
+                      <p class="text-xs text-[#8C8C8C]">{{ n.time }}</p>
+                    </div>
+                  </div>
+                  @if (!notifications.length) {
+                    <div class="p-4 text-sm text-center text-[#6C6C6C]">No notifications</div>
+                  }
+                </div>
+                <div class="border-t border-[#F3F3F3] px-4 py-2 text-center">
+                  <a routerLink="/notifications" class="text-sm text-[#6C6C6C] hover:text-[#2F2F2F]">View all</a>
+                </div>
+              </div>
+            }
+          </div>
+        }
+        @if (currentUser()) {
+          <div class="relative" data-user-menu>
+            <button
+              type="button"
+              (click)="toggleUserMenu()"
+              class="flex items-center gap-3 rounded-full border border-[#E5E5E5] bg-white px-3 py-1.5 text-sm font-medium text-[#2F2F2F] shadow-sm hover:bg-[#FAF9F0]"
+              aria-haspopup="menu"
+              [attr.aria-expanded]="userMenuOpen"
+            >
+              <span
+                class="flex h-9 w-9 items-center justify-center rounded-full bg-[#D1B280]/20 text-base font-semibold text-[#A0742A] overflow-hidden"
+              >
+                @if (currentUser()?.imageUrl) {
+                  <img
+                    [src]="currentUser()?.imageUrl"
+                    alt="User avatar"
+                    class="h-full w-full object-cover"
+                  />
+                } @else {
+                  {{ getUserInitial() }}
+                }
+              </span>
+              <span class="text-left leading-tight">
+                <span class="block text-sm font-semibold">
+                  {{ currentUser()?.displayName || currentUser()?.email }}
+                </span>
+                <span class="block text-xs text-[#6C6C6C]">Account</span>
+              </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4 text-[#6C6C6C]"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+            @if (userMenuOpen) {
+              <div class="absolute right-0 z-50 mt-2 w-72 rounded-xl border border-[#E5E5E5] bg-white shadow-xl overflow-hidden" data-user-menu>
+                <div class="px-4 py-4 bg-gradient-to-r from-[#FBF7EF] to-white">
+                  <div class="flex items-center gap-3">
+                    <div class="h-12 w-12 rounded-full bg-[#D1B280]/20 flex items-center justify-center text-lg font-semibold text-[#A0742A] overflow-hidden">
+                      @if (currentUser()?.imageUrl) {
+                        <img [src]="currentUser()?.imageUrl" alt="avatar" class="h-full w-full object-cover" />
+                      } @else {
+                        {{ getUserInitial() }}
+                      }
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold text-[#2F2F2F]">{{ currentUser()?.displayName || 'Signed in user' }}</p>
+                      <p class="text-xs text-[#6C6C6C] truncate">{{ currentUser()?.email }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="px-3 py-2">
+                  <a routerLink="/profile" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-[#2F2F2F] hover:bg-[#FAF9F0]" (click)="closeMenu()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A9 9 0 1118.88 6.196 9 9 0 015.12 17.804z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    <span>View profile</span>
+                  </a>
+                  <a routerLink="/settings" class="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-[#2F2F2F] hover:bg-[#FAF9F0]" (click)="closeMenu()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-sky-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15.5a3.5 3.5 0 100-7 3.5 3.5 0 000 7z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09c.7 0 1.3-.4 1.51-1a1.65 1.65 0 00-.33-1.82L4.31 3.73A2 2 0 017.14.9l.06.06c.48.48 1.12.7 1.82.33.65-.34 1.36-.53 2.08-.53h.12c.72 0 1.43.19 2.08.53.7.37 1.34.15 1.82-.33l.06-.06A2 2 0 0119.69 3.73l-.06.06c-.37.48-.15 1.12.33 1.82.34.65.53 1.36.53 2.08v.12c0 .72-.19 1.43-.53 2.08-.37.7-.15 1.34.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06c-.48-.37-1.12-.15-1.82.33-.65.34-1.36.53-2.08.53h-.12c-.72 0-1.43-.19-2.08-.53-.7-.37-1.34-.15-1.82.33l-.06.06A2 2 0 014.31 20.27l.06-.06c.37-.48.15-1.12-.33-1.82-.34-.65-.53-1.36-.53-2.08V15a2 2 0 010-4v-.09c0-.7.4-1.3 1-1.51.48-.22 1-.37 1.51-.37H9c.72 0 1.43.19 2.08.53.7.37 1.34.15 1.82-.33l.06-.06A2 2 0 0117.69 7.73l-.06.06c-.37.48-.15 1.12.33 1.82.34.65.53 1.36.53 2.08V12c0 .72-.19 1.43-.53 2.08-.37.7-.15 1.34.33 1.82l.06.06A2 2 0 0119.4 15z"/></svg>
+                    <span>Settings</span>
+                  </a>
+                </div>
+                <div class="px-3 py-3 border-t border-[#F3F3F3]">
+                  <button type="button" class="w-full inline-flex items-center justify-center gap-2 rounded-md bg-[#B42318] px-3 py-2 text-sm text-white hover:bg-[#992218]" (click)="logout()">
+                    <!-- Filled logout icon for stronger affordance -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path fill="currentColor" d="M16 13v-2H7V8l-5 4 5 4v-3z" />
+                      <path fill="currentColor" d="M20 3h-8a2 2 0 00-2 2v2h2V5h8v14h-8v-2h-2v2a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2z" />
+                    </svg>
+                    Sign out
+                  </button>
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          <a routerLink="/login" class="cta-secondary">Log in</a>
+          <a routerLink="/register" class="cta-primary">Sign up</a>
+        }
+      </div>
+
+      <!-- Mobile Menu -->
+      <!-- 🌐 Mobile Menu -->
+<div class="relative flex lg:hidden">
+  <!-- Hamburger / Close Button -->
+  <button
+    (click)="menuOpen = !menuOpen"
+    class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#E5E5E5] bg-white text-[#2F2F2F] hover:bg-white active:scale-95 transition"
+    aria-label="Toggle navigation menu"
+  >
+    @if (!menuOpen) {
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    } @else {
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    }
+  </button>
+
+  <!-- Overlay -->
+  @if (menuOpen) {
+    <div
+      class="fixed inset-0 z-[55] bg-black/40 backdrop-blur-sm transition-opacity duration-300"
+      (click)="menuOpen = false"
+    ></div>
+  }
+
+  <!-- Mobile Drawer -->
+  <nav
+    class="fixed inset-y-0 right-0 z-[60] flex w-full max-w-sm flex-col gap-6 overflow-y-auto bg-[#FAF9F0] px-6 pb-10 pt-20 shadow-xl transition-transform duration-300"
+    [class.translate-x-full]="!menuOpen"
+    [class.translate-x-0]="menuOpen"
+  >
+    <div class="mt-4 flex flex-col gap-4 text-left text-sm uppercase tracking-[0.35em] text-[#6C6C6C]">
+  <a [routerLink]="homeLink()" (click)="menuOpen = false" class="festivaz-nav-link block">Home</a>
+      <a routerLink="/events" (click)="menuOpen = false" class="festivaz-nav-link block">Events</a>
+  <a routerLink="/create-event" (click)="menuOpen = false" class="festivaz-nav-link block">Create Event</a>
+      <a routerLink="/gallery" (click)="menuOpen = false" class="festivaz-nav-link block">Gallery</a>
+      <a routerLink="/about" (click)="menuOpen = false" class="festivaz-nav-link block">About</a>
+      <a routerLink="/contact" (click)="menuOpen = false" class="festivaz-nav-link block">Contact</a>
+    </div>
+
+    <div class="mt-4 flex flex-col gap-3">
+      @if (currentUser()) {
+        <div class="flex items-center gap-3 rounded-xl border border-[#E5E5E5] bg-white px-4 py-3">
+          <span
+            class="flex h-12 w-12 items-center justify-center rounded-full bg-[#D1B280]/20 text-lg font-semibold text-[#A0742A] overflow-hidden"
+          >
+            @if (currentUser()?.imageUrl) {
+              <img
+                [src]="currentUser()?.imageUrl"
+                alt="User avatar"
+                class="h-full w-full object-cover"
+              />
+            } @else {
+              {{ getUserInitial() }}
+            }
+          </span>
+          <div class="text-left">
+            <p class="text-base font-semibold text-[#2F2F2F]">
+              {{ currentUser()?.displayName || currentUser()?.email }}
+            </p>
+            <p class="text-sm text-[#6C6C6C]">Signed in</p>
+          </div>
+        </div>
+        <a routerLink="/profile" (click)="closeMenu()" class="cta-secondary w-full justify-center">Profile</a>
+        <a routerLink="/settings" (click)="closeMenu()" class="cta-secondary w-full justify-center">Settings</a>
+        <button
+          type="button"
+          class="cta-primary w-full justify-center bg-[#B42318] text-white hover:bg-[#992218]"
+          (click)="logout()"
+        >
+          Log out
+        </button>
+      } @else {
+        <a routerLink="/login" (click)="menuOpen = false" class="cta-secondary w-full justify-center">Log in</a>
+        <a routerLink="/register" (click)="menuOpen = false" class="cta-primary w-full justify-center">Sign up</a>
+      }
+    </div>
+  </nav>
+</div>
+
+
+
+
+     
+    </div>
+  </div>
+</header>

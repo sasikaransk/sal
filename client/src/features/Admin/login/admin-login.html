@@ -1,0 +1,119 @@
+<div class="admin-login">
+  <div class="admin-login__backdrop" aria-hidden="true"></div>
+
+  <div class="admin-login__shell">
+    <section class="admin-login__panel admin-login__panel--form">
+      <div class="admin-login__brand">
+        <div class="admin-login__logo">
+          <img src="/logo1.png" alt="FestivaZ logo" />
+        </div>
+        <p class="admin-login__badge">Super Admin</p>
+      </div>
+
+      <div class="admin-login__headline">
+        <p class="eyebrow">Login</p>
+        <h1>Welcome back!</h1>
+        <p class="subtitle">
+          Sign in with the temporary Admin / Admin credentials until the backend is wired.
+        </p>
+      </div>
+
+      <form class="admin-login__form" (ngSubmit)="submit()" novalidate>
+        <label class="form-field">
+          <span class="form-label">Username</span>
+          <span class="form-control">
+            <span class="form-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4 0-7 2-7 4v1h14v-1c0-2-3-4-7-4Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </span>
+            <input
+              name="username"
+              [(ngModel)]="form.username"
+              type="text"
+              placeholder="Admin"
+              autocomplete="username"
+              required
+            />
+          </span>
+        </label>
+
+        <label class="form-field">
+          <span class="form-label">Password</span>
+          <span class="form-control">
+            <span class="form-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M17.25 9.5h-.75V6.75a4.5 4.5 0 1 0-9 0V9.5H6.75A2.75 2.75 0 0 0 4 12.25v6A2.75 2.75 0 0 0 6.75 21h10.5A2.75 2.75 0 0 0 20 18.25v-6A2.75 2.75 0 0 0 17.25 9.5Zm-8.25-2.75a3 3 0 0 1 6 0V9.5h-6Zm9 11.5a1.25 1.25 0 0 1-1.25 1.25H6.75A1.25 1.25 0 0 1 5.5 18.25v-6A1.25 1.25 0 0 1 6.75 11h10.5a1.25 1.25 0 0 1 1.25 1.25Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </span>
+            <input
+              name="password"
+              [(ngModel)]="form.password"
+              [type]="showPassword ? 'text' : 'password'"
+              placeholder="********"
+              autocomplete="current-password"
+              required
+            />
+            <button
+              type="button"
+              class="toggle-visibility"
+              (click)="togglePassword()"
+              [attr.aria-pressed]="showPassword"
+            >
+              {{ showPassword ? 'Hide' : 'Show' }}
+            </button>
+          </span>
+        </label>
+
+        <div class="form-meta">
+          <label class="remember">
+            <input type="checkbox" [(ngModel)]="form.remember" name="remember" />
+            <span>Remember me</span>
+          </label>
+          <a class="helper-link" href="mailto:support@festivaz.com">Forgot password?</a>
+        </div>
+
+        <p *ngIf="errorMessage" class="form-error" role="alert">
+          {{ errorMessage }}
+        </p>
+
+        <button type="submit" class="primary-btn" [disabled]="loading">
+          {{ loading ? 'Signing in...' : 'Login' }}
+        </button>
+      </form>
+
+      <div class="admin-login__footer">
+        <p>Need to go back?</p>
+        <a routerLink="/" class="helper-link">Return to festival site</a>
+      </div>
+    </section>
+
+    <section class="admin-login__panel admin-login__panel--visual" aria-hidden="true">
+      <div class="visual-card">
+        <p class="visual-eyebrow">FestivaZ control room</p>
+        <h2>Plan, approve & surprise</h2>
+        <p>Keep bookings, payments, and partners aligned from a single command center.</p>
+        <ul>
+          <li>Instant booking insights</li>
+          <li>Cashflow & payouts</li>
+          <li>Partner coordination</li>
+        </ul>
+        <div class="visual-image" *ngIf="visualImage.src">
+          <img
+            class="visual-image--contain"
+            [src]="visualImage.src"
+            [alt]="visualImage.alt"
+            loading="lazy"
+            (error)="onImageError($event)"
+          />
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

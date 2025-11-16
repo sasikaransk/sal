@@ -1,0 +1,454 @@
+:host {
+  --fz-bg: #faf9f0;
+  --fz-card: #ffffff;
+  --fz-text: #2f2f2f;
+  --fz-muted: #6c6c6c;
+  --fz-border: #e5e5e5;
+  --fz-accent: #d1b280;
+  --fz-accent-dark: #b8995d;
+  --fz-success: #398e75;
+  --fz-error: #d97c7c;
+  --fz-radius-xl: 2rem;
+  --fz-radius-lg: 1.25rem;
+  --fz-radius-pill: 999px;
+
+  display: block;
+  background: var(--fz-bg);
+  color: var(--fz-text);
+  padding: clamp(2rem, 4vw, 4.5rem) clamp(1.25rem, 5vw, 3rem) clamp(3rem, 6vw, 5rem);
+  line-height: 1.6;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Shell */
+.provider-wrapper { width: min(1240px, 100%); margin-inline: auto; }
+
+.provider-card {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.95fr) minmax(420px, 1.05fr);
+  background: var(--fz-card);
+  border: 1px solid var(--fz-border);
+  border-radius: var(--fz-radius-xl);
+  box-shadow: 0 25px 55px rgba(47, 47, 47, 0.08);
+  overflow: hidden;
+}
+
+/* Overview */
+.provider-overview {
+  background: radial-gradient(circle at top right, rgba(209,178,128,0.33), transparent 60%) #2f2f2f;
+  color: #fffdf7;
+  padding: clamp(2rem, 4vw, 3.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.overview-copy { display: flex; flex-direction: column; gap: 0.85rem; }
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: 0.75rem;
+  color: rgba(250,249,240,0.7);
+}
+
+.provider-overview h1 {
+  margin: 0;
+  font-size: clamp(2rem, 2.8vw, 2.75rem);
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.lede { margin: 0; color: rgba(250,249,240,0.92); }
+
+.highlight-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.75rem; }
+.highlight-list li { display: flex; gap: 0.75rem; align-items: flex-start; font-size: 0.95rem; }
+.dot { width: .45rem; height: .45rem; margin-top: .35rem; border-radius: 50%; background: var(--fz-accent); box-shadow: 0 0 0 6px rgba(209,178,128,.2); }
+
+/* Stepper */
+.step-nav ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.2rem; }
+
+.step-nav li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .85rem;
+  align-items: center;
+  padding: .9rem 1rem;
+  border-radius: var(--fz-radius-lg);
+  border: 1px solid rgba(250,249,240,.35);
+  background: rgba(250,249,240,.08);
+  position: relative;
+  transition: border .25s ease, background .25s ease, box-shadow .25s ease, transform .25s ease;
+  outline: none;
+}
+
+.step-nav li.clickable { cursor: pointer; }
+.step-nav li[data-state="upcoming"] { cursor: default; }
+
+.step-line { position: absolute; left: 2.15rem; top: calc(100% - .2rem); width: 1px; height: 1.2rem; background: rgba(250,249,240,.25); }
+.step-nav li:last-child .step-line { display: none; }
+
+.step-dot {
+  width: 2.1rem; height: 2.1rem; border-radius: 50%;
+  border: 1px solid rgba(209,178,128,.65);
+  background: rgba(209,178,128,.2);
+  color: #2f2f2f; display: grid; place-items: center; font-weight: 600;
+}
+
+.step-copy { display: flex; flex-direction: column; gap: .1rem; }
+.step-title { margin: 0; font-weight: 600; color: #fffdf7; }
+.step-caption { margin: 0; font-size: .85rem; color: rgba(250,249,240,.72); }
+
+.step-nav li.active {
+  border-color: rgba(209,178,128,.9);
+  background: rgba(209,178,128,.27);
+  box-shadow: 0 18px 30px rgba(0,0,0,.15);
+  transform: translateX(4px);
+}
+
+.step-nav li.complete { border-color: rgba(57,142,117,.4); background: rgba(57,142,117,.16); }
+.step-nav li.complete .step-dot {
+  background: rgba(57,142,117,.45); border-color: rgba(57,142,117,.9); color: #fffdf7;
+}
+.step-nav li.complete .step-dot::before { content: '✓'; font-size: .95rem; }
+.step-nav li.complete .step-dot { font-size: 0; }
+
+/* Form shell */
+.form-shell { padding: clamp(2rem, 4vw, 3.25rem); display: flex; flex-direction: column; gap: 1.75rem; }
+
+.form-header { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; align-items: flex-end; }
+.form-heading h2 { margin: .2rem 0; font-size: clamp(1.4rem, 2vw, 1.9rem); font-weight: 700; }
+
+.step-label { font-size: .75rem; letter-spacing: .25em; text-transform: uppercase; color: var(--fz-muted); }
+.subtle { margin: 0; color: var(--fz-muted); font-size: .92rem; }
+
+.progress { display: flex; flex-direction: column; gap: .35rem; min-width: 180px; }
+.progress-bar { height: .45rem; border-radius: var(--fz-radius-pill); background: var(--fz-border); overflow: hidden; }
+.progress-value { display: block; height: 100%; border-radius: var(--fz-radius-pill); background: linear-gradient(90deg, var(--fz-accent), var(--fz-accent-dark)); transition: width .35s ease; }
+.progress-count { margin: 0; font-size: .85rem; color: var(--fz-muted); text-align: right; }
+
+/* Banners */
+.banner { padding: 1rem 1.25rem; border-radius: var(--fz-radius-lg); border-left: 4px solid transparent; font-size: .92rem; animation: slideFade .4s ease; }
+.banner-success { background: #f1f6f0; border-color: var(--fz-success); color: #1f3e35; }
+.banner-error   { background: #fcecea; border-color: var(--fz-error); color: #8f1d1d; }
+
+/* Fields */
+.form-grid { display: grid; gap: clamp(.8rem, 1.6vw, 1.25rem); }
+.two-column { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); column-gap: 1.5rem; }
+.step-intro { margin: 0; font-size: .9rem; color: var(--fz-muted); letter-spacing: .02em; }
+
+.field, .checkbox { display: flex; flex-direction: column; gap: .45rem; font-size: .9rem; }
+.field span { font-weight: 600; color: var(--fz-text); }
+.full-width { grid-column: 1 / -1; }
+
+.input, textarea.input {
+  width: 100%;
+  border: 1px solid var(--fz-border);
+  border-radius: .95rem;
+  padding: .95rem 1.05rem;
+  font-size: .95rem;
+  font-weight: 400;
+  color: var(--fz-text);
+  background: var(--fz-card);
+  transition: border .25s ease, box-shadow .25s ease, background .25s ease;
+}
+.input::placeholder, textarea.input::placeholder { color: var(--fz-muted); }
+.input:focus, textarea.input:focus { outline: none; border-color: var(--fz-accent-dark); box-shadow: 0 0 0 3px rgba(209,178,128,.25); background: #fffdf7; }
+.input.ng-invalid.ng-touched, textarea.input.ng-invalid.ng-touched { border-color: var(--fz-error); box-shadow: 0 0 0 3px rgba(217,124,124,.25); }
+
+.step-panel { animation: fadeSlide .45s ease; }
+
+.checkbox {
+  flex-direction: row; align-items: center; gap: 1rem;
+  border: 1px dashed rgba(209,178,128,.6); border-radius: var(--fz-radius-lg);
+  padding: 1rem 1.25rem; background: rgba(209,178,128,.12);
+}
+.checkbox input { width: 1.3rem; height: 1.3rem; }
+.checkbox p { margin: 0; font-weight: 600; line-height: 1.4; }
+.microcopy { margin: .25rem 0 0; font-size: .85rem; color: var(--fz-muted); font-weight: 400; }
+
+.field-error { font-size: .8rem; color: #8f1d1d; }
+
+/* Footer buttons */
+.form-footer { display: flex; justify-content: flex-end; gap: .85rem; flex-wrap: wrap; }
+.btn {
+  border-radius: var(--fz-radius-pill);
+  padding: .95rem 2rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background .25s ease, color .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+.btn:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; transform: none; }
+.btn:not(:disabled):hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(47,47,47,.15); }
+.btn.ghost { background: var(--fz-card); color: var(--fz-muted); border-color: var(--fz-border); }
+.btn.accent { background: #fff5e4; color: var(--fz-accent-dark); border-color: rgba(184,153,93,.45); }
+.btn.primary { background: var(--fz-accent); color: var(--fz-text); border-color: var(--fz-accent-dark); }
+.btn.primary:not(:disabled):hover { background: var(--fz-accent-dark); color: #fffdf7; }
+
+.spinner { width: 1rem; height: 1rem; border-radius: 50%; border: 2px solid rgba(47,47,47,.2); border-top-color: rgba(47,47,47,.75); margin-right: .5rem; display: inline-block; animation: spin .9s linear infinite; vertical-align: middle; }
+.fine-print { text-align: center; color: var(--fz-muted); font-size: .8rem; margin: 0 auto; }
+
+/* Animations */
+@keyframes fadeSlide { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideFade { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .provider-card { grid-template-columns: 1fr; }
+  .provider-overview { border-bottom: 1px solid rgba(255,255,255,.2); }
+  .form-shell { border-top: 1px solid var(--fz-border); }
+  .step-nav ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+  .step-line { display: none; }
+}
+
+@media (max-width: 640px) {
+  :host { padding: 1.75rem 1.1rem 2.5rem; }
+  .provider-card { border-radius: 1.5rem; }
+  .provider-overview, .form-shell { padding: 1.75rem; }
+  .form-header { flex-direction: column; align-items: flex-start; }
+  .progress { width: 100%; }
+  .form-footer { flex-direction: column; align-items: stretch; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step-panel, .banner, .btn, .step-nav li { transition: none; animation: none; }
+  .spinner { animation: none; }
+}
+
+
+/* ===== Step 1 checkbox (no overlap, bigger tap target) ===== */
+.check-wrap {
+  display: grid;
+  grid-template-columns: 1.4rem 1fr;
+  align-items: start;
+  gap: 0.85rem;
+  border: 1px dashed rgba(209, 178, 128, 0.6);
+  border-radius: var(--fz-radius-lg);
+  padding: 1rem 1.1rem;
+  background: rgba(209, 178, 128, 0.12);
+}
+.check { width: 1.25rem; height: 1.25rem; accent-color: var(--fz-accent-dark); }
+.check-label { cursor: pointer; display: block; }
+.check-title { font-weight: 600; display: block; margin: 0 0 0.15rem; }
+
+/* ===== Step 2: description meta (counter aligned right) ===== */
+.field-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+.counter { font-size: 0.8rem; color: var(--fz-muted); }
+.counter.warn { color: #8f1d1d; }
+
+/* ===== Step 4: JSON editor look ===== */
+.input.code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  line-height: 1.45;
+  min-height: 7.5rem;
+  resize: vertical;
+  tab-size: 2;
+}
+.input.code.invalid {
+  border-color: var(--fz-error);
+  box-shadow: 0 0 0 3px rgba(217, 124, 124, 0.25);
+}
+
+.code-field { position: relative; }
+.code-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 0.35rem;
+}
+.chip {
+  border: 1px solid var(--fz-border);
+  background: var(--fz-card);
+  border-radius: 999px;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.chip.ok  { border-color: rgba(57, 142, 117, 0.35); color: #1f3e35; background: #f1f6f0; }
+.chip.bad { border-color: rgba(217, 124, 124, 0.45); color: #8f1d1d; background: #fcecea; }
+
+
+/* Luxe textarea style (Tailwind-like) */
+.textarea-luxe {
+  min-height: 140px;                 /* min-h-[140px] */
+  width: 100%;
+  border-radius: 1.5rem;             /* rounded-[1.5rem] */
+  border: 1px solid var(--fz-border);/* border-[#E5E5E5] */
+  background: var(--fz-card);        /* bg-white */
+  padding: 1rem 1.25rem;             /* px-5 py-4 */
+  font-size: 1rem;                   /* text-base */
+  color: var(--fz-text);             /* text-[#2F2F2F] */
+  transition:
+    border 300ms ease,
+    box-shadow 300ms ease,
+    background 300ms ease;           /* transition-all duration-500 */
+}
+
+.textarea-luxe::placeholder {
+  color: #B0B0B0;                    /* placeholder:text-[#B0B0B0] */
+}
+
+.textarea-luxe:focus {
+  outline: none;
+  border-color: var(--fz-accent);    /* focus:border-[#D1B280] */
+  box-shadow: 0 0 0 4px rgba(209, 178, 128, 0.35); /* ring-4 ring-[#D1B280]/35 */
+  background: #fffdf7;
+}
+
+/* Hint under the textarea */
+.field-hint {
+  margin: 0.4rem 0 0;
+  font-size: 0.9rem;
+  color: var(--fz-muted);
+}
+
+/* 1) Stepper: completed step should be Festivaz gold, not green */
+.step-nav li.complete {
+  border-color: rgba(184, 153, 93, 0.45);          /* --fz-accent-dark */
+  background: rgba(209, 178, 128, 0.14);           /* --fz-accent */
+}
+.step-nav li.complete .step-dot {
+  background: rgba(209, 178, 128, 0.42);           /* warm gold fill */
+  border-color: rgba(184, 153, 93, 0.9);
+  color: #2f2f2f;                                   /* dark text check */
+}
+.step-nav li.complete .step-dot::before { content: '✓'; font-size: .95rem; }
+
+/* 2) Placeholders: use theme Mid Gray (#6C6C6C) at ~75% instead of #B0B0B0 */
+.input::placeholder,
+textarea.input::placeholder,
+.textarea-luxe::placeholder {
+  color: rgba(108, 108, 108, 0.75);                 /* --fz-muted @ 75% */
+}
+
+/* 3) Hint under the luxe textarea: a hair more contrast & spacing */
+.field-hint {
+  margin-top: 0.5rem;
+  font-size: 0.92rem;
+  color: rgba(108, 108, 108, 0.9);
+}
+
+
+.btn.accent:not(:disabled):hover {
+  background: rgba(209, 178, 128, 0.22);
+  border-color: rgba(184, 153, 93, 0.55);
+}
+
+
+
+/**
+ * FestivaZ Partner Registration — 4-step guided form
+ * --------------------------------------------------
+ * High-level flow
+ *  - This component renders a two-column layout:
+ *      Left: overview + stepper (progress navigation)
+ *      Right: the active step’s form (Account → Brand → Location → Policies)
+ *  - Users complete each step in order. "Continue" stays disabled until the
+ *    current step is valid. "Back" is always available. The stepper lets users
+ *    jump back to completed steps (never forward).
+ *  - A progress bar and counter update reactively as the user advances.
+ *  - On submit we merge all step forms into a single payload and POST via
+ *    ServiceProviderRegistrationService. Success/error banners appear above the
+ *    form, and the view scrolls to the top for visibility.
+ *
+ * Core state (Angular Signals)
+ *  - step:              number signal (1-based) indicating the active step.
+ *  - isSubmitting:      boolean signal for disabling UI + showing spinner.
+ *  - successMessage:    string|null, displayed when the submission succeeds.
+ *  - errorMessage:      string|null, displayed when validation or the API fails.
+ *  - progressPercent:   computed() from step and totalSteps to drive the bar/label.
+ *
+ * Steps & sections
+ *  - sections:          array of { title, caption } used by the header and stepper.
+ *  - totalSteps:        derived from sections.length.
+ *  - sectionStatus(i):  returns 'complete' | 'active' | 'upcoming' for styling the stepper.
+ *  - jumpTo(i):         (optional) allows clicking the stepper to go BACK to a completed step.
+ *
+ * Reactive forms (one FormGroup per step)
+ *  1) accountForm:  email, password, isActive (basic auth inputs)
+ *  2) providerForm: companyName, brandName, phone, description
+ *  3) addressForm:  addressLine1/2, city, district, postalCode, country
+ *  4) settingsForm: booking rules + businessLicense/taxId + JSON strings
+ *
+ * Validation
+ *  - Email:     required + email format
+ *  - Password:  required + minLength(8)
+ *  - Phone:     required + simple telephony pattern
+ *  - Address:   required fields for basic location
+ *  - Settings:  numeric fields with sensible minimums
+ *  - JSON fields (Policies step): validated on input (try/catch JSON.parse).
+ *      • jsonState.cancellationValid / paymentsValid reflect validity.
+ *      • formatJson(...) pretty-prints JSON to improve readability.
+ *
+ * Navigation
+ *  - currentForm(): returns the active FormGroup for the current step.
+ *  - canProceed:    true when currentForm is valid; used to enable "Continue".
+ *  - next():
+ *      • marks controls as touched to surface validation messages
+ *      • advances step when valid, clears any error banner, scrolls to top
+ *  - prev():        moves one step back, clears error banner, scrolls to top
+ *  - jumpTo(i):     sets step to (i+1) only if it’s BEFORE the current step
+ *  - scrollTop():   smooth-scroll used after step changes and after submit feedback
+ *
+ * Submission
+ *  - touchAll():        marks every step’s controls as touched (final validation pass)
+ *  - buildPayload():    merges values from all FormGroups, trims critical strings,
+ *                       ensures defaults for JSON strings, and sets rolePermissions.
+ *  - submit():
+ *      • if any form is invalid, shows a single banner and prevents POST
+ *      • otherwise sets isSubmitting, calls registrationService.register(payload)
+ *      • on success: shows successMessage, resets to step 1, re-initializes forms
+ *      • on error:   maps server error payload → errorMessage
+ *      • finalize(): clears isSubmitting
+ *
+ * Template structure (Angular 20 control-flow)
+ *  - Uses modern block syntax only:
+ *      @if (…), @for (…), and [track] in lists.
+ *  - The left sidebar renders the stepper:
+ *      • [class.active]/[class.complete] via sectionStatus($index)
+ *      • aria-current="step" on the active item
+ *  - The right panel renders:
+ *      • header with "Step X of Y", dynamic title/caption, and progress bar
+ *      • optional success/error banners
+ *      • exactly one step form at a time via @if (step() === N)
+ *      • footer with Back / Continue / Submit buttons
+ *
+ * Accessibility & UX
+ *  - aria-live="polite" on the form shell so banners are announced.
+ *  - progress element exposes aria-valuenow/… for screen readers.
+ *  - inputs use autocomplete/inputmode/aria-invalid/aria-describedby where helpful.
+ *  - "Continue" remains disabled until the step validates (prevents dead-end errors).
+ *  - Smooth scrolling keeps messages and new steps in view on small screens.
+ *
+ * Styling notes (see CSS)
+ *  - Theme variables follow FestivaZ palette (ivory bg, dark text, warm gold accents).
+ *  - Inputs and buttons have consistent radius, focus rings, and hover depth.
+ *  - The large description field uses a “luxe” textarea style for better readability.
+ *  - JSON fields are monospaced; validity chips + a “Format” button improve clarity.
+ *
+ * Extending the wizard (add a new step)
+ *  1) Add a new entry to `sections`.
+ *  2) Create a new FormGroup in `initForms()` and include it in `forms` getter.
+ *  3) Add a new @if (step() === N) block in the template for that step’s fields.
+ *  4) Map new values in `buildPayload()` as needed.
+ *  5) Styles inherit automatically; `progressPercent` and stepper update themselves.
+ *
+ * Common gotchas
+ *  - If you reference `(click)="jumpTo(...)"` in the template, ensure the method
+ *    exists in the class. Remove the click binding if you want a non-clickable stepper.
+ *  - Keep exactly one closing brace at the end of this class file (`}`).
+ */
+

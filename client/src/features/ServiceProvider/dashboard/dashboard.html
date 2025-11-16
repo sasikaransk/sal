@@ -1,0 +1,71 @@
+<section class="sp-dashboard">
+  <header class="sp-dashboard__hero">
+    <div>
+      <p class="eyebrow">Today&apos;s studio pulse</p>
+      <h2>Clients are loving the FestivaZ signature details.</h2>
+    </div>
+    <button type="button">Share availability</button>
+  </header>
+
+  <div class="sp-dashboard__insights">
+    <article *ngFor="let card of insightCards" class="sp-card">
+      <p class="eyebrow">{{ card.label }}</p>
+      <h3>{{ card.value }}</h3>
+      <p class="detail">{{ card.detail }}</p>
+      <span class="trend" [ngClass]="card.trendType">{{ card.trend }}</span>
+    </article>
+  </div>
+
+  <div class="sp-dashboard__grid">
+    <article class="sp-panel sp-panel--pipeline">
+      <header>
+        <div>
+          <p class="eyebrow">Experience pipeline</p>
+          <h4>Keep the magic flowing.</h4>
+        </div>
+        <button type="button">View calendar</button>
+      </header>
+      <ul>
+        <li *ngFor="let item of pipeline" [class]="'status-' + item.status">
+          <div>
+            <p class="client">{{ item.client }}</p>
+            <p class="meta">{{ item.package }} • {{ item.location }}</p>
+          </div>
+          <div class="stage">
+            <span>{{ item.stage }}</span>
+            <small>{{ item.date }}</small>
+          </div>
+        </li>
+      </ul>
+    </article>
+
+    <article class="sp-panel sp-panel--tasks">
+      <header>
+        <div>
+          <p class="eyebrow">Focus today</p>
+          <h4>Move projects ahead effortlessly.</h4>
+        </div>
+      </header>
+      <ul>
+        <li *ngFor="let task of actionItems">
+          <div>
+            <p>{{ task.title }}</p>
+            <small>{{ task.due }}</small>
+          </div>
+          <span class="badge" [ngClass]="task.priority">{{ task.priority }}</span>
+        </li>
+      </ul>
+    </article>
+
+    <article class="sp-panel sp-panel--highlights">
+      <p class="eyebrow">Spotlight</p>
+      <h4>Bespoke touches worth sharing.</h4>
+      <ul>
+        <li *ngFor="let highlight of curationHighlights">
+          <p>{{ highlight.label }}</p>
+          <span>{{ highlight.value }}</span>
+        </li>
+      </ul>
+    </article>
+  </div>
+</section>

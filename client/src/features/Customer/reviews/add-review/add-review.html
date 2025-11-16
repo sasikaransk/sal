@@ -1,0 +1,21 @@
+<div class="review-modal">
+  <div class="inner">
+    <h3>Add Your Review</h3>
+    <div class="stars-picker" aria-label="Select rating">
+      <button type="button" *ngFor="let s of [1,2,3,4,5]" (click)="setRating(s)" [class.active]="rating() >= s" aria-label="Rate {{s}} star" >★</button>
+    </div>
+  <textarea rows="4" placeholder="Share your experience" [value]="text()" (input)="text.set(($any($event.target).value ?? ''))"></textarea>
+    <div class="uploader">
+      <label class="sr-only" for="review-files">Upload images</label>
+      <input id="review-files" type="file" title="Upload images" multiple accept="image/*" (change)="pick($event.target.files)">
+      <small>{{ files().length }} image(s) selected (max 6)</small>
+    </div>
+    <div class="thumbs" *ngIf="files().length">
+  <img *ngFor="let f of files()" [src]="objectURL(f)" alt="Review image: {{ f.name }}" title="Review image: {{ f.name }}" />
+    </div>
+    <div class="actions">
+      <button type="button" class="btn-cancel" (click)="cancel.emit()">Cancel</button>
+      <button type="button" class="btn-submit" (click)="submit()" [disabled]="rating()===0">Submit Review</button>
+    </div>
+  </div>
+</div>

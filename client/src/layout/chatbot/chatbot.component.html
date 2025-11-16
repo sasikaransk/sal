@@ -1,0 +1,36 @@
+<button
+  type="button"
+  class="chatbot-fab"
+  aria-label="Open chatbot"
+  (click)="toggle()"
+>
+  <img src="/Chatbot/chatbot.png" alt="Chatbot" class="chatbot-icon" />
+  <span class="sr-only">Open chatbot</span>
+  
+</button>
+
+<section
+  class="chatbot-window"
+  role="dialog"
+  aria-modal="false"
+  aria-label="Chatbot"
+  [class.open]="isOpen()"
+>
+  <header class="chatbot-header">
+    <h3 class="chatbot-title">Chatbot</h3>
+    <button type="button" class="chatbot-close" (click)="close()" aria-label="Close chatbot">✕</button>
+  </header>
+
+  <div class="chatbot-body">
+    <div class="chatbot-messages">
+      <div *ngFor="let m of messages()" class="msg" [class.msg--user]="m.sender==='user'" [class.msg--bot]="m.sender==='bot'">
+        {{ m.text }}
+      </div>
+    </div>
+  </div>
+
+  <footer class="chatbot-footer">
+    <input type="text" class="chatbot-input" placeholder="Type a message..." [(ngModel)]="draft" (keyup.enter)="onSubmit()" />
+    <button type="button" class="chatbot-send" (click)="onSubmit()">Send</button>
+  </footer>
+</section>

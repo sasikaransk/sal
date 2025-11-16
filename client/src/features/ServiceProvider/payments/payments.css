@@ -1,0 +1,135 @@
+:host {
+  display: block;
+}
+
+.sp-payments {
+  display: grid;
+  gap: 1.2rem;
+}
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.eyebrow {
+  letter-spacing: 0.32em;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: #6c6c6c;
+  margin-bottom: 0.25rem;
+}
+
+header h2 {
+  margin: 0;
+  color: #2f2f2f;
+}
+
+header button {
+  border: none;
+  border-radius: 999px;
+  background: #2f2f2f;
+  color: #f7f3ea;
+  padding: 0.6rem 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sp-payments__summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.9rem;
+}
+
+.sp-payments__summary article {
+  background: #fffdfa;
+  border-radius: 1.1rem;
+  padding: 1rem;
+  border: 1px solid rgba(209, 178, 128, 0.3);
+  box-shadow: 0 15px 35px -40px rgba(47, 47, 47, 0.8);
+}
+
+.sp-payments__summary h3 {
+  margin: 0.25rem 0;
+  color: #2f2f2f;
+}
+
+.sp-payments__list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.sp-payments__list article {
+  display: grid;
+  grid-template-columns: 2fr 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(209, 178, 128, 0.2);
+  background: #ffffff;
+  box-shadow: 0 18px 45px -45px rgba(47, 47, 47, 0.9);
+}
+
+.sp-payments__list .couple {
+  margin: 0;
+  font-weight: 600;
+  color: #2f2f2f;
+}
+
+.sp-payments__list p {
+  margin: 0.25rem 0 0;
+  color: #6c6c6c;
+}
+
+.sp-payments__list .amount {
+  font-weight: 600;
+  color: #2f2f2f;
+}
+
+.sp-payments__list .due {
+  text-align: right;
+  font-size: 0.85rem;
+  color: #6c6c6c;
+}
+
+.sp-payments__list article.status-action {
+  border-color: rgba(198, 40, 40, 0.25);
+}
+
+.sp-payments__list article.status-processing {
+  border-color: rgba(193, 156, 98, 0.25);
+}
+
+.sp-payments__list article.status-scheduled {
+  border-color: rgba(46, 125, 50, 0.25);
+}
+
+.sp-payments__insights {
+  border-radius: 1.2rem;
+  border: 1px dashed rgba(209, 178, 128, 0.7);
+  background: rgba(209, 178, 128, 0.08);
+  padding: 1.1rem;
+}
+
+.sp-payments__insights ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.2rem;
+  color: #2f2f2f;
+  display: grid;
+  gap: 0.3rem;
+}
+
+@media (max-width: 720px) {
+  .sp-payments__list article {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+
+  .sp-payments__list .due {
+    text-align: left;
+  }
+}

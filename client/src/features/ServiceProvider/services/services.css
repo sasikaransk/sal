@@ -1,0 +1,136 @@
+:host {
+  display: block;
+}
+
+.sp-services {
+  display: grid;
+  gap: 1.25rem;
+}
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.eyebrow {
+  letter-spacing: 0.35em;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: #6c6c6c;
+  margin-bottom: 0.25rem;
+}
+
+header h2 {
+  margin: 0;
+  color: #2f2f2f;
+}
+
+header button,
+.sp-services__grid button {
+  border: none;
+  border-radius: 999px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 600;
+  background: #d1b280;
+  color: #2f2f2f;
+  cursor: pointer;
+}
+
+.sp-services__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.sp-services__grid article {
+  background: #ffffff;
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(209, 178, 128, 0.2);
+  box-shadow: 0 22px 50px -45px rgba(47, 47, 47, 0.9);
+  display: grid;
+  gap: 0.85rem;
+}
+
+.sp-services__grid article.featured {
+  border-color: rgba(209, 178, 128, 0.7);
+  background: linear-gradient(145deg, #fffdfa, #f7f3ea);
+}
+
+.sp-services__grid .tier {
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  color: #c19c62;
+}
+
+.sp-services__grid h3 {
+  margin: 0;
+  color: #2f2f2f;
+}
+
+.sp-services__grid p {
+  margin: 0;
+  color: #6c6c6c;
+}
+
+.sp-services__grid ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.sp-services__grid li::before {
+  content: '–';
+  margin-right: 0.4rem;
+  color: #c19c62;
+}
+
+.sp-services__grid .footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.sp-services__grid .footer span {
+  font-weight: 600;
+  color: #2f2f2f;
+}
+
+.sp-services__addons {
+  border: 1px dashed rgba(209, 178, 128, 0.6);
+  border-radius: 1.2rem;
+  padding: 1.2rem;
+  background: rgba(209, 178, 128, 0.08);
+}
+
+.sp-services__addons ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.sp-services__addons li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.sp-services__addons strong {
+  color: #2f2f2f;
+}
+
+.sp-services__addons span {
+  color: #6c6c6c;
+}
+

@@ -1,0 +1,86 @@
+﻿:host {
+  display: block;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.hero-banner {
+  background-size: cover;
+  background-position: center;
+  filter: saturate(0.95);
+  transform: scale(1.02);
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.45s ease both;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.55s ease both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Increased padding to ensure space around the button */
+.book-now-button-container {
+  padding-right: 20px; /* You can adjust this value to your liking */
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+/* Ensure that the button stays centered when space allows */
+.book-now-button {
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 30px;
+  background: linear-gradient(145deg, #d1b280, #b8865f);
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(209, 178, 128, 0.4);
+}
+
+.book-now-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 25px rgba(209, 178, 128, 0.5);
+}
+
+
+/* Adjust the spacing between price and Book Now button */
+.flex.justify-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;  /* Adjust the gap here */
+}
+
+/* Optional: Reduce the gap between price and button */
+.book-now-button {
+  margin-left: 8px;  /* Decrease left margin if needed */
+}
+
+/* Ensure the button stays aligned and looks balanced */
+.book-now-button-container {
+  margin-top: 0; /* Ensure there’s no extra spacing if needed */
+}
+

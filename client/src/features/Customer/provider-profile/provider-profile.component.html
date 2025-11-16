@@ -1,0 +1,266 @@
+﻿<section class="min-h-screen bg-gradient-to-b from-[#FAF9F0] to-[#FFFDF8] px-4 pb-32 pt-6 md:px-10">
+  @if (toastMessage()) {
+    <div class="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
+      <div
+        class="animate-fadeIn rounded-full border border-[#D1B280] bg-gradient-to-r from-[#D1B280] to-[#B8865F] px-6 py-3 text-center text-sm font-semibold uppercase tracking-[0.3em] text-white shadow-[0_25px_45px_rgba(209,178,128,0.4)]"
+      >
+        {{ toastMessage() }}
+      </div>
+    </div>
+  }
+
+  <div class="mx-auto flex max-w-6xl flex-col gap-10">
+  @if (provider()) {
+      <header
+        class="relative overflow-hidden rounded-[32px] border border-[#E7DFD0] bg-white/80 p-6 shadow-[0_30px_60px_rgba(47,47,47,0.15)] animate-slideUp"
+      >
+        <div class="hero-banner absolute inset-0" [style.backgroundImage]="heroBackground()"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-[#FAF9F0]/90 via-[#FFFDF8]/80 to-[#FFFDF8]/90"></div>
+  <div class="relative z-10 flex flex-col gap-8 md:flex-row">
+          <div class="flex-1 space-y-5">
+            <p class="text-xs uppercase tracking-[0.4em] text-[#D1B280]">Provider Story</p>
+            <h1 class="text-4xl font-semibold text-[#2F2F2F]">{{ provider()?.name }}</h1>
+            <p class="text-sm text-[#6C6C6C]">
+              {{ provider()?.category }} · {{ provider()?.city }}
+              @if (provider()?.verified) {
+                <span
+                  class="ml-2 inline-flex rounded-full border border-[#D1B280] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#D1B280]"
+                >
+                  Verified
+                </span>
+              }
+            </p>
+            <div class="flex flex-wrap gap-4 text-sm">
+              <div
+                class="flex items-center gap-2 rounded-full border border-[#F1E7D2] bg-white/80 px-4 py-2 text-[#2F2F2F] shadow-[0_15px_35px_rgba(47,47,47,0.1)]"
+              >
+                <span class="text-xl font-semibold text-[#D1B280]">{{ provider()?.rating?.toFixed(1) }}</span>
+                <span class="text-xs text-[#6C6C6C]">({{ provider()?.reviews }} reviews)</span>
+              </div>
+            </div>
+            <p class="max-w-2xl text-sm text-[#6C6C6C]">{{ provider()?.about }}</p>
+            <div class="flex flex-wrap gap-3">
+              <button
+                type="button"
+                class="rounded-full bg-gradient-to-r from-[#D1B280] to-[#B8865F] px-8 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-white shadow-[0_15px_40px_rgba(209,178,128,0.35)] transition hover:scale-[1.01]"
+                (click)="bookNow()"
+              >
+                Book Now
+              </button>
+              <button
+                type="button"
+                class="rounded-full border border-[#D1B280] bg-white px-7 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-[#2F2F2F] transition hover:-translate-y-0.5"
+                (click)="openModal()"
+              >
+                ✨ Design My Package
+              </button>
+              <button
+                type="button"
+                class="rounded-full border border-dashed border-[#D1B280] bg-transparent px-7 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-[#2F2F2F]"
+                (click)="chatPlaceholder()"
+              >
+                Chat with Us
+              </button>
+            </div>
+          </div>
+          <div class="flex w-full flex-col gap-4 md:w-80">
+            <div
+              class="rounded-3xl border border-[#E7DFD0] bg-white/90 p-5 shadow-[0_12px_40px_rgba(47,47,47,0.12)]"
+            >
+              <p class="text-xs uppercase tracking-[0.3em] text-[#6C6C6C]">Step 5</p>
+              <p class="mt-1 text-lg font-semibold text-[#2F2F2F]">Provider Profile</p>
+              @if (activeCustomPackage()) {
+                <div class="mt-3 space-y-1 text-sm text-[#6C6C6C]">
+                  <p class="text-xs uppercase tracking-[0.3em] text-[#D1B280]">Custom Package</p>
+                  <p class="text-sm text-[#2F2F2F]">{{ activeCustomPackage()?.services?.join(' · ') }}</p>
+                  <p class="text-xs text-[#6C6C6C]">Notes: {{ activeCustomPackage()?.notes }}</p>
+                  <p class="text-base font-semibold text-[#2F2F2F]">₹{{ activeCustomPackage()?.total | number: '1.0-0' }}</p>
+                </div>
+              } @else {
+                <p class="mt-3 text-sm text-[#6C6C6C]">Design a custom package to keep the conversation going.</p>
+              }
+            </div>
+          </div>
+        </div>
+      </header>
+      <nav class="flex flex-wrap gap-6 border-b border-[#E5E5E5] pb-3 text-xs font-semibold uppercase tracking-[0.2em]">
+  @for (tab of tabs; track tab) {
+          <button
+            type="button"
+            class="pb-2 transition hover:text-[#D1B280]"
+            (click)="selectTab($index)"
+            [class.text-[#D1B280]]="selectedTab() === $index"
+            [class.border-b-2]="selectedTab() === $index"
+            [class.border-[#D1B280]]="selectedTab() === $index"
+          >
+            {{ tab }}
+          </button>
+        }
+      </nav>
+      <section
+        class="rounded-[28px] border border-[#E7DFD0] bg-white/80 p-6 shadow-[0_30px_60px_rgba(47,47,47,0.12)] animate-slideUp"
+      >
+        @switch(selectedTab()) {
+          @case(0) {
+            <div class="space-y-6">
+              <h2 class="text-lg font-semibold text-[#2F2F2F]">About {{ provider()?.name }}</h2>
+              <p class="text-sm text-[#6C6C6C]">{{ provider()?.about }}</p>
+              <div class="grid gap-5 md:grid-cols-2">
+                @for (paragraph of provider()?.story; track paragraph) {
+                  <p class="text-sm text-[#6C6C6C]">{{ paragraph }}</p>
+                }
+              </div>
+            </div>
+          }
+          @case(1) {
+<section class="space-y-5">
+  @for (packageItem of provider()?.packages; track packageItem) {
+    <article
+      class="flex flex-col gap-4 rounded-2xl border border-[#F1E7D2] bg-[#FFFDF8] p-5 shadow-[0_15px_40px_rgba(47,47,47,0.08)] lg:flex-row lg:items-center"
+    >
+      <!-- Package Image -->
+      <img
+        class="h-32 w-full rounded-2xl object-cover lg:h-28 lg:w-32"
+        src="{{ packageItem.image }}"
+        alt="{{ packageItem.title }}"
+        loading="lazy"
+      />
+
+      <!-- Package Info (Title, Description, Price, Book Now) -->
+      <div class="flex flex-1 flex-col gap-2">
+        <!-- Title & Price -->
+        <div class="flex items-center justify-between">
+          <h3 class="text-lg font-semibold text-[#2F2F2F]">{{ packageItem.title }}</h3>
+          <p class="text-sm font-semibold text-[#D1B280]">₹{{ packageItem.price | number: '1.0-0' }}</p>
+        </div>
+
+        <!-- Package Description -->
+        <p class="text-sm text-[#6C6C6C]">{{ packageItem.description }}</p>
+
+        <!-- Availability -->
+        <p class="text-xs uppercase tracking-[0.3em] text-[#6C6C6C]">Limited availability</p>
+
+        <!-- Book Now Button -->
+        <div class="flex justify-end mt-4 w-full">
+          <button
+            type="button"
+            class="rounded-full bg-gradient-to-r from-[#D1B280] to-[#B8865F] px-8 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-white shadow-[0_15px_40px_rgba(209,178,128,0.35)] transition hover:scale-[1.01]"
+            (click)="bookNow()"
+          >
+            Book Now
+          </button>
+        </div>
+      </div>
+    </article>
+  }
+</section>
+
+
+
+          }
+          @case(2) {
+            <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              @for (image of provider()?.gallery; track image) {
+                <figure
+                  class="group overflow-hidden rounded-3xl border border-[#F3EBDD] bg-white/60 shadow-[0_20px_40px_rgba(47,47,47,0.15)]"
+                >
+                  <img
+                    class="h-40 w-full object-cover transition duration-500 group-hover:scale-105"
+                    src="{{ image }}"
+                    alt="Portfolio image"
+                    loading="lazy"
+                  />
+                </figure>
+              }
+            </div>
+          }
+          @case(3) {
+            <div class="space-y-4">
+              @for (review of provider()?.testimonials; track review) {
+                <article
+                  class="rounded-2xl border border-[#F1E7D2] bg-[#FFFDF8] p-5 shadow-[0_15px_40px_rgba(47,47,47,0.08)]"
+                >
+                  <div class="flex items-center gap-3">
+                    <img
+                      class="h-12 w-12 rounded-full object-cover"
+                      src="{{ review.avatar }}"
+                      alt="{{ review.user }}"
+                      loading="lazy"
+                    />
+                    <div>
+                      <p class="text-sm font-semibold text-[#2F2F2F]">{{ review.user }}</p>
+                      <p class="text-xs text-[#6C6C6C]">{{ review.date }}</p>
+                    </div>
+                    <span class="ml-auto text-sm font-semibold text-[#D1B280]">{{ review.rating }}★</span>
+                  </div>
+                  <p class="mt-3 text-sm text-[#6C6C6C]">{{ review.comment }}</p>
+                </article>
+              }
+            </div>
+          }
+        }
+      </section>
+      <section class="space-y-5">
+        <div class="flex items-center justify-between">
+          <h2 class="text-lg font-semibold text-[#2F2F2F]">You May Also Like</h2>
+          <p class="text-xs uppercase tracking-[0.3em] text-[#6C6C6C]">Discover storytellers</p>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          @for (related of provider()?.related; track related) {
+            <article
+              class="group flex cursor-pointer flex-col justify-between rounded-3xl border border-[#F1E7D2] bg-white/80 p-4 shadow-[0_10px_30px_rgba(47,47,47,0.1)] transition hover:-translate-y-1 hover:shadow-[0_25px_60px_rgba(47,47,47,0.12)]"
+              (click)="viewRelatedProvider(related.id)"
+            >
+              <img
+                class="h-40 w-full rounded-2xl object-cover"
+                src="{{ related.image }}"
+                alt="{{ related.name }}"
+                loading="lazy"
+              />
+              <div class="mt-4 space-y-1">
+                <p class="text-sm font-semibold text-[#2F2F2F]">{{ related.name }}</p>
+                <p class="text-xs uppercase tracking-[0.3em] text-[#6C6C6C]">{{ related.category }}</p>
+                <p class="text-xs font-semibold text-[#D1B280]">{{ related.rating }}★ · {{ related.reviews }} reviews</p>
+              </div>
+            </article>
+          }
+        </div>
+      </section>
+    } @else {
+      <div class="rounded-[28px] border border-[#E7DFD0] bg-white/80 p-10 text-center text-sm text-[#6C6C6C] shadow-[0_15px_40px_rgba(47,47,47,0.12)]">
+        🌀 Loading provider story...
+      </div>
+    }
+  </div>
+
+  <div class="fixed bottom-0 left-0 right-0 z-40 md:hidden">
+    <div
+      class="mx-auto flex max-w-4xl items-center justify-between gap-3 rounded-t-[32px] border border-t-0 border-[#E7DFD0] bg-white/95 px-5 py-4 shadow-[0_-8px_30px_rgba(47,47,47,0.15)]"
+    >
+      <button
+        type="button"
+        class="flex-1 rounded-full bg-gradient-to-r from-[#D1B280] to-[#B8865F] px-4 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-white"
+        (click)="bookNow()"
+      >
+        Book Now
+      </button>
+      <button
+        type="button"
+        class="flex-1 rounded-full border border-[#D1B280] bg-white px-4 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-[#2F2F2F]"
+        (click)="openModal()"
+      >
+        ✨ Design My Package
+      </button>
+    </div>
+  </div>
+
+  @if(isModalOpen()) {
+    <app-custom-package-modal
+      [providerName]="provider()?.name ?? null"
+      [initialServices]="activeCustomPackage()?.services ?? null"
+      [initialNotes]="activeCustomPackage()?.notes ?? null"
+      (close)="closeModal()"
+      (submitRequest)="submitCustomPackage($event)"
+    ></app-custom-package-modal>
+  }
+</section>

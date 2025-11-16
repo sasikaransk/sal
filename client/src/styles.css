@@ -1,0 +1,300 @@
+/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@plugin "daisyui";
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+.pb-professional-touch {
+  background-image: linear-gradient(to bottom, #FAF9F0, #FFFFFF, #FAF9F0);
+  border-radius: 2rem;
+  box-shadow: 0 40px 80px -40px rgba(47, 47, 47, 0.25);
+  padding: 3rem 1.5rem;
+}
+
+.pb-professional-touch,
+.pb-professional-touch * {
+  font-family: "Poppins", sans-serif;
+}
+
+.pb-professional-touch .pb-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(209, 178, 128, 0.8);
+  border-radius: 9999px;
+  padding: 0.5rem 0.75rem 0.5rem 1rem;
+  color: #d1b280;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: rgba(209, 178, 128, 0.08);
+}
+
+.pb-professional-touch .pb-tag span:last-child {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 9999px;
+  background-color: #d1b280;
+  color: #2f2f2f;
+}
+
+.pb-professional-touch .pb-gallery img {
+  border-radius: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.pb-professional-touch .pb-gallery img:hover {
+  transform: translateY(-4px);
+}
+
+.festivaz-crest {
+  width: 3.25rem;
+  height: 3.25rem;
+}
+
+.festivaz-nav-brand {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.1em;
+}
+
+.festivaz-nav-link {
+  position: relative;
+  font-size: 0.85rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #6C6C6C;
+  transition: color 0.3s ease;
+}
+
+.festivaz-nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.4rem;
+  width: 100%;
+  height: 2px;
+  background-color: #D1B280;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.festivaz-nav-link:hover,
+.festivaz-nav-link:focus-visible,
+.festivaz-nav-link.active {
+  color: #2F2F2F;
+}
+
+.festivaz-nav-link:hover::after,
+.festivaz-nav-link:focus-visible::after,
+.festivaz-nav-link.active::after {
+  transform: scaleX(1);
+}
+
+.cta-primary,
+.cta-secondary,
+.cta-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  transition: transform 0.25s ease, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.cta-primary {
+  background-color: #D1B280;
+  color: #2F2F2F;
+  border: 1px solid #D1B280;
+  padding: 0.85rem 2.5rem;
+}
+
+.cta-primary:hover,
+.cta-primary:focus-visible {
+  background-color: #c09d66;
+  border-color: #c09d66;
+  transform: translateY(-2px);
+}
+
+.cta-secondary {
+  background-color: transparent;
+  color: #2F2F2F;
+  border: 1px solid #D1B280;
+  padding: 0.75rem 2.25rem;
+}
+
+.cta-secondary:hover,
+.cta-secondary:focus-visible {
+  background-color: rgba(209, 178, 128, 0.12);
+  transform: translateY(-2px);
+}
+
+.cta-outline {
+  background-color: rgba(250, 249, 240, 0.1);
+  color: #FAF9F0;
+  border: 1px solid rgba(250, 249, 240, 0.45);
+  padding: 0.85rem 2.25rem;
+}
+
+.cta-outline:hover,
+.cta-outline:focus-visible {
+  background-color: rgba(250, 249, 240, 0.2);
+  transform: translateY(-2px);
+}
+
+.cta-primary svg,
+.cta-outline svg,
+.cta-secondary svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.card-hover {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.card-hover img {
+  transition: transform 0.5s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 60px -40px rgba(47, 47, 47, 0.35);
+}
+
+.card-hover:hover img {
+  transform: scale(1.08);
+}
+
+.festivaz-footer {
+  background-image: linear-gradient(to bottom, rgba(209, 178, 128, 0.1), rgba(209, 178, 128, 0.02));
+  padding: 4rem 0 2rem;
+}
+
+.festivaz-footer h4 {
+  font-family: "Fraunces", serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.festivaz-footer a {
+  color: #6C6C6C;
+  transition: color 0.3s ease;
+}
+
+.festivaz-footer a:hover,
+.festivaz-footer a:focus-visible {
+  color: #2F2F2F;
+}
+
+.card-hover--soft:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px -40px rgba(47, 47, 47, 0.35);
+}
+
+.interactive-card {
+  border: 1px solid rgba(229, 229, 229, 0.7);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background-color 0.35s ease;
+}
+
+.interactive-card:hover,
+.interactive-card:focus-within {
+  transform: translateY(-6px);
+  border-color: rgba(209, 178, 128, 0.65);
+  background-color: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 32px 60px -44px rgba(47, 47, 47, 0.4);
+}
+
+.interactive-card__icon {
+  transition: transform 0.35s ease, background-color 0.35s ease, color 0.35s ease;
+}
+
+.interactive-card:hover .interactive-card__icon,
+.interactive-card:focus-within .interactive-card__icon {
+  transform: translateY(-4px) scale(1.05);
+  background-color: rgba(209, 178, 128, 0.25);
+  color: #d1b280;
+}
+
+.hero-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-carousel img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: heroSlide 30s infinite;
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+}
+
+.hero-carousel img:nth-child(1) {
+  animation-delay: -1.2s;
+}
+
+.hero-carousel img:nth-child(2) {
+  animation-delay: 6s;
+}
+
+.hero-carousel img:nth-child(3) {
+  animation-delay: 12s;
+}
+
+.hero-carousel img:nth-child(4) {
+  animation-delay: 18s;
+}
+
+.hero-carousel img:nth-child(5) {
+  animation-delay: 24s;
+}
+
+@keyframes heroSlide {
+  0% {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+
+  4% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+
+  20% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  24% {
+    opacity: 0;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-carousel img {
+    animation: none;
+    opacity: 0;
+    transform: none;
+  }
+
+  .hero-carousel img:first-child {
+    opacity: 1;
+  }
+}

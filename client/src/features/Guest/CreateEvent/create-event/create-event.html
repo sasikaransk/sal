@@ -1,0 +1,395 @@
+<section class="create-event relative min-h-screen overflow-hidden bg-gradient-to-b from-[#FAF9F0] to-[#FFFDF8] py-16 px-4">
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(209,178,128,0.12),_transparent_58%)]"></div>
+    <div class="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-white/60 blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 h-96 w-96 translate-x-1/3 rounded-full bg-[#D1B280]/15 blur-[160px]"></div>
+  </div>
+
+  <div class="relative mx-auto max-w-4xl space-y-4 text-center">
+    <p class="text-xs uppercase tracking-[0.45em] text-[#6C6C6C]">Create Event Cart</p>
+    <h1 class="text-4xl font-semibold text-[#2F2F2F] md:text-5xl">Create Your Event Cart</h1>
+    <div class="accent-line"></div>
+    <p class="text-lg text-[#6C6C6C]">Begin your journey to a memorable celebration.</p>
+    <p class="text-sm text-[#6C6C6C]">
+      All fields with <span class="font-semibold text-[#D1B280]">*</span> are required.
+    </p>
+  </div>
+
+  <nav class="relative mx-auto mt-10 flex max-w-4xl flex-col gap-4 text-sm text-[#6C6C6C] sm:flex-row sm:items-center sm:justify-between">
+    <div class="flex flex-1 items-center gap-3">
+      <div class="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-[#D1B280]/60 bg-white text-sm font-semibold text-[#D1B280] shadow-sm">1</div>
+      <div>
+        <p class="font-semibold text-[#2F2F2F]">Choose Mood</p>
+        <div class="h-1 w-16 rounded-full bg-gradient-to-r from-[#D1B280] to-[#E2C9A3]"></div>
+      </div>
+    </div>
+    <span class="hidden h-px flex-1 bg-gradient-to-r from-[#D1B280]/30 via-[#E5E5E5] to-transparent sm:block"></span>
+    <div class="flex flex-1 items-center gap-3">
+      <div class="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-[#E5E5E5] bg-white text-sm font-semibold text-[#6C6C6C]">2</div>
+      <div>
+        <p class="font-semibold text-[#2F2F2F]">Share Details</p>
+        <div class="h-1 w-16 rounded-full bg-[#E5E5E5]"></div>
+      </div>
+    </div>
+    <span class="hidden h-px flex-1 bg-gradient-to-r from-[#E5E5E5] via-[#F4EADA] to-transparent sm:block"></span>
+    <div class="flex flex-1 items-center gap-3">
+      <div class="flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-[#E5E5E5] bg-white text-sm font-semibold text-[#B4B4B4]">3</div>
+      <div>
+        <p class="font-semibold text-[#6C6C6C]">Confirm</p>
+        <div class="h-1 w-16 rounded-full bg-[#F0E7D7]"></div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="relative mt-12">
+    <form
+      [formGroup]="createEventForm"
+      (ngSubmit)="onSubmit()"
+      class="create-event-card relative mx-auto flex max-w-5xl flex-col gap-12 rounded-[2rem] border border-[#E5E5E5] bg-white/95 px-8 py-12 shadow-[0_8px_40px_rgba(209,178,128,0.15)] backdrop-blur transition-all duration-500 hover:shadow-lg hover:shadow-[#D1B280]/20 md:px-12"
+      [ngClass]="{ 'success-pulse': showSuccessToast }"
+    >
+      <section class="space-y-5">
+        <div class="flex flex-col gap-2 text-left">
+          <div class="flex items-center gap-4">
+            <span class="label-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5v14" />
+                <path d="M5 12h14" />
+              </svg>
+            </span>
+            <div>
+              <p class="text-base font-semibold text-[#2F2F2F]">Choose your event style</p>
+              <p class="text-sm text-[#6C6C6C]">Tap, click, or press enter on a card to set the tone.</p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5"
+          role="radiogroup"
+          aria-label="Event type selection"
+          [attr.aria-invalid]="isInvalid('eventType')"
+        >
+          @for (type of eventTypes; track type.id; let isFirst = $first) {
+            <button
+              type="button"
+              class="event-type-card group flex flex-col gap-3 rounded-2xl border border-[#E5E5E5] bg-white/85 p-5 text-left text-[#2F2F2F] transition-all duration-500 ease-in-out focus:outline-none focus-visible:ring-4 focus-visible:ring-[#D1B280]/35 motion-safe:hover:-translate-y-1 motion-safe:hover:scale-[1.02]"
+              [ngClass]="{
+                'selected-type border-[#D1B280] bg-[#F4EADA] shadow-[0_24px_60px_rgba(209,178,128,0.28)]': selectedEventType === type.id,
+                'shadow-[0_0_0_3px_rgba(209,178,128,0.18)]': !selectedEventType && isFirst
+              }"
+              role="radio"
+              [attr.aria-checked]="selectedEventType === type.id"
+              [attr.aria-label]="type.label"
+              (click)="selectEventType(type.id)"
+              (keydown.enter)="selectEventType(type.id); $event.preventDefault()"
+              (keydown.space)="selectEventType(type.id); $event.preventDefault()"
+            >
+              <span
+                class="event-type-icon inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#E5E5E5] bg-[#F9F6EE] text-[#6C6C6C] transition-all duration-500 ease-in-out group-hover:text-[#D1B280]"
+                [ngClass]="{ 'border-[#D1B280] text-[#D1B280] shadow-inner': selectedEventType === type.id }"
+                aria-hidden="true"
+              >
+                @switch (type.id) {
+                  @case ('wedding') {
+                    <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8Z" />
+                    </svg>
+                  }
+                  @case ('birthday') {
+                    <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 8v4" />
+                      <path d="M8 8a4 4 0 0 1 8 0" />
+                      <path d="M3 14h18v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Z" />
+                      <path d="M3 14s2 2 9 2 9-2 9-2" />
+                    </svg>
+                  }
+                  @case ('puberty') {
+                    <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="3" />
+                      <path d="M12 3v2" />
+                      <path d="M12 19v2" />
+                      <path d="m4.22 4.22 1.42 1.42" />
+                      <path d="m18.36 18.36 1.42 1.42" />
+                      <path d="M3 12h2" />
+                      <path d="M19 12h2" />
+                      <path d="m4.22 19.78 1.42-1.42" />
+                      <path d="m18.36 5.64 1.42-1.42" />
+                    </svg>
+                  }
+                  @case ('home-warming') {
+                    <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 9.5 12 3l9 6.5" />
+                      <path d="M5 10v10h14V10" />
+                      <path d="M9 21V13h6v8" />
+                    </svg>
+                  }
+                  @default {
+                    <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M18 21a8 8 0 0 0-16 0" />
+                      <circle cx="10" cy="8" r="5" />
+                      <path d="M21 21a6 6 0 0 0-9-5.197" />
+                      <circle cx="18" cy="13" r="3" />
+                    </svg>
+                  }
+                }
+              </span>
+              <div>
+                <p class="text-lg font-semibold">{{ type.label }}</p>
+                <p class="text-sm text-[#6C6C6C]">{{ type.description }}</p>
+              </div>
+            </button>
+          }
+        </div>
+        @if (isInvalid('eventType')) {
+          <p
+            class="field-error"
+            aria-live="assertive"
+          >
+            Please choose an event style to continue.
+          </p>
+        }
+      </section>
+
+      <div class="grid grid-cols-1 gap-8">
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div class="field-group">
+            <label for="eventName" class="field-label">
+              <span class="label-icon bg-[#F9F6EE]" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5.8 11.3 2 22l10.7-3.8c.8-.3 1.1-1.3.5-1.9L7.7 11.8c-.6-.6-1.6-.3-1.9.5Z" />
+                  <path d="M11.9 12.1 15 15.2" />
+                  <path d="M16 8V2" />
+                  <path d="m14 4 2 1" />
+                  <path d="m12 2 1 3" />
+                  <path d="m10 8-2 .5" />
+                </svg>
+              </span>
+              <span>Event Name <span class="text-[#D1B280]" aria-hidden="true">*</span></span>
+            </label>
+            <input
+              id="eventName"
+              type="text"
+              formControlName="eventName"
+              maxlength="120"
+              placeholder="e.g., Aditi &amp; Rohan's Sangeet"
+              class="min-h-[48px] w-full rounded-[1.5rem] border border-[#E5E5E5] bg-white px-5 py-3 text-base text-[#2F2F2F] placeholder:text-[#B0B0B0] transition-all duration-500 focus:border-[#D1B280] focus-visible:ring-4 focus-visible:ring-[#D1B280]/35"
+              aria-describedby="eventNameHint eventNameError"
+              [attr.aria-invalid]="isInvalid('eventName')"
+            />
+            <p class="field-hint" id="eventNameHint">This name crowns your invites and itinerary.</p>
+            @if (isInvalid('eventName')) {
+              <p class="field-error" id="eventNameError" aria-live="assertive">Event name is required.</p>
+            }
+          </div>
+
+          <div class="field-group">
+            <label for="venue" class="field-label">
+              <span class="label-icon bg-[#F9F6EE]" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 1 1 18 0Z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </span>
+              <span>Venue</span>
+            </label>
+            <input
+              id="venue"
+              type="text"
+              formControlName="venue"
+              maxlength="200"
+              placeholder="Enter venue name or city"
+              class="min-h-[48px] w-full rounded-[1.5rem] border border-[#E5E5E5] bg-white px-5 py-3 text-base text-[#2F2F2F] placeholder:text-[#B0B0B0] transition-all duration-500 focus:border-[#D1B280] focus-visible:ring-4 focus-visible:ring-[#D1B280]/35"
+              aria-describedby="venueHint"
+            />
+            <p class="field-hint" id="venueHint">Optional, but helps us recommend dreamy spaces faster.</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div class="field-group">
+            <label for="venueType" class="field-label">
+              <span class="label-icon bg-[#F9F6EE]" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 21h18" />
+                  <path d="M3 7l9-4 9 4" />
+                  <path d="M5 21V10h14v11" />
+                </svg>
+              </span>
+              <span class="flex items-center gap-2">
+                Venue Type <span class="text-[#D1B280]" aria-hidden="true">*</span>
+                <span class="tooltip" tabindex="0" aria-label="Info about venue type">
+                  <svg viewBox="0 0 24 24" class="h-4 w-4 text-[#D1B280]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 8v4" />
+                    <path d="M12 16h.01" />
+                  </svg>
+                  <span class="tooltip-bubble">Indoor halls vs. breezy outdoor lawns.</span>
+                </span>
+              </span>
+            </label>
+            <select
+              id="venueType"
+              formControlName="venueType"
+              class="min-h-[48px] w-full rounded-[1.5rem] border border-[#E5E5E5] bg-white px-5 py-3 text-base text-[#2F2F2F] transition-all duration-500 focus:border-[#D1B280] focus-visible:ring-4 focus-visible:ring-[#D1B280]/35"
+              aria-describedby="venueTypeHint venueTypeError"
+              [attr.aria-invalid]="isInvalid('venueType')"
+            >
+              <option value="" disabled>Select a setting</option>
+              <option value="indoor">Indoor</option>
+              <option value="outdoor">Outdoor</option>
+            </select>
+            <p class="field-hint" id="venueTypeHint">Let us know if you're imagining chandeliers or open skies.</p>
+            @if (isInvalid('venueType')) {
+              <p class="field-error" id="venueTypeError" aria-live="assertive">Please select a venue type.</p>
+            }
+          </div>
+
+          <div class="field-group">
+            <label for="eventDate" class="field-label">
+              <span class="label-icon bg-[#F9F6EE]" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="3" />
+                  <path d="M16 2v4" />
+                  <path d="M8 2v4" />
+                  <path d="M3 10h18" />
+                </svg>
+              </span>
+              <span>Event Date <span class="text-[#D1B280]" aria-hidden="true">*</span></span>
+            </label>
+            <input
+              id="eventDate"
+              type="date"
+              formControlName="eventDate"
+              class="min-h-[48px] w-full rounded-[1.5rem] border border-[#E5E5E5] bg-white px-5 py-3 text-base text-[#2F2F2F] transition-all duration-500 focus:border-[#D1B280] focus-visible:ring-4 focus-visible:ring-[#D1B280]/35"
+              aria-describedby="eventDateHint eventDateError"
+              [attr.aria-invalid]="isInvalid('eventDate')"
+            />
+            <p class="field-hint" id="eventDateHint">Tentative dates help us reserve the best talent.</p>
+            @if (isInvalid('eventDate')) {
+              <p class="field-error" id="eventDateError" aria-live="assertive">Please share an estimated event date.</p>
+            }
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div class="field-group">
+            <label for="eventTime" class="field-label">
+              <span class="label-icon bg-[#F9F6EE]" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 7v5l3 2" />
+                </svg>
+              </span>
+              <span>Event Time</span>
+            </label>
+            <input
+              id="eventTime"
+              type="time"
+              formControlName="eventTime"
+              class="min-h-[48px] w-full rounded-[1.5rem] border border-[#E5E5E5] bg-white px-5 py-3 text-base text-[#2F2F2F] transition-all duration-500 focus:border-[#D1B280] focus-visible:ring-4 focus-visible:ring-[#D1B280]/35"
+              aria-describedby="eventTimeHint"
+            />
+            <p class="field-hint" id="eventTimeHint">Optional. Helps us choreograph vendor arrivals.</p>
+          </div>
+
+          <div class="field-group">
+            <label for="guestCount" class="field-label">
+              <span class="label-icon bg-[#F9F6EE]" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </span>
+              <span class="flex items-center gap-2">
+                Guest Count
+                <span class="tooltip" tabindex="0" aria-label="Info about guest count">
+                  <svg viewBox="0 0 24 24" class="h-4 w-4 text-[#D1B280]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 8v4" />
+                    <path d="M12 16h.01" />
+                  </svg>
+                  <span class="tooltip-bubble">Approximate numbers help us scale decor & dining.</span>
+                </span>
+              </span>
+            </label>
+            <input
+              id="guestCount"
+              type="number"
+              min="1"
+              inputmode="numeric"
+              formControlName="guestCount"
+              placeholder="Approximate guests"
+              class="min-h-[48px] w-full rounded-[1.5rem] border border-[#E5E5E5] bg-white px-5 py-3 text-base text-[#2F2F2F] placeholder:text-[#B0B0B0] transition-all duration-500 focus:border-[#D1B280] focus-visible:ring-4 focus-visible:ring-[#D1B280]/35"
+              aria-describedby="guestCountHint"
+            />
+            <p class="field-hint" id="guestCountHint">A ballpark figure ensures the perfect scale for decor and dining.</p>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="specialRequirements" class="field-label">
+            <span class="label-icon bg-[#F9F6EE]" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 18v.01" />
+                <path d="M12 14a4 4 0 1 0-3.5-2" />
+                <path d="M12 22v-2" />
+                <path d="M10 22h4" />
+              </svg>
+            </span>
+            <span class="flex items-center gap-2">
+              Special Requirements
+              <span class="tooltip" tabindex="0" aria-label="Info about special requirements">
+                <svg viewBox="0 0 24 24" class="h-4 w-4 text-[#D1B280]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 8v4" />
+                  <path d="M12 16h.01" />
+                </svg>
+                <span class="tooltip-bubble">Share rituals, colors, music, or sensory must-haves.</span>
+              </span>
+            </span>
+          </label>
+          <textarea
+            id="specialRequirements"
+            rows="4"
+            formControlName="specialRequirements"
+            placeholder="Tell us about rituals, color palettes, live music dreams, or sensory must-haves."
+            class="min-h-[140px] w-full rounded-[1.5rem] border border-[#E5E5E5] bg-white px-5 py-4 text-base text-[#2F2F2F] placeholder:text-[#B0B0B0] transition-all duration-500 focus:border-[#D1B280] focus-visible:ring-4 focus-visible:ring-[#D1B280]/35"
+            aria-describedby="specialRequirementsHint"
+          ></textarea>
+          <p class="field-hint" id="specialRequirementsHint">Optional, but the magic often lives in the little details.</p>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-4 border-t border-dashed border-[#E5E5E5] pt-6 text-center md:flex-row md:items-center md:justify-between md:text-left">
+        <p class="text-sm text-[#6C6C6C]">We'll co-create itineraries, vendor moodboards, and budgets next.</p>
+        <button
+          type="submit"
+          [disabled]="createEventForm.invalid"
+          class="start-planning-btn inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[#D1B280] px-10 py-3 text-base font-semibold text-white shadow-[0_20px_40px_rgba(209,178,128,0.45)] transition-all duration-500 hover:-translate-y-0.5 hover:bg-gradient-to-r hover:from-[#D1B280] hover:to-[#E2C9A3] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#D1B280]/60 disabled:cursor-not-allowed disabled:bg-[#E6DDCC] disabled:text-[#9C8F7A] disabled:opacity-70 disabled:shadow-none disabled:hover:translate-y-0"
+        >
+          Start Planning
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14" />
+            <path d="m12 5 7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+
+      @if (showSuccessToast) {
+        <div
+          class="success-toast flex items-center gap-2 rounded-full bg-[#FFF7EA] px-4 py-2 text-sm text-[#2F2F2F]"
+          aria-live="polite"
+        >
+          <svg viewBox="0 0 24 24" class="h-5 w-5 text-[#D1B280]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m5 13 4 4L19 7" />
+          </svg>
+          <span>Beautiful! We'll confirm the next steps with you shortly.</span>
+        </div>
+      }
+    </form>
+  </div>
+</section>

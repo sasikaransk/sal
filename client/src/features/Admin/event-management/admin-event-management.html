@@ -1,0 +1,336 @@
+<div class="min-h-screen bg-slate-50 p-6 md:p-10">
+  <div class="mx-auto flex max-w-6xl flex-col gap-8">
+    <header class="flex flex-wrap items-start justify-between gap-4">
+      <div>
+        <p class="text-sm font-semibold text-slate-900">Event Management</p>
+        <p class="text-sm text-slate-500">Create, update, and remove event types powering the marketplace.</p>
+        <p class="text-xs text-slate-400">Connected endpoint: <span class="font-medium text-slate-500">/api/eventtype</span></p>
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <button
+          type="button"
+          class="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-400 hover:bg-white disabled:cursor-not-allowed disabled:opacity-60"
+          (click)="loadEventTypes()"
+          [disabled]="loading()"
+        >
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.5 4.5v5h5M19.5 19.5v-5h-5M5 14a7 7 0 0 0 12.02 3.51M19 10a7 7 0 0 0-12.02-3.51" />
+          </svg>
+          {{ loading() ? 'Refreshing…' : 'Refresh' }}
+        </button>
+        <div class="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 shadow-sm">
+          <svg class="h-4 w-4 text-slate-400" viewBox="0 0 20 20" fill="none" stroke="currentColor">
+            <circle cx="9" cy="9" r="6" stroke-width="1.5"></circle>
+            <path stroke-linecap="round" stroke-width="1.5" d="m14 14 3 3"></path>
+          </svg>
+          <input
+            type="search"
+            class="w-40 bg-transparent text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none md:w-64"
+            placeholder="Search event types"
+            [value]="searchTerm()"
+            (input)="onSearch(($any($event.target)).value)"
+          />
+          <button
+            *ngIf="searchTerm()"
+            type="button"
+            class="text-xs font-medium text-slate-500 transition hover:text-slate-800"
+            (click)="clearSearch()"
+          >
+            Clear
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div
+      *ngIf="feedback() as alert"
+      class="flex items-start gap-4 rounded-3xl border px-5 py-4 shadow-sm"
+      [ngClass]="{
+        'border-emerald-200 bg-emerald-50 text-emerald-900': alert.variant === 'success',
+        'border-rose-200 bg-rose-50 text-rose-900': alert.variant === 'error'
+      }"
+    >
+      <div class="flex-1 text-sm">
+        {{ alert.text }}
+      </div>
+      <button
+        type="button"
+        aria-label="Dismiss notification"
+        class="rounded-full border border-transparent p-1 text-sm font-medium transition hover:border-slate-200 hover:bg-white"
+        (click)="dismissFeedback()"
+      >
+        ✕
+      </button>
+    </div>
+
+    <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div class="flex flex-wrap items-start justify-between gap-3 border-b border-slate-100 pb-4">
+        <div>
+          <p class="text-base font-semibold text-slate-900">
+            {{ isEditing() ? 'Update Event Type' : 'Create Event Type' }}
+          </p>
+          <p class="text-sm text-slate-500">
+            {{ isEditing() ? 'Editing an existing record. Save to persist updates.' : 'Fill out the form to publish a new event type.' }}
+          </p>
+        </div>
+        <span *ngIf="isEditing()" class="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">
+          Editing existing entry
+        </span>
+        <!-- Always showing all records (active + inactive); toggle removed per requirement -->
+      </div>
+
+      <form class="mt-6 grid gap-5 md:grid-cols-2" [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+        <div class="md:col-span-2">
+          <label class="text-sm font-medium text-slate-700">
+            Event name
+            <span class="text-rose-500">*</span>
+          </label>
+          <input
+            type="text"
+            formControlName="eventName"
+            class="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/10"
+            placeholder="e.g., Destination Wedding"
+          />
+          <p
+            *ngIf="eventForm.get('eventName')?.touched && eventForm.get('eventName')?.invalid"
+            class="mt-2 text-xs font-medium text-rose-600"
+          >
+            Event name is required (min 3 characters).
+          </p>
+        </div>
+
+        <div>
+          <label class="text-sm font-medium text-slate-700">Season preference</label>
+          <select
+            formControlName="seasonPreference"
+            class="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/10 bg-white"
+          >
+            <option value="">— Select —</option>
+            <option *ngFor="let s of seasonOptions()" [value]="s">{{ s }}</option>
+          </select>
+          <p *ngIf="loadingSeasons()" class="mt-2 text-xs text-slate-400">Loading seasons…</p>
+        </div>
+
+        <div>
+          <label class="text-sm font-medium text-slate-700">
+            Sort order
+            <span class="text-rose-500">*</span>
+          </label>
+          <input
+            type="number"
+            formControlName="sortOrder"
+            min="0"
+            class="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/10"
+          />
+          <p
+            *ngIf="eventForm.get('sortOrder')?.touched && eventForm.get('sortOrder')?.invalid"
+            class="mt-2 text-xs font-medium text-rose-600"
+          >
+            Provide a non-negative sort order.
+          </p>
+        </div>
+
+        <div>
+          <label class="text-sm font-medium text-slate-700">Min budget</label>
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            formControlName="minBudget"
+            class="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/10"
+            placeholder="0.00"
+          />
+        </div>
+
+        <div>
+          <label class="text-sm font-medium text-slate-700">Max budget</label>
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            formControlName="maxBudget"
+            class="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/10"
+            placeholder="0.00"
+          />
+        </div>
+
+        <p *ngIf="hasBudgetRangeError" class="md:col-span-2 text-xs font-semibold text-rose-600">
+          Min budget must be less than or equal to max budget.
+        </p>
+
+        <div>
+          <label class="text-sm font-medium text-slate-700">Icon URL</label>
+          <input
+            type="text"
+            formControlName="iconUrl"
+            class="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/10"
+            placeholder="https://cdn.example.com/icon.png"
+          />
+        </div>
+
+        <div class="flex items-center gap-3 rounded-2xl border border-slate-200 px-4 py-3">
+          <input
+            id="isActive"
+            type="checkbox"
+            formControlName="isActive"
+            class="h-4 w-4 rounded border-slate-300 text-slate-900 focus:ring-slate-900/10"
+          />
+          <label for="isActive" class="text-sm font-medium text-slate-700">Active on platform</label>
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="text-sm font-medium text-slate-700">Description</label>
+          <textarea
+            rows="4"
+            formControlName="description"
+            class="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900/10"
+            placeholder="Short pitch for partners and customers."
+          ></textarea>
+        </div>
+
+        <div class="md:col-span-2 flex flex-wrap justify-end gap-3">
+          <button
+            type="button"
+            class="rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-600 transition hover:border-slate-400 hover:bg-white"
+            (click)="resetForm()"
+          >
+            Reset
+          </button>
+          <button
+            *ngIf="isEditing()"
+            type="button"
+            class="rounded-full border border-amber-200 bg-amber-50 px-4 py-2 text-sm font-semibold text-amber-700 transition hover:border-amber-300"
+            (click)="cancelEdit()"
+          >
+            Cancel edit
+          </button>
+          <button
+            type="submit"
+            class="inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-2 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+            [disabled]="saving() || eventForm.invalid"
+          >
+            <svg
+              *ngIf="saving()"
+              class="h-4 w-4 animate-spin"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+            >
+              <circle cx="12" cy="12" r="9" stroke-opacity="0.15" stroke-width="4"></circle>
+              <path stroke-width="4" stroke-linecap="round" d="M21 12a9 9 0 0 0-9-9"></path>
+            </svg>
+            {{ saving() ? (isEditing() ? 'Saving…' : 'Creating…') : (isEditing() ? 'Save changes' : 'Create event type') }}
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <section class="rounded-3xl border border-slate-200 bg-white shadow-sm">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 px-6 py-4">
+        <div>
+          <p class="text-base font-semibold text-slate-900">Event types</p>
+          <p class="text-sm text-slate-500">
+            Showing {{ filteredEventTypes().length }} of {{ eventTypes().length }}
+              Showing Active: {{ activeCount() }} · Inactive: {{ inactiveCount() }}
+          </p>
+        </div>
+        <span class="text-xs font-medium text-slate-400 uppercase tracking-wide">Live data</span>
+      </div>
+
+      <div *ngIf="loading()" class="px-6 py-12 text-center text-sm font-medium text-slate-500">
+        Loading the latest event types…
+      </div>
+
+      <ng-container *ngIf="!loading()">
+        <div *ngIf="filteredEventTypes().length; else emptyState" class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-slate-100 text-left text-sm">
+            <thead class="bg-slate-50 text-xs font-semibold uppercase tracking-wide text-slate-500">
+              <tr>
+                <th class="px-6 py-3">Event</th>
+                <th class="px-4 py-3">Budget</th>
+                <th class="px-4 py-3">Season</th>
+                <th class="px-4 py-3">Status</th>
+                <th class="px-4 py-3">Active?</th>
+                <th class="px-4 py-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr *ngFor="let event of filteredEventTypes(); trackBy: trackByEventId" class="hover:bg-slate-50/60">
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <img
+                      *ngIf="event.iconUrl"
+                      [src]="event.iconUrl"
+                      alt="Icon"
+                      class="h-10 w-10 rounded-full border border-slate-100 object-cover"
+                    />
+                    <div>
+                      <p class="font-semibold text-slate-900">{{ event.eventName }}</p>
+                      <p class="text-xs text-slate-500" *ngIf="event.description">{{ event.description }}</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-4 py-4">
+                  <p class="font-medium text-slate-900">
+                    {{ event.minBudget ?? '—' }} – {{ event.maxBudget ?? '—' }}
+                  </p>
+                  <p class="text-xs text-slate-400">Sort: {{ event.sortOrder }}</p>
+                </td>
+                <td class="px-4 py-4">
+                  <span class="text-sm text-slate-600">{{ event.seasonPreference || '—' }}</span>
+                </td>
+                <td class="px-4 py-4">
+                  <span
+                    class="inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-semibold"
+                    [ngClass]="event.isActive ? 'border-emerald-200 bg-emerald-50 text-emerald-700' : 'border-rose-200 bg-rose-50 text-rose-700'"
+                  >
+                    <span class="h-2 w-2 rounded-full" [ngClass]="event.isActive ? 'bg-emerald-500' : 'bg-rose-500'"></span>
+                    {{ event.isActive ? 'Active' : 'Inactive' }}
+                  </span>
+                </td>
+                <td class="px-4 py-4">
+                  <input type="checkbox" [checked]="event.isActive" (change)="toggleActive(event)" />
+                </td>
+                <td class="px-4 py-4">
+                  <div class="flex justify-end gap-2">
+                    <button
+                      type="button"
+                      class="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-700 transition hover:border-slate-300"
+                      (click)="editEventType(event)"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      type="button"
+                      class="rounded-full border px-3 py-1 text-xs font-semibold transition"
+                      [ngClass]="event.isActive ? 'border-rose-200 text-rose-600 hover:border-rose-300' : 'border-emerald-200 text-emerald-600 hover:border-emerald-300'"
+                      (click)="toggleActive(event)"
+                    >
+                      {{ event.isActive ? 'Deactivate' : 'Activate' }}
+                    </button>
+                    <button
+                      type="button"
+                      class="rounded-full border border-rose-200 px-3 py-1 text-xs font-semibold text-rose-600 transition hover:border-rose-300 disabled:opacity-60"
+                      (click)="deleteEventType(event)"
+                      [disabled]="deleting() === event.eventTypeId"
+                    >
+                      {{ deleting() === event.eventTypeId ? 'Deleting…' : 'Delete' }}
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ng-template #emptyState>
+          <div class="px-6 py-12 text-center text-sm text-slate-500">
+            <p class="font-medium text-slate-700">No event types found.</p>
+            <p class="mt-2">
+              {{ searchTerm() ? 'Try adjusting your search query.' : 'Create the first event type to get started.' }}
+            </p>
+          </div>
+        </ng-template>
+      </ng-container>
+    </section>
+  </div>
+</div>

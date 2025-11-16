@@ -1,0 +1,34 @@
+<section class="sp-services">
+  <header>
+    <div>
+      <p class="eyebrow">Offerings</p>
+      <h2>Modular services crafted for FestivaZ couples.</h2>
+    </div>
+    <button type="button">Update catalog</button>
+  </header>
+
+  <div class="sp-services__grid">
+    <article *ngFor="let pack of packages" [class.featured]="pack.status === 'featured'">
+      <span class="tier">{{ pack.tier }}</span>
+      <h3>{{ pack.title }}</h3>
+      <p>{{ pack.description }}</p>
+      <ul>
+        <li *ngFor="let deliverable of pack.deliverables">{{ deliverable }}</li>
+      </ul>
+      <div class="footer">
+        <span>{{ pack.investment }}</span>
+        <button type="button">Share detailer</button>
+      </div>
+    </article>
+  </div>
+
+  <section class="sp-services__addons">
+    <p class="eyebrow">Add-ons</p>
+    <ul>
+      <li *ngFor="let addOn of addOns">
+        <strong>{{ addOn.title }}</strong>
+        <span>{{ addOn.note }}</span>
+      </li>
+    </ul>
+  </section>
+</section>

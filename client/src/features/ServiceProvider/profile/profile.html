@@ -1,0 +1,61 @@
+<section class="sp-profile">
+  <article class="sp-profile__hero">
+    <div>
+      <p class="eyebrow">Aurora Rituals Studio</p>
+      <h2>Curating poetic celebrations with a FestivaZ shimmer.</h2>
+      <p>
+        Story-led experiences, refined palettes and artisan partnerships for couples who want
+        their ceremonies to feel like a living art installation.
+      </p>
+    </div>
+    <div class="sp-profile__meta">
+      <p>Verified partner since 2019</p>
+      <p>Premium tier • 4.9 rating</p>
+    </div>
+  </article>
+
+  <div class="sp-profile__grid">
+    <section class="sp-card">
+      <p class="eyebrow">Studio essentials</p>
+      <ul>
+        <li *ngFor="let item of essentials">
+          <span>{{ item.label }}</span>
+          <strong>{{ item.value }}</strong>
+        </li>
+      </ul>
+    </section>
+
+    <section class="sp-card">
+      <p class="eyebrow">Expertise focus</p>
+      <div class="tag-group">
+        <span *ngFor="let tag of expertiseTags">{{ tag }}</span>
+      </div>
+      <div class="callout">
+        <p>Need a custom deck?</p>
+        <button type="button">Request portfolio</button>
+      </div>
+    </section>
+  </div>
+
+  <section class="sp-profile__timeline sp-card">
+    <p class="eyebrow">Milestones</p>
+    <ul>
+      <li *ngFor="let milestone of experienceTimeline">
+        <span class="period">{{ milestone.period }}</span>
+        <div>
+          <strong>{{ milestone.title }}</strong>
+          <p>{{ milestone.detail }}</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="sp-profile__services">
+    <article *ngFor="let service of signatureServices" class="sp-card">
+      <p class="eyebrow">{{ service.name }}</p>
+      <p>{{ service.description }}</p>
+      <span class="investment">{{ service.investment }}</span>
+      <button type="button">Share brochure</button>
+    </article>
+  </section>
+</section>

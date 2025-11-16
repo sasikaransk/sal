@@ -1,0 +1,311 @@
+<main class="provider-wrapper">
+  <article class="provider-card">
+    <!-- Left: overview & stepper -->
+    <section class="provider-overview" aria-label="FestivaZ partner overview">
+      <div class="overview-copy">
+        <p class="eyebrow">FestivaZ Partners</p>
+        <h1>Bring your services to every celebration</h1>
+        <p class="lede">
+          Join a curated marketplace where hosts discover premium experiences.
+          Share the essentials of your brand, operations, and service promises
+          to begin the onboarding review.
+        </p>
+
+        <ul class="highlight-list">
+          <li><span class="dot"></span> Guided onboarding with transparent booking safeguards.</li>
+          <li><span class="dot"></span> Access to FestivaZ partner success resources.</li>
+          <li><span class="dot"></span> Premium placement across relevant celebrations.</li>
+        </ul>
+      </div>
+
+      <nav class="step-nav" aria-label="Registration progress">
+        <ol>
+          @for (section of sections; track section.title) {
+            <li
+              [class.active]="sectionStatus($index) === 'active'"
+              [class.complete]="sectionStatus($index) === 'complete'"
+              [class.clickable]="sectionStatus($index) !== 'upcoming'"
+              [attr.data-state]="sectionStatus($index)"
+              [attr.aria-current]="sectionStatus($index) === 'active' ? 'step' : null"
+              (click)="jumpTo($index)"
+              [attr.tabindex]="sectionStatus($index) !== 'upcoming' ? 0 : -1"
+            >
+              <span class="step-dot">{{ $index + 1 }}</span>
+              <div class="step-copy">
+                <p class="step-title">{{ section.title }}</p>
+                <p class="step-caption">{{ section.caption }}</p>
+              </div>
+              <span class="step-line" aria-hidden="true"></span>
+            </li>
+          }
+        </ol>
+      </nav>
+    </section>
+
+    <!-- Right: form -->
+    <section class="form-shell" aria-live="polite">
+      <header class="form-header">
+        <div class="form-heading">
+          <p class="step-label">Step {{ step() }} of {{ totalSteps }}</p>
+          <h2>{{ sections[step() - 1].title }}</h2>
+          <p class="subtle">{{ sections[step() - 1].caption }}</p>
+        </div>
+
+        <div class="progress" role="progressbar"
+             aria-label="Onboarding progress"
+             aria-valuemin="0" aria-valuemax="100"
+             [attr.aria-valuenow]="progressPercent()">
+          <div class="progress-bar">
+            <span class="progress-value" [style.width.%]="progressPercent()"></span>
+          </div>
+          <p class="progress-count">{{ progressPercent() }}% complete</p>
+        </div>
+      </header>
+
+      @if (successMessage()) {
+        <div class="banner banner-success" role="status">
+          {{ successMessage() }}
+        </div>
+      }
+      @if (errorMessage()) {
+        <div class="banner banner-error" role="alert">
+          {{ errorMessage() }}
+        </div>
+      }
+
+      <!-- Step 1 -->
+      @if (step() === 1) {
+        <form [formGroup]="accountForm" class="form-grid step-panel" data-step="account" novalidate>
+          <p class="step-intro">Create the secure credentials you’ll use to manage your FestivaZ partner profile.</p>
+
+          <label class="field" for="email">
+            <span>Email</span>
+            <input
+              id="email"
+              class="input"
+              type="email"
+              placeholder="you@brand.com"
+              formControlName="email"
+              autocomplete="email"
+              [attr.autofocus]="true"
+              [attr.aria-invalid]="accountForm.get('email')?.invalid && accountForm.get('email')?.touched"
+              aria-describedby="email-help email-error"
+            />
+            <small id="email-help" class="microcopy">Use your business email if available.</small>
+            @if (accountForm.get('email')?.invalid && accountForm.get('email')?.touched) {
+              <span id="email-error" class="field-error">Enter a valid email address.</span>
+            }
+          </label>
+
+          <label class="field" for="password">
+            <span>Password</span>
+            <input
+              id="password"
+              class="input"
+              type="password"
+              placeholder="Minimum 8 characters"
+              formControlName="password"
+              autocomplete="new-password"
+              [attr.aria-invalid]="accountForm.get('password')?.invalid && accountForm.get('password')?.touched"
+              aria-describedby="password-help password-error"
+            />
+            <small id="password-help" class="microcopy">Use a unique passphrase for security.</small>
+            @if (accountForm.get('password')?.invalid && accountForm.get('password')?.touched) {
+              <span id="password-error" class="field-error">Use at least 8 characters.</span>
+            }
+          </label>
+
+ <!-- Replace the old checkbox label with this grid-based version -->
+<div class="check-wrap full-width">
+  <input id="isActive" class="check" type="checkbox" formControlName="isActive" />
+  <label for="isActive" class="check-label">
+    <span class="check-title"> Activate account immediately</span>
+    <span class="microcopy">We keep your listing private until everything is approved.</span>
+  </label>
+</div>
+
+        </form>
+      }
+
+      <!-- Step 2 -->
+      @if (step() === 2) {
+        <form [formGroup]="providerForm" class="form-grid two-column step-panel" data-step="brand" novalidate>
+          <p class="step-intro full-width">Introduce your brand personality so hosts know what to expect.</p>
+
+          <label class="field">
+            <span>Company Name</span>
+            <input class="input" placeholder="Registered legal name" formControlName="companyName"
+                   autocomplete="organization" [attr.autofocus]="true" />
+          </label>
+
+          <label class="field">
+            <span>Brand Name</span>
+            <input class="input" placeholder="Customer-facing brand" formControlName="brandName" />
+          </label>
+
+          <label class="field">
+            <span>Primary Phone</span>
+            <input class="input" placeholder="+94 71 234 5678" formControlName="phone"
+                   autocomplete="tel" inputmode="tel"
+                   aria-describedby="phone-error" />
+            @if (providerForm.get('phone')?.invalid && providerForm.get('phone')?.touched) {
+              <span id="phone-error" class="field-error">Enter a valid phone number.</span>
+            }
+          </label>
+
+<label class="field full-width">
+  <span>What makes your service special?</span>
+
+  <textarea
+    id="specialRequirements"
+    rows="4"
+    formControlName="description"
+    placeholder="Tell us about rituals, color palettes, live music dreams, or sensory must-haves."
+    class="textarea-luxe"
+    aria-describedby="specialRequirementsHint"
+  ></textarea>
+
+  <p class="field-hint" id="specialRequirementsHint">
+    Optional, but the magic often lives in the little details.
+  </p>
+</label>
+
+
+        </form>
+      }
+
+      <!-- Step 3 -->
+      @if (step() === 3) {
+        <form [formGroup]="addressForm" class="form-grid two-column step-panel" data-step="location" novalidate>
+          <p class="step-intro full-width">Share where your team is based so we can match the right events.</p>
+
+          <label class="field full-width">
+            <span>Address Line 1</span>
+            <input class="input" placeholder="Studio / office" formControlName="addressLine1" autocomplete="address-line1" [attr.autofocus]="true" />
+          </label>
+
+          <label class="field full-width">
+            <span>Address Line 2</span>
+            <input class="input" placeholder="Suite, floor, landmark" formControlName="addressLine2" autocomplete="address-line2" />
+          </label>
+
+          <label class="field">
+            <span>City</span>
+            <input class="input" placeholder="City" formControlName="city" autocomplete="address-level2" />
+          </label>
+
+          <label class="field">
+            <span>District</span>
+            <input class="input" placeholder="District" formControlName="district" autocomplete="address-level1" />
+          </label>
+
+          <label class="field">
+            <span>Postal Code</span>
+            <input class="input" placeholder="Postal code" formControlName="postalCode"
+                   inputmode="numeric" autocomplete="postal-code" />
+          </label>
+
+          <label class="field">
+            <span>Country</span>
+            <input class="input" placeholder="Country" formControlName="country" autocomplete="country-name" />
+          </label>
+        </form>
+      }
+
+      <!-- Step 4 -->
+      @if (step() === 4) {
+        <form [formGroup]="settingsForm" class="form-grid two-column step-panel" data-step="policies" novalidate>
+          <p class="step-intro full-width">Define how you manage bookings, payments, and guest expectations.</p>
+
+          @for (config of [
+            { name: 'maxConcurrentBookings', label: 'Max concurrent bookings' },
+            { name: 'minLeadTimeDays',      label: 'Minimum lead time (days)' },
+            { name: 'bookingWindowDays',    label: 'Booking window (days)' },
+            { name: 'creditPeriod',         label: 'Credit period (days)' }
+          ]; track config.name) {
+            <label class="field">
+              <span>{{ config.label }}</span>
+              <input class="input" type="number" [formControlName]="config.name" min="0" inputmode="numeric" />
+            </label>
+          }
+
+          <label class="field">
+            <span>Business License</span>
+            <input class="input" placeholder="Upload reference ID" formControlName="businessLicense" />
+          </label>
+
+          <label class="field">
+            <span>Tax ID</span>
+            <input class="input" placeholder="Tax registration" formControlName="taxId" />
+          </label>
+
+        <!-- Cancellation Policy JSON -->
+<div class="code-field full-width">
+  <label class="field full-width">
+    <span>Cancellation Policy (JSON)</span>
+    <textarea
+      rows="5"
+      class="input code"
+      formControlName="cancellationPolicy"
+      (input)="validateJson('cancellationPolicy')"
+      [class.invalid]="!jsonState().cancellationValid"
+      placeholder='{
+  "freeUntilDays": 7,
+  "lateFeePercent": 50,
+  "notes": "Full refund up to 7 days before event; 50% within 7 days."
+}'>
+    </textarea>
+  </label>
+  <div class="code-actions">
+    <button type="button" class="chip" (click)="formatJson('cancellationPolicy')">Format</button>
+    @if (jsonState().cancellationValid) { <span class="chip ok">Valid JSON</span> }
+    @else { <span class="chip bad">Invalid JSON</span> }
+  </div>
+</div>
+
+<!-- Payment Methods JSON -->
+<div class="code-field full-width">
+  <label class="field full-width">
+    <span>Payment Methods (JSON)</span>
+    <textarea
+      rows="5"
+      class="input code"
+      formControlName="paymentMethods"
+      (input)="validateJson('paymentMethods')"
+      [class.invalid]="!jsonState().paymentsValid"
+      placeholder='["cash","card","bank_transfer"]'>
+    </textarea>
+  </label>
+  <div class="code-actions">
+    <button type="button" class="chip" (click)="formatJson('paymentMethods')">Format</button>
+    @if (jsonState().paymentsValid) { <span class="chip ok">Valid JSON</span> }
+    @else { <span class="chip bad">Invalid JSON</span> }
+  </div>
+</div>
+
+        </form>
+      }
+
+      <footer class="form-footer">
+        <button type="button" class="btn ghost" (click)="prev()" [disabled]="step() === 1 || isSubmitting()">
+          Back
+        </button>
+
+        @if (!isLastStep) {
+          <button type="button" class="btn accent" (click)="next()" [disabled]="!canProceed || isSubmitting()">
+            Continue
+          </button>
+        } @else {
+          <button type="button" class="btn primary" (click)="submit()" [disabled]="isSubmitting()">
+            @if (isSubmitting()) { <span class="spinner"></span> }
+            Submit for review
+          </button>
+        }
+      </footer>
+
+      <p class="fine-print">
+        By submitting, you agree to FestivaZ partner terms and confirm the accuracy of the provided information.
+      </p>
+    </section>
+  </article>
+</main>

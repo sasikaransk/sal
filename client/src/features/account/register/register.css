@@ -1,0 +1,241 @@
+:host {
+	display: block;
+}
+
+.login-page {
+    --primary-600: #c88b35;
+    --primary-500: #d8a24a;
+    --primary-400: #e7b764;
+    --surface: #ffffff;
+    --ink: #272626;
+    min-height: 100dvh;
+    padding: clamp(1.5rem, 6vh, 6rem) 1.5rem clamp(1rem, 4vh, 3rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(160deg, #faf4ec 0%, #fdf6ea 45%, #fefbf5 100%);
+}
+
+.login-card {
+    width: 100%;
+    max-width: 960px;
+    background-color: var(--surface);
+    border-radius: 1.5rem;
+    box-shadow: 0 22px 70px rgba(200, 139, 53, 0.18);
+    padding: 2.25rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.brand {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.75rem;
+	color: var(--ink);
+}
+
+.brand-mark {
+	width: 56px;
+	height: 56px;
+	border-radius: 18px;
+	background: linear-gradient(135deg, #f3b956, #e4dfd9);
+	display: grid;
+	place-items: center;
+	color: var(--surface);
+}
+
+.brand-mark img {
+	width: 32px;
+	height: 32px;
+	object-fit: contain;
+}
+
+.brand-mark svg {
+	width: 28px;
+	height: 28px;
+}
+
+.title {
+	font-size: clamp(1.75rem, 4vw, 2.25rem);
+	font-weight: 700;
+	margin: 0;
+}
+
+.subtitle {
+	margin: 0;
+	font-size: 0.95rem;
+	color: #6b7280;
+}
+
+.login-form {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.field-label {
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: #4b5563;
+}
+
+.field-control {
+	position: relative;
+	display: flex;
+	align-items: center;
+	border: 1px solid rgba(200, 139, 53, 0.25);
+	border-radius: 0.85rem;
+	background-color: #fef9f2;
+	transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field-control:focus-within {
+	border-color: var(--primary-600);
+	box-shadow: 0 0 0 3px rgba(200, 139, 53, 0.18);
+	background-color: var(--surface);
+}
+
+.field-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	color: var(--primary-600);
+}
+
+.field-icon svg {
+	width: 20px;
+	height: 20px;
+}
+
+.field-control input {
+	flex: 1;
+	border: 0;
+	outline: none;
+	font-size: 0.95rem;
+	background: transparent;
+	padding: 0.85rem 1rem 0.85rem 0;
+	color: var(--ink);
+}
+
+.field-control input::placeholder {
+	color: #9ca3af;
+}
+
+.field-toggle {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 0;
+	background: transparent;
+	cursor: pointer;
+	color: #6b7280;
+	padding: 0 0.85rem 0 0.4rem;
+}
+
+.field-toggle svg {
+	width: 20px;
+	height: 20px;
+}
+
+.field-error {
+	color: #c1752d;
+	font-size: 0.82rem;
+}
+
+.form-error {
+	border: 1px solid rgba(193, 117, 45, 0.25);
+	background-color: rgba(249, 224, 199, 0.4);
+	color: #9b4f15;
+	padding: 0.75rem;
+	border-radius: 0.75rem;
+	font-size: 0.88rem;
+}
+
+.primary-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.55rem;
+	border: none;
+	border-radius: 0.85rem;
+	background: linear-gradient(135deg, var(--primary-600), var(--primary-500));
+	color: var(--surface);
+	font-weight: 600;
+	font-size: 1rem;
+	padding: 0.95rem;
+	cursor: pointer;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.primary-btn svg {
+	width: 20px;
+	height: 20px;
+}
+
+.primary-btn:hover:not(:disabled) {
+	transform: translateY(-2px);
+	box-shadow: 0 16px 30px rgba(200, 139, 53, 0.25);
+}
+
+.primary-btn:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+	box-shadow: none;
+}
+
+.footer {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	justify-content: center;
+	font-size: 0.9rem;
+	color: #6b7280;
+}
+
+.footer-link {
+	color: var(--primary-600);
+	font-weight: 600;
+	text-decoration: none;
+	margin-left: 0.35rem;
+}
+
+.footer-link:hover {
+	text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+    .login-card { padding: 1.5rem 1.25rem; border-radius: 1.25rem; }
+}
+
+@media (max-height: 700px) {
+    .login-card { padding: 1.25rem 1rem; gap: 1rem; }
+    .brand { gap: 0.5rem; }
+    .login-form { gap: 1rem; }
+}
+
+/* Two-column layout for the register form */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.25rem;
+}
+
+.form-grid .span-2 {
+    grid-column: 1 / -1;
+}
+
+@media (max-width: 900px) {
+    .form-grid {
+        grid-template-columns: 1fr; /* stack on small screens */
+    }
+}

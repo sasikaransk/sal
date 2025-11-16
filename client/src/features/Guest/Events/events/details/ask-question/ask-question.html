@@ -1,0 +1,12 @@
+<div class="ask-modal" role="dialog" aria-modal="true" aria-labelledby="ask-title">
+  <div class="inner">
+    <h3 id="ask-title">Ask a Question</h3>
+    <label class="sr-only" for="question-text">Your question</label>
+    <textarea id="question-text" rows="4" placeholder="Type your question here" [value]="text()" (input)="text.set(($any($event.target).value ?? ''))"></textarea>
+    <div class="actions">
+      <button type="button" class="btn-cancel" (click)="cancel.emit()">Cancel</button>
+      <button type="button" class="btn-submit" (click)="submit()" [disabled]="!text().trim().length">Submit</button>
+    </div>
+  </div>
+  <button class="btn-close" type="button" aria-label="Close" (click)="cancel.emit()">×</button>
+</div>

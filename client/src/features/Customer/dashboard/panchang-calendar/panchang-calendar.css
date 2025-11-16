@@ -1,0 +1,170 @@
+/* Traditional Indian Calendar Styling */
+.calendar-container {
+  background: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  font-family: 'Poppins', sans-serif;
+  max-width: 520px;
+  margin: auto;
+  border: 1px solid #eae3db;
+  overflow: visible;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.calendar-header h2 {
+  font-size: 1.35em;
+  font-weight: 700;
+  color: #a66f3a; /* Branded gold */
+  text-align: center;
+  flex: 1;
+  margin: 0;
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #8f5f31;
+}
+.panel-title svg { display: inline-block; margin-right: 6px; }
+
+.calendar-header button {
+  background: transparent;
+  border: none;
+  font-size: 1.25em;
+  cursor: pointer;
+  color: #c19a6b;
+  transition: color 0.2s ease;
+}
+
+.calendar-header button:hover {
+  color: #a98458;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.week-day {
+  font-weight: 700;
+  text-align: center;
+  color: #95806b;
+  padding-bottom: 6px;
+  font-size: 13px;
+}
+
+.day-cell {
+  position: relative;
+  cursor: pointer;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  transition: transform 120ms ease, box-shadow 160ms ease, background-color 160ms ease;
+  background: transparent;
+}
+
+.day-cell:hover { background-color: #f7f2ea; }
+
+.day-cell.selected {
+  background-color: #a98458;
+  color: #fff;
+}
+
+.day-num { font-weight: 600; }
+
+.day-cell .holiday-icon { position: absolute; top: 6px; right: 6px; font-size: 12px; }
+
+.day-cell .holiday-name { display: none; }
+
+.day-cell.holiday {
+  /* neutral base for holiday cells; color fills applied via category classes below */
+  border: 1px solid rgba(0,0,0,0.04);
+  color: #5a3218;
+}
+
+.day-cell.holiday:hover { filter: brightness(0.98); }
+
+.day-cell.festival::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #e74c3c; /* Red for festival */
+}
+
+.day-cell .holiday-dot { display: none; }
+.day-cell .holiday-dot .dot-svg { width: 14px; height: 14px; }
+
+.day-cell .holiday-tooltip {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 10px);
+  min-width: 180px;
+  max-width: 280px;
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 8px;
+  padding: 10px 12px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+  color: #333;
+  z-index: 2000;
+  backdrop-filter: none;
+}
+.day-cell .holiday-tooltip .holiday-title { font-weight:700; color:#6b3f1f; margin-bottom:6px; }
+.day-cell .holiday-tooltip .holiday-cats { font-size:12px; color:#8c7a6a; }
+.day-cell:hover .holiday-tooltip { display: block; }
+
+.day-cell.holiday { border: 1px dashed rgba(160,120,80,0.06); }
+
+/* apply full-cell background fills for category visibility */
+.day-cell.holiday.color-public { background: linear-gradient(180deg, rgba(227,91,91,0.12), rgba(227,91,91,0.06)); }
+.day-cell.holiday.color-bank { background: linear-gradient(180deg, rgba(91,155,227,0.12), rgba(91,155,227,0.06)); }
+.day-cell.holiday.color-merc { background: linear-gradient(180deg, rgba(255,183,77,0.12), rgba(255,183,77,0.06)); }
+
+/* frequency hint classes (optional; apply from TS when available) */
+.day-cell.holiday.freq-week { box-shadow: inset 0 -4px 0 rgba(0,0,0,0.03); }
+.day-cell.holiday.freq-month { outline: 2px solid rgba(166,111,58,0.06); }
+.day-cell.holiday.freq-year { transform: scale(1.02); }
+
+.legend { display:flex; gap:12px; align-items:center; margin:8px 0 14px 0; font-size:13px; justify-content:center; }
+.legend .item { display:flex; gap:8px; align-items:center; padding:6px 10px; border-radius:8px; background:#fff; border:1px solid #f3ebe0; }
+.legend .color-public { width:10px; height:10px; border-radius:50%; background:#e35b5b; }
+.legend .color-merc { width:10px; height:10px; border-radius:50%; background:#ffb74d; }
+.legend .color-bank { width:10px; height:10px; border-radius:50%; background:#5b9be3; }
+
+.location-selector {
+  margin-top: 14px;
+  background: #fff7f0;
+  border: 1px solid #f0e0d6;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.loc-search { display: flex; gap: 8px; margin-bottom: 8px; }
+.loc-search input[type="search"] { flex: 1; padding: 8px 10px; border-radius: 6px; border: 1px solid #e6d6c6; }
+.loc-search button { background: #c19a6b; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; }
+
+.results { list-style: none; padding: 0; margin: 0 0 8px 0; max-height: 160px; overflow: auto; }
+.results li { padding: 8px; border-bottom: 1px solid #f0e6e0; cursor: pointer; }
+.results li small { display: block; color: #888; font-size: 12px; }
+.selected { margin-top: 8px; font-size: 14px; }
+.hint { font-size: 12px; color: #666; margin-top: 8px; }

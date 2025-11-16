@@ -1,0 +1,37 @@
+<div *ngIf="panchangData" class="details-container">
+  <h3>📜 Panchang Highlights</h3>
+
+  <div class="details-grid">
+    <div class="detail-item">
+      <div>
+        <div class="label">🌄 Brahma Muhurtham</div>
+        <div class="time">{{ parsed.brahma }}</div>
+      </div>
+    </div>
+
+    <div class="detail-item">
+      <div>
+        <div class="label">⛔ Raagu Kaalam</div>
+        <div class="time">{{ parsed.rahu }}</div>
+      </div>
+    </div>
+
+    <div class="detail-item">
+      <div>
+        <div class="label">⚖️ Yama Kandam</div>
+        <div class="time">{{ parsed.yama }}</div>
+      </div>
+    </div>
+
+    <div class="detail-item">
+      <div>
+        <div class="label">🔔 Guligai</div>
+        <div class="time">{{ parsed.gulika }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!panchangData" class="placeholder">
+  <p>Select a location and a date from the calendar to view its Panchang highlights.</p>
+</div>

@@ -1,0 +1,224 @@
+:host {
+  display: block;
+}
+
+.sp-layout {
+  min-height: calc(100vh - 5rem);
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) 1fr;
+  gap: 2.5rem;
+  padding: 2.5rem 4vw 3.5rem;
+  background: radial-gradient(circle at top right, rgba(209, 178, 128, 0.18), transparent 55%),
+    linear-gradient(135deg, #fffdfa 0%, #f7f3ea 35%, #fdfbf5 100%);
+}
+
+.sp-sidebar {
+  background: #ffffff;
+  border-radius: 1.5rem;
+  padding: 1.75rem;
+  box-shadow: 0 25px 60px -45px rgba(47, 47, 47, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sp-sidebar__profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sp-avatar {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 1.25rem;
+  background: #2f2f2f;
+  color: #fdfbf5;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.sp-label {
+  color: #2f2f2f;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.sp-subtle {
+  font-size: 0.9rem;
+  color: #6c6c6c;
+}
+
+.sp-sidebar__metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sp-chip {
+  background: #faf6ee;
+  border-radius: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(209, 178, 128, 0.35);
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.sp-chip__label {
+  color: #6c6c6c;
+}
+
+.sp-chip__value {
+  color: #2f2f2f;
+  font-weight: 600;
+}
+
+.sp-sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sp-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.85rem 1rem;
+  border-radius: 0.85rem;
+  font-weight: 500;
+  color: #6c6c6c;
+  text-decoration: none;
+  background: rgba(247, 243, 234, 0.4);
+  border: 1px solid transparent;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.sp-nav-link__icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.75rem;
+  background: rgba(209, 178, 128, 0.2);
+  color: #c19c62;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+}
+
+.sp-nav-link.active,
+.sp-nav-link:hover,
+.sp-nav-link:focus-visible {
+  color: #2f2f2f;
+  background: #fffdfa;
+  border-color: rgba(209, 178, 128, 0.6);
+  box-shadow: 0 14px 30px -24px rgba(47, 47, 47, 0.65);
+}
+
+.sp-sidebar__cta {
+  border-radius: 1.25rem;
+  background: linear-gradient(135deg, rgba(209, 178, 128, 0.17), rgba(209, 178, 128, 0.03));
+  padding: 1.25rem;
+  color: #2f2f2f;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.sp-sidebar__cta button {
+  border: none;
+  border-radius: 999px;
+  background: #2f2f2f;
+  color: #f6f1e5;
+  padding: 0.65rem 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sp-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.sp-main__header {
+  background: #ffffff;
+  border-radius: 1.5rem;
+  padding: 1.75rem;
+  box-shadow: 0 35px 60px -55px rgba(47, 47, 47, 0.7);
+  display: grid;
+  gap: 1.25rem;
+}
+
+.sp-main__header h1 {
+  font-size: clamp(1.5rem, 2vw, 2.25rem);
+  color: #2f2f2f;
+  margin: 0.4rem 0 0;
+  font-weight: 600;
+}
+
+.sp-main__notes {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.sp-main__notes p {
+  margin: 0;
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.9rem;
+  background: rgba(209, 178, 128, 0.08);
+  border: 1px dashed rgba(209, 178, 128, 0.45);
+  color: #6c6c6c;
+  font-size: 0.85rem;
+}
+
+.sp-main__content {
+  background: #ffffff;
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  min-height: calc(100vh - 12rem);
+  box-shadow: 0 35px 70px -65px rgba(47, 47, 47, 0.8);
+}
+
+@media (max-width: 1024px) {
+  .sp-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sp-sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .sp-sidebar__nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .sp-nav-link {
+    flex: 1 1 calc(50% - 0.5rem);
+  }
+}
+
+@media (max-width: 640px) {
+  .sp-sidebar {
+    flex-direction: column;
+  }
+
+  .sp-nav-link {
+    flex: 1 1 100%;
+  }
+
+  .sp-layout {
+    padding: 1.75rem 1.25rem 2.5rem;
+  }
+
+  .sp-main__content {
+    padding: 1rem;
+  }
+}

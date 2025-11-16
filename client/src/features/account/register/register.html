@@ -1,0 +1,197 @@
+<div class="login-page">
+  <div class="login-card">
+    <div class="brand">
+      <img src="/logo1.png" alt="FestivaZ" width="110" />
+      <h1 class="title">Create your account</h1>
+      <p class="subtitle">Join FestivaZ and start planning.</p>
+    </div>
+
+    <form (ngSubmit)="register()" class="login-form">
+      <div class="form-grid">
+        <label class="field">
+          <span class="field-label">Email</span>
+          <span class="field-control">
+            <span class="field-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M2 6.75A2.75 2.75 0 0 1 4.75 4h14.5A2.75 2.75 0 0 1 22 6.75v10.5A2.75 2.75 0 0 1 19.25 20H4.75A2.75 2.75 0 0 1 2 17.25Zm1.5 0v.26l8.5 5.11 8.5-5.1V6.75a1.25 1.25 0 0 0-1.25-1.25H4.75A1.25 1.25 0 0 0 3.5 6.75Zm17 2.65-7.88 4.74a.75.75 0 0 1-.74 0L4 9.4V17.2a1.25 1.25 0 0 0 1.25 1.25h13.5A1.25 1.25 0 0 0 20.5 17.2Z" fill="currentColor" />
+              </svg>
+            </span>
+            <input name="email" [(ngModel)]="creds.email" type="email" placeholder="you@example.com" required />
+          </span>
+          <span *ngIf="!creds.email && errorMsg" class="field-error">Email is required</span>
+          <span *ngIf="emailInvalid && errorMsg" class="field-error">Enter a valid email</span>
+        </label>
+
+        
+
+        <label class="field">
+          <span class="field-label">Customer name</span>
+          <span class="field-control">
+            <span class="field-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm-7 7.25A7.25 7.25 0 0 1 12 12.5a7.25 7.25 0 0 1 7 6.75v.25H5Z" fill="currentColor" />
+              </svg>
+            </span>
+            <input name="customerName" [(ngModel)]="creds.customerName" type="text" placeholder="Full name" required />
+          </span>
+          <span *ngIf="!creds.customerName && errorMsg" class="field-error">Customer name is required</span>
+        </label>
+
+        <label class="field">
+          <span class="field-label">Customer phone</span>
+          <span class="field-control">
+            <span class="field-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6.62 10.79a15.91 15.91 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24 12.36 12.36 0 0 0 3.88.62 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1 17 17 0 0 1-17-17 1 1 0 0 1 1-1h2.44a1 1 0 0 1 1 1 12.36 12.36 0 0 0 .62 3.88 1 1 0 0 1-.24 1.01Z" fill="currentColor" />
+              </svg>
+            </span>
+            <input name="customerPhone" [(ngModel)]="creds.customerPhone" type="tel" placeholder="+123456789" required />
+          </span>
+          <span *ngIf="!creds.customerPhone && errorMsg" class="field-error">Customer phone is required</span>
+          <span *ngIf="phoneInvalid && errorMsg" class="field-error">Phone must be E.164 format</span>
+        </label>
+
+        <label class="field">
+          <span class="field-label">Customer email </span>
+          <span class="field-control">
+            <span class="field-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M2 6.75A2.75 2.75 0 0 1 4.75 4h14.5A2.75 2.75 0 0 1 22 6.75v10.5A2.75 2.75 0 0 1 19.25 20H4.75A2.75 2.75 0 0 1 2 17.25Zm1.5 0v.26l8.5 5.11 8.5-5.1V6.75a1.25 1.25 0 0 0-1.25-1.25H4.75A1.25 1.25 0 0 0 3.5 6.75Zm17 2.65-7.88 4.74a.75.75 0 0 1-.74 0L4 9.4V17.2a1.25 1.25 0 0 0 1.25 1.25h13.5A1.25 1.25 0 0 0 20.5 17.2Z" fill="currentColor" />
+              </svg>
+            </span>
+            <input name="customerEmail" [(ngModel)]="creds.customerEmail" type="email" placeholder="customer@example.com" />
+          </span>
+        </label>        
+        <label class="field">
+          <span class="field-label">Password</span>
+          <span class="field-control">
+            <span class="field-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M17.25 9.5h-.75V6.75a4.5 4.5 0 1 0-9 0V9.5H6.75A2.75 2.75 0 0 0 4 12.25v6A2.75 2.75 0 0 0 6.75 21h10.5A2.75 2.75 0 0 0 20 18.25v-6A2.75 2.75 0 0 0 17.25 9.5Zm-8.25-2.75a3 3 0 0 1 6 0V9.5h-6Zm9 11.5a1.25 1.25 0 0 1-1.25 1.25H6.75A1.25 1.25 0 0 1 5.5 18.25v-6A1.25 1.25 0 0 1 6.75 11h10.5a1.25 1.25 0 0 1 1.25 1.25Z" fill="currentColor" />
+              </svg>
+            </span>
+            <input name="password" [(ngModel)]="creds.password" [type]="showPassword ? 'text' : 'password'" placeholder="Password" required />
+            <button type="button" class="field-toggle" (click)="showPassword = !showPassword" [attr.aria-pressed]="showPassword">
+              <svg *ngIf="!showPassword" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 5C6.75 5 2.73 8.11 1 12c1.73 3.89 5.75 7 11 7s9.27-3.11 11-7c-1.73-3.89-5.75-7-11-7Zm0 11.5A4.5 4.5 0 1 1 16.5 12 4.5 4.5 0 0 1 12 16.5Zm0-7A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5Z" fill="currentColor" />
+              </svg>
+              <svg *ngIf="showPassword" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m5.47 4.22 14.31 14.3-1.06 1.07-2.09-2.09A11.19 11.19 0 0 1 12 19c-5.25 0-9.27-3.11-11-7a11.64 11.64 0 0 1 4.11-4.86L4.4 5.28Zm6.53 4.03a4.5 4.5 0 0 1 4.5 4.5 4.45 4.45 0 0 1-.47 2l-6-6a4.45 4.45 0 0 1 2-.47Zm-7 4.5a1.25 1.25 0 0 0 0 .5c1.39 3.1 4.78 5.75 9 5.75a9.56 9.56 0 0 0 3.13-.53l-1.55-1.55a4.5 4.5 0 0 1-5.84-5.84l-1.71-1.71A9.46 9.46 0 0 0 5.5 12.75Z" fill="currentColor" />
+              </svg>
+            </button>
+          </span>
+          <span *ngIf="!creds.password && errorMsg" class="field-error">Password is required</span>
+          <span *ngIf="creds.password && creds.password.length < 6 && errorMsg" class="field-error">Minimum 6 characters</span>
+        </label>
+<label class="field">
+          <span class="field-label">Confirm password</span>
+          <span class="field-control">
+            <span class="field-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M17.25 9.5h-.75V6.75a4.5 4.5 0 1 0-9 0V9.5H6.75A2.75 2.75 0 0 0 4 12.25v6A2.75 2.75 0 0 0 6.75 21h10.5A2.75 2.75 0 0 0 20 18.25v-6A2.75 2.75 0 0 0 17.25 9.5Zm-8.25-2.75a3 3 0 0 1 6 0V9.5h-6Zm9 11.5a1.25 1.25 0 0 1-1.25 1.25H6.75A1.25 1.25 0 0 1 5.5 18.25v-6A1.25 1.25 0 0 1 6.75 11h10.5a1.25 1.25 0 0 1 1.25 1.25Z" fill="currentColor" />
+              </svg>
+            </span>
+            <input name="confirmPassword" [(ngModel)]="confirmPassword" [type]="showConfirmPassword ? 'text' : 'password'" placeholder="Re-enter password" required />
+            <button type="button" class="field-toggle" (click)="showConfirmPassword = !showConfirmPassword" [attr.aria-pressed]="showConfirmPassword">
+              <svg *ngIf="!showConfirmPassword" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 5C6.75 5 2.73 8.11 1 12c1.73 3.89 5.75 7 11 7s9.27-3.11 11-7c-1.73-3.89-5.75-7-11-7Zm0 11.5A4.5 4.5 0 1 1 16.5 12 4.5 4.5 0 0 1 12 16.5Zm0-7A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5Z" fill="currentColor" />
+              </svg>
+              <svg *ngIf="showConfirmPassword" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m5.47 4.22 14.31 14.3-1.06 1.07-2.09-2.09A11.19 11.19 0 0 1 12 19c-5.25 0-9.27-3.11-11-7a11.64 11.64 0 0 1 4.11-4.86L4.4 5.28Zm6.53 4.03a4.5 4.5 0 0 1 4.5 4.5 4.45 4.45 0 0 1-.47 2l-6-6a4.45 4.45 0 0 1 2-.47Zm-7 4.5a1.25 1.25 0 0 0 0 .5c1.39 3.1 4.78 5.75 9 5.75a9.56 9.56 0 0 0 3.13-.53l-1.55-1.55a4.5 4.5 0 0 1-5.84-5.84l-1.71-1.71A9.46 9.46 0 0 0 5.5 12.75Z" fill="currentColor" />
+              </svg>
+            </button>
+          </span>
+          <span *ngIf="!confirmPassword && errorMsg" class="field-error">Confirm your password</span>
+          <span *ngIf="confirmPassword && creds.password !== confirmPassword && errorMsg" class="field-error">Passwords must match</span>
+        </label>
+        <label class="field span-2">
+          <span class="field-label">Address line 1</span>
+          <span class="field-control">
+            <span class="field-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 3 9v11a2 2 0 0 0 2 2h5v-7h4v7h5a2 2 0 0 0 2-2V9Z" fill="currentColor"/></svg>
+            </span>
+            <input name="addressLine1" [(ngModel)]="creds.addressLine1" type="text" placeholder="Street address" />
+          </span>
+        </label>
+
+        <label class="field span-2">
+          <span class="field-label">Address line 2</span>
+          <span class="field-control">
+            <span class="field-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-6v-7H10v7H4a1 1 0 0 1-1-1Z" fill="currentColor"/></svg>
+            </span>
+            <input name="addressLine2" [(ngModel)]="creds.addressLine2" type="text" placeholder="Apartment, suite, etc." />
+          </span>
+        </label>
+
+        <label class="field">
+          <span class="field-label">City</span>
+          <span class="field-control">
+            <span class="field-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 22h16v-2H4Zm2-4h12V4H6Z" fill="currentColor"/></svg>
+            </span>
+            <input name="city" [(ngModel)]="creds.city" type="text" placeholder="City" />
+          </span>
+        </label>
+
+        <label class="field">
+          <span class="field-label">District</span>
+          <span class="field-control">
+            <span class="field-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13H3Z" fill="currentColor"/></svg>
+            </span>
+            <input name="district" [(ngModel)]="creds.district" type="text" placeholder="District" />
+          </span>
+        </label>
+
+        <label class="field">
+          <span class="field-label">Postal code</span>
+          <span class="field-control">
+            <span class="field-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7H4V5h16v2Zm-2 4H6v8h12v-8Z" fill="currentColor"/></svg>
+            </span>
+            <input name="postalCode" [(ngModel)]="creds.postalCode" type="text" placeholder="Postal code" />
+          </span>
+        </label>
+
+        <label class="field">
+          <span class="field-label">Country</span>
+          <span class="field-control">
+            <span class="field-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z" fill="currentColor"/></svg>
+            </span>
+            <input name="country" [(ngModel)]="creds.country" type="text" placeholder="Country" />
+          </span>
+        </label>
+
+        <label class="field">
+          <span class="field-label">Date of birth</span>
+          <span class="field-control">
+            <span class="field-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h2v2h6V3h2v2h3v16H4V5h3Zm13 7H6v8h14v-8Z" fill="currentColor"/></svg>
+            </span>
+            <input name="dateOfBirth" [(ngModel)]="creds.dateOfBirth" type="date" />
+          </span>
+        </label>
+      </div>
+
+      <div *ngIf="errorMsg" class="form-error">{{ errorMsg }}</div>
+
+      <button type="submit" class="primary-btn" [disabled]="loading">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm-7 7.25A7.25 7.25 0 0 1 12 12.5a7.25 7.25 0 0 1 7 6.75v.25H5Z" fill="currentColor" />
+        </svg>
+        {{ loading ? 'Creating account...' : 'Create Account' }}
+      </button>
+
+      <div class="footer">
+        <a href="#" (click)="$event.preventDefault(); cancel()" class="footer-link">Back</a>
+        <span>Already have an account?</span>
+        <a routerLink="/login" class="footer-link">Sign in</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+

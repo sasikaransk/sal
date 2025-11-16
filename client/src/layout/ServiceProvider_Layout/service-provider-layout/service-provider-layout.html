@@ -1,0 +1,62 @@
+<app-header />
+
+<section class="sp-layout">
+  <aside class="sp-sidebar">
+    <div class="sp-sidebar__profile">
+      <div class="sp-avatar">
+        <span>AR</span>
+      </div>
+      <div>
+        <p class="sp-label">Aurora Rituals Studio</p>
+        <p class="sp-subtle">Signature Wedding Stylists</p>
+      </div>
+    </div>
+
+    <div class="sp-sidebar__metrics">
+      <div *ngFor="let badge of badges" class="sp-chip">
+        <span class="sp-chip__label">{{ badge.label }}</span>
+        <span class="sp-chip__value">{{ badge.value }}</span>
+      </div>
+    </div>
+
+    <nav class="sp-sidebar__nav" aria-label="Service provider navigation">
+      <a
+        *ngFor="let link of sidebarLinks"
+        [routerLink]="link.path"
+        routerLinkActive="active"
+        class="sp-nav-link"
+      >
+        <span class="sp-nav-link__icon" aria-hidden="true">
+          {{ link.icon | slice:0:1 }}
+        </span>
+        <span>{{ link.label }}</span>
+      </a>
+    </nav>
+
+    <div class="sp-sidebar__cta">
+      <p>Need support with a client or payout?</p>
+      <button type="button">Talk to Concierge</button>
+    </div>
+  </aside>
+
+  <main class="sp-main">
+    <header class="sp-main__header">
+      <div>
+        <p class="sp-label">Welcome back</p>
+        <h1>Bring the FestivaZ signature to your next event.</h1>
+      </div>
+      <div class="sp-main__notes">
+        <p *ngFor="let note of spotlightNotes">
+          {{ note }}
+        </p>
+      </div>
+    </header>
+
+    <section class="sp-main__content">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</section>
+
+<!-- Global Chatbot -->
+<app-chatbot></app-chatbot>

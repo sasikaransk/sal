@@ -1,0 +1,313 @@
+﻿<div class="booking-page">
+  <div *ngIf="toastMessage()" class="booking-toast">
+    {{ toastMessage() }}
+  </div>
+
+  <section class="hero" [style.background-image]="heroBackground()">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-copy">
+        <p class="hero-eyebrow">Festivaz Booking Journey</p>
+        <h1>
+          Complete your booking with
+          <span>{{ provider()?.name ?? 'our curated partner' }}</span>
+        </h1>
+        <p class="hero-description">
+          {{ provider()?.category ?? 'Luxury celebrations' }} ·
+          {{ provider()?.city ?? 'Pan-India' }} · Seamless concierge-backed execution from enquiry to celebration.
+        </p>
+        <div class="hero-stats">
+          <div class="stat" title="Average rating">
+            <p class="label">Rating</p>
+            <p class="value">{{ provider()?.rating ?? '4.9' }}</p>
+            <span>{{ provider()?.reviews ?? 120 }} verified reviews</span>
+          </div>
+          <div class="stat" title="Curated category">
+            <p class="label">Category</p>
+            <p class="value">{{ provider()?.category ?? 'Luxury Weddings' }}</p>
+            <span>{{ provider()?.city ?? 'Across India' }}</span>
+          </div>
+          <div class="stat" title="Trusted concierge">
+            <p class="label">Concierge</p>
+            <p class="value">Under 12 hrs</p>
+            <span>Response & onboard</span>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <button type="button" class="cta" (click)="focusOnPayment()">Confirm Booking</button>
+          <button type="button" class="ghost" (click)="goBackToProfile()">Back to Profile</button>
+        </div>
+      </div>
+      <div class="hero-card" *ngIf="highlightedPackage() as selectedPackage">
+        <p class="badge">{{ selectedPackage.badge }}</p>
+        <h3>{{ selectedPackage.title }}</h3>
+        <p class="card-copy">{{ selectedPackage.description }}</p>
+        <div class="hero-card-price">₹{{ selectedPackage.price | number: '1.0-0' }}</div>
+        <button type="button" class="ghost-light" (click)="setActiveStep(0)">Review details</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="stepper-card">
+    <div class="stepper-progress">
+      <div class="progress-bar">
+        <div class="progress-value" [style.width.%]="progressPercent()"></div>
+      </div>
+      <span>{{ progressPercent() }}% Journey Complete</span>
+    </div>
+    <div class="step-items">
+      <div
+        class="step-item"
+        *ngFor="let step of steps; let i = index"
+        [class.active]="i === selectedStep()"
+        [class.completed]="i < selectedStep()"
+        (click)="setActiveStep(i)"
+      >
+        <div class="step-number">{{ i + 1 }}</div>
+        <div class="step-copy">
+          <p class="step-title">{{ step }}</p>
+          <p class="step-description">{{ stepDescriptions[i] }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ng-container *ngIf="!loading(); else loadingState">
+    <div class="booking-layout">
+      <div class="primary-column">
+        <section class="card booking-details" id="details">
+          <div class="card-header">
+            <div>
+              <p class="eyebrow">Booking Details</p>
+              <h2>{{ highlightedPackage()?.title ?? 'Select a package' }}</h2>
+            </div>
+            <span class="pill" *ngIf="activeCustomPackage()">Custom Crafted</span>
+          </div>
+          <p class="card-summary" *ngIf="highlightedPackage() as summary">{{ summary.description }}</p>
+          <div class="package-services" *ngIf="activeCustomPackage() as custom">
+            <div class="service-pill" *ngFor="let service of custom.services">{{ service }}</div>
+          </div>
+          <div class="package-price" *ngIf="highlightedPackage() as priceBlock">
+            <div>
+              <p class="label">Total Package</p>
+              <p class="value">₹{{ priceBlock.price | number: '1.0-0' }}</p>
+            </div>
+            <button type="button" class="ghost" (click)="focusOnPayment()">Proceed</button>
+          </div>
+          <div class="inline-grid">
+            <div>
+              <p class="label">Event City</p>
+              <p class="value">{{ requirementsForm.value.eventCity || provider()?.city || 'Add city' }}</p>
+            </div>
+            <div>
+              <p class="label">Guest Count</p>
+              <p class="value">{{ requirementsForm.value.guestCount || 150 }} guests</p>
+            </div>
+            <div>
+              <p class="label">Event Date</p>
+              <p class="value">{{ requirementsForm.value.eventDate || 'Select date' }}</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="card special-requirements">
+          <div class="card-header">
+            <div>
+              <p class="eyebrow">Special Requirements</p>
+              <h2>Share finishing touches</h2>
+            </div>
+            <span class="hint">We pass every note to the concierge & provider</span>
+          </div>
+          <form [formGroup]="requirementsForm" class="requirements-form">
+            <div class="form-grid">
+              <label>
+                <span>Event Date</span>
+                <input type="date" formControlName="eventDate" />
+              </label>
+              <label>
+                <span>Event City</span>
+                <input type="text" placeholder="e.g., Udaipur" formControlName="eventCity" />
+              </label>
+              <label>
+                <span>Guest Count</span>
+                <input type="number" min="25" formControlName="guestCount" />
+                <small *ngIf="requirementsForm.get('guestCount')?.invalid && requirementsForm.get('guestCount')?.touched">
+                  Minimum 25 guests required for concierge planning.
+                </small>
+              </label>
+              <label>
+                <span>Inspiration Link (optional)</span>
+                <input type="url" placeholder="Pinterest, Drive, or website" formControlName="inspirationLink" />
+              </label>
+            </div>
+            <label class="textarea-field">
+              <span>Special Requirements</span>
+              <textarea
+                rows="5"
+                placeholder="Share rituals, service notes, or sensory cues (music, florals, timelines)."
+                formControlName="requirements"
+              ></textarea>
+            </label>
+          </form>
+          <div class="requirement-hints">
+            <p>Need inspiration?</p>
+            <div class="hints">
+              <span *ngFor="let hint of requirementHints">{{ hint }}</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="card payment" id="payment-section">
+          <div class="card-header">
+            <div>
+              <p class="eyebrow">Payment</p>
+              <h2>Secure your booking</h2>
+            </div>
+            <p class="hint">Select a method · encrypted checkout · PCI compliant</p>
+          </div>
+
+          <div class="payment-options">
+            <button
+              type="button"
+              class="payment-option"
+              *ngFor="let option of paymentOptions"
+              [class.active]="paymentMethod() === option.id"
+              (click)="onPaymentOptionSelect(option.id)"
+            >
+              <span>{{ option.label }}</span>
+              <small>{{ option.caption }}</small>
+            </button>
+          </div>
+
+          <form [formGroup]="paymentForm" class="payment-form">
+            <ng-container [ngSwitch]="paymentMethod()">
+              <div *ngSwitchCase="'card'" class="form-grid">
+                <label>
+                  <span>Cardholder Name</span>
+                  <input type="text" formControlName="cardholder" placeholder="As seen on card" />
+                  <small *ngIf="paymentForm.get('cardholder')?.invalid && paymentForm.get('cardholder')?.touched">
+                    Name is required for card payments.
+                  </small>
+                </label>
+                <label>
+                  <span>Card Number</span>
+                  <input type="text" formControlName="cardNumber" placeholder="0000 0000 0000 0000" maxlength="23" />
+                  <small *ngIf="paymentForm.get('cardNumber')?.invalid && paymentForm.get('cardNumber')?.touched">
+                    Enter a valid card number.
+                  </small>
+                </label>
+                <label>
+                  <span>Expiry (MM/YY)</span>
+                  <input type="text" formControlName="expiry" placeholder="08/27" maxlength="5" />
+                </label>
+                <label>
+                  <span>CVV</span>
+                  <input type="password" formControlName="cvv" placeholder="123" maxlength="4" />
+                </label>
+              </div>
+
+              <div *ngSwitchCase="'upi'" class="single-field">
+                <label>
+                  <span>UPI ID</span>
+                  <input type="text" formControlName="upiId" placeholder="name@bank" />
+                  <small *ngIf="paymentForm.get('upiId')?.invalid && paymentForm.get('upiId')?.touched">
+                    Add a valid UPI handle.
+                  </small>
+                </label>
+                <p class="note">You will be redirected to your UPI app to approve the payment.</p>
+              </div>
+
+              <div *ngSwitchDefault class="single-field">
+                <label>
+                  <span>Reference ID</span>
+                  <input type="text" formControlName="referenceId" placeholder="NEFT/RTGS reference" />
+                  <small *ngIf="paymentForm.get('referenceId')?.invalid && paymentForm.get('referenceId')?.touched">
+                    Enter the 8-18 character transaction reference.
+                  </small>
+                </label>
+                <p class="note">
+                  Bank coordinates will be shared instantly. Use the reference code after completing your transfer.
+                </p>
+              </div>
+            </ng-container>
+
+            <label class="policy">
+              <input type="checkbox" formControlName="acceptPolicy" />
+              <span>I approve Festivaz to share these details with the provider & accept the booking terms.</span>
+            </label>
+            <label class="policy">
+              <input type="checkbox" formControlName="savePayment" />
+              <span>Save this method for upcoming rituals & milestone events.</span>
+            </label>
+
+            <button type="button" class="cta" (click)="confirmBooking()">
+              Confirm Booking · ₹{{ priceBreakdown().total | number: '1.0-0' }}
+            </button>
+          </form>
+        </section>
+      </div>
+
+      <aside class="secondary-column">
+        <section class="summary-card">
+          <div class="card-header">
+            <div>
+              <p class="eyebrow">Investment Summary</p>
+              <h2>Transparent pricing</h2>
+            </div>
+          </div>
+          <ul class="price-breakdown">
+            <li>
+              <span>Selected package</span>
+              <strong>₹{{ priceBreakdown().base | number: '1.0-0' }}</strong>
+            </li>
+            <li>
+              <span>Concierge assurance</span>
+              <strong>₹{{ priceBreakdown().concierge | number: '1.0-0' }}</strong>
+            </li>
+            <li>
+              <span>Secure payment & trust fee</span>
+              <strong>₹{{ priceBreakdown().serviceFee | number: '1.0-0' }}</strong>
+            </li>
+          </ul>
+          <div class="total-line">
+            <span>Total</span>
+            <strong>₹{{ priceBreakdown().total | number: '1.0-0' }}</strong>
+          </div>
+          <p class="note">Includes concierge onboarding, trust badge, and 24/7 event support.</p>
+        </section>
+
+        <section class="summary-card trust">
+          <div class="card-header">
+            <div>
+              <p class="eyebrow">Trust Signals</p>
+              <h2>Why Festivaz</h2>
+            </div>
+          </div>
+          <ul>
+            <li *ngFor="let signal of trustSignals">
+              <span>{{ signal.label }}</span>
+              <strong>{{ signal.value }}</strong>
+            </li>
+          </ul>
+        </section>
+
+        <section class="summary-card support">
+          <h3>Need a hand?</h3>
+          <p>Concierge team replies under 12 minutes between 8am–midnight IST.</p>
+          <button type="button" class="ghost" (click)="setActiveStep(1)">Chat with concierge</button>
+          <div class="links">
+            <a routerLink="/customer/dashboard">Contact Support</a>
+            <a routerLink="/customer/dashboard">Terms & Conditions</a>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </ng-container>
+
+  <ng-template #loadingState>
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>We are preparing your booking canvas...</p>
+    </div>
+  </ng-template>
+</div>

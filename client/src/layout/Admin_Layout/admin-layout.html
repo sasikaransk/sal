@@ -1,0 +1,294 @@
+<div class="flex min-h-screen bg-slate-100 text-slate-700">
+  <aside class="hidden w-64 flex-col border-r border-slate-200 bg-white lg:flex lg:sticky lg:top-0 lg:h-screen">
+    <div class="flex items-center gap-3 px-6 py-6">
+      <div class="flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-lg font-semibold text-indigo-600">
+        <i class="fa fa-heart" style="font: size 10px;color:red"></i>
+      </div>
+      <div>
+        <p class="text-lg font-semibold text-slate-900">FESTIVAZ</p>
+      </div>
+    </div>
+    <nav class="flex-1 space-y-1 overflow-y-auto px-3 pb-4">
+      <a
+        *ngFor="let item of navItems"
+        [routerLink]="item.path"
+        routerLinkActive="bg-indigo-50 text-indigo-600"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="closeProfileMenu()"
+        class="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-600 transition-all hover:bg-indigo-50 hover:text-indigo-600"
+      >
+        <span class="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white text-indigo-500">
+          <ng-container [ngSwitch]="item.icon">
+            <svg *ngSwitchCase="'dashboard'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="11" width="3" height="7" rx="1"></rect>
+              <rect x="10" y="7" width="3" height="11" rx="1"></rect>
+              <rect x="16" y="13" width="3" height="5" rx="1"></rect>
+            </svg>
+            <svg *ngSwitchCase="'users'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="9" r="3"></circle>
+              <circle cx="16" cy="11" r="3"></circle>
+              <path d="M3 20c1.5-3 5-5 8-5"></path>
+              <path d="M13 15c3 0 6.5 2 8 5"></path>
+            </svg>
+            <svg *ngSwitchCase="'shield'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3l7 3v6c0 5-4 7-7 9-3-2-7-4-7-9V6l7-3z"></path>
+            </svg>
+            <svg *ngSwitchCase="'staff'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="3"></circle>
+              <path d="M4 20c1.5-3 5-5 8-5s6.5 2 8 5"></path>
+            </svg>
+            <svg *ngSwitchCase="'customer'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="3"></circle>
+              <path d="M5 20c1.5-3 4.5-5 7-5s5.5 2 7 5"></path>
+            </svg>
+            <svg *ngSwitchCase="'credit-card'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="6" width="18" height="12" rx="2"></rect>
+              <path d="M3 10h18"></path>
+            </svg>
+            <svg *ngSwitchCase="'calendar'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="5" width="16" height="15" rx="2"></rect>
+              <path d="M8 3v4M16 3v4M4 10h16"></path>
+            </svg>
+            <svg *ngSwitchCase="'photo'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="6" width="16" height="12" rx="2"></rect>
+              <circle cx="9" cy="12" r="2"></circle>
+              <path d="M21 16l-4-4-3 3-2-2-4 4"></path>
+            </svg>
+            <svg *ngSwitchCase="'tag'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 12l-8 8-8-8V4h8l8 8z"></path>
+              <circle cx="9" cy="9" r="1.5"></circle>
+            </svg>
+            <svg *ngSwitchCase="'briefcase'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="7" width="16" height="11" rx="2"></rect>
+              <path d="M9 7V5h6v2"></path>
+              <path d="M4 12h16"></path>
+            </svg>
+            <svg *ngSwitchCase="'link'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 13a4 4 0 000-6L8 5a4 4 0 00-6 6l2 2"></path>
+              <path d="M14 11a4 4 0 006 6l2-2a4 4 0 00-6-6l-2 2"></path>
+            </svg>
+            <svg *ngSwitchCase="'question'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M9.5 9a2.5 2.5 0 015 0c0 2-2.5 2-2.5 4"></path>
+              <circle cx="12" cy="17" r="1"></circle>
+            </svg>
+            <svg *ngSwitchCase="'gift'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="8" width="16" height="12" rx="2"></rect>
+              <path d="M12 8v12"></path>
+              <path d="M4 12h16"></path>
+              <path d="M7 8c0-2 3-2 5 0 2-2 5-2 5 0"></path>
+            </svg>
+            <span *ngSwitchDefault class="text-xs font-semibold uppercase">{{ item.initials }}</span>
+          </ng-container>
+        </span>
+        <span>{{ item.label }}</span>
+      </a>
+    </nav>
+    <button
+      class="m-3 flex items-center gap-3 rounded-xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-500 transition hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600"
+      type="button"
+      (click)="logout()"
+    >
+      <span class="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white text-rose-500">
+        <svg
+          class="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.6"
+          viewBox="0 0 24 24"
+        >
+          <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"></path>
+        </svg>
+      </span>
+      Logout
+    </button>
+  </aside>
+
+  <div class="flex w-full flex-1 min-h-0 flex-col">
+    <header class="flex flex-col gap-4 border-b border-slate-200 bg-white px-4 py-4 sm:px-6">
+      <div class="flex items-center gap-2 text-lg font-semibold text-slate-900">
+        <button type="button" class="lg:hidden rounded-md p-2 text-slate-500 hover:bg-slate-100" (click)="toggleMobileMenu()" aria-label="Open menu">
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <span class="truncate">{{ currentSection() }}</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-3 md:gap-4">
+        <div class="relative flex w-full min-w-0 items-center md:w-72 md:flex-none">
+          <span class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-slate-400">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24">
+              <path d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z" />
+            </svg>
+          </span>
+          <input
+            class="w-full rounded-full border border-slate-200 bg-slate-50 py-2 pl-10 pr-4 text-sm text-slate-600 placeholder-slate-400 focus:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-100"
+            placeholder="Search..."
+            type="search"
+          />
+        </div>
+        <div class="flex flex-1 flex-wrap items-center justify-end gap-2 sm:gap-3">
+          <button class="rounded-full border border-slate-200 bg-white p-2 text-slate-400 transition hover:text-indigo-500" type="button">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24">
+              <path d="M15 17H9m10 0l-1.405-4.215A2 2 0 0016.683 11H16V9a4 4 0 00-8 0v2h-.683a2 2 0 00-1.912 1.307L4 17h5m3 4a2 2 0 002-2h-4a2 2 0 002 2z" />
+            </svg>
+          </button>
+          <button class="rounded-full border border-slate-200 bg-white p-2 text-slate-400 transition hover:text-indigo-500" type="button">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24">
+              <path d="M12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" />
+              <path
+                d="M19.428 12a7.428 7.428 0 00-.098-1.152l2.119-1.655-1.732-3-2.49.618a7.505 7.505 0 00-1.6-1.6l.618-2.49-3-1.732-1.655 2.119A7.428 7.428 0 0012 4.572c-.393 0-.777.033-1.152.098L9.193 2.551l-3 1.732.618 2.49a7.505 7.505 0 00-1.6 1.6l-2.49-.618-1.732 3 2.119 1.655A7.428 7.428 0 004.572 12c0 .393.033.777.098 1.152l-2.119 1.655 1.732 3 2.49-.618a7.505 7.505 0 001.6 1.6l-.618 2.49 3 1.732 1.655-2.119c.375.064.759.098 1.152.098s.777-.033 1.152-.098l1.655 2.119 3-1.732-.618-2.49a7.505 7.505 0 001.6-1.6l2.49.618 1.732-3-2.119-1.655c.064-.375.098-.759.098-1.152z"
+              />
+            </svg>
+          </button>
+          <div class="relative">
+            <button
+              class="flex items-center gap-3 rounded-full border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-indigo-50 hover:text-indigo-600"
+              type="button"
+              (click)="toggleProfileMenu()"
+            >
+              <span class="flex h-10 w-10 items-center justify-center rounded-full bg-slate-200 text-base font-semibold text-slate-700">
+                A
+              </span>
+              <span class="text-left leading-tight">
+                <span class="block text-sm font-semibold text-slate-800">Admin</span>
+                <span class="block text-xs text-slate-400">Administrator</span>
+              </span>
+              <svg class="h-4 w-4 text-slate-400" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24">
+                <path d="M6 9l6 6 6-6"></path>
+              </svg>
+            </button>
+            <div
+              *ngIf="isProfileMenuOpen()"
+              class="absolute right-0 mt-2 w-44 rounded-xl border border-slate-200 bg-white py-2 text-sm text-slate-600 shadow-lg"
+            >
+              <a class="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-600" href="javascript:void(0)" (click)="closeProfileMenu()">Profile</a>
+              <a class="block px-4 py-2 hover:bg-indigo-50 hover:text-indigo-600" href="javascript:void(0)" (click)="closeProfileMenu()">Settings</a>
+              <a class="block px-4 py-2 hover:bg-rose-50 hover:text-rose-600" href="javascript:void(0)" (click)="logout()">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main class="flex-1 min-h-0 overflow-y-auto bg-slate-50">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
+
+  <!-- Global Chatbot -->
+  <app-chatbot></app-chatbot>
+<!-- Mobile off-canvas sidebar -->
+<div *ngIf="isMobileMenuOpen()" class="fixed inset-0 z-50 flex lg:hidden">
+  <div class="fixed inset-0 bg-black/30" (click)="closeMobileMenu()" aria-hidden="true"></div>
+  <div class="relative ml-0 flex h-full w-72 max-w-[80vw] translate-x-0 flex-col bg-white shadow-xl">
+    <div class="flex items-center justify-between border-b border-slate-200 px-4 py-4">
+      <p class="font-semibold text-slate-900">FESTIVAZ</p>
+      <button type="button" class="rounded-md p-2 text-slate-500 hover:bg-slate-100" (click)="closeMobileMenu()" aria-label="Close menu">
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 6l12 12M6 18L18 6" />
+        </svg>
+      </button>
+    </div>
+    <nav class="flex-1 space-y-1 overflow-y-auto p-3">
+      <a
+        *ngFor="let item of navItems"
+        [routerLink]="item.path"
+        routerLinkActive="bg-indigo-50 text-indigo-600"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="closeMobileMenu()"
+        class="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-600 transition-all hover:bg-indigo-50 hover:text-indigo-600"
+      >
+        <span class="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white text-indigo-500">
+          <ng-container [ngSwitch]="item.icon">
+            <svg *ngSwitchCase="'dashboard'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="11" width="3" height="7" rx="1"></rect>
+              <rect x="10" y="7" width="3" height="11" rx="1"></rect>
+              <rect x="16" y="13" width="3" height="5" rx="1"></rect>
+            </svg>
+            <svg *ngSwitchCase="'users'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="9" r="3"></circle>
+              <circle cx="16" cy="11" r="3"></circle>
+              <path d="M3 20c1.5-3 5-5 8-5"></path>
+              <path d="M13 15c3 0 6.5 2 8 5"></path>
+            </svg>
+            <svg *ngSwitchCase="'shield'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3l7 3v6c0 5-4 7-7 9-3-2-7-4-7-9V6l7-3z"></path>
+            </svg>
+            <svg *ngSwitchCase="'staff'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="3"></circle>
+              <path d="M4 20c1.5-3 5-5 8-5s6.5 2 8 5"></path>
+            </svg>
+            <svg *ngSwitchCase="'customer'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="3"></circle>
+              <path d="M5 20c1.5-3 4.5-5 7-5s5.5 2 7 5"></path>
+            </svg>
+            <svg *ngSwitchCase="'credit-card'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="6" width="18" height="12" rx="2"></rect>
+              <path d="M3 10h18"></path>
+            </svg>
+            <svg *ngSwitchCase="'calendar'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="5" width="16" height="15" rx="2"></rect>
+              <path d="M8 3v4M16 3v4M4 10h16"></path>
+            </svg>
+            <svg *ngSwitchCase="'photo'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="6" width="16" height="12" rx="2"></rect>
+              <circle cx="9" cy="12" r="2"></circle>
+              <path d="M21 16l-4-4-3 3-2-2-4 4"></path>
+            </svg>
+            <svg *ngSwitchCase="'tag'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 12l-8 8-8-8V4h8l8 8z"></path>
+              <circle cx="9" cy="9" r="1.5"></circle>
+            </svg>
+            <svg *ngSwitchCase="'briefcase'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="7" width="16" height="11" rx="2"></rect>
+              <path d="M9 7V5h6v2"></path>
+              <path d="M4 12h16"></path>
+            </svg>
+            <svg *ngSwitchCase="'link'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 13a4 4 0 000-6L8 5a4 4 0 00-6 6l2 2"></path>
+              <path d="M14 11a4 4 0 006 6l2-2a4 4 0 00-6-6l-2 2"></path>
+            </svg>
+            <svg *ngSwitchCase="'question'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M9.5 9a2.5 2.5 0 015 0c0 2-2.5 2-2.5 4"></path>
+              <circle cx="12" cy="17" r="1"></circle>
+            </svg>
+            <svg *ngSwitchCase="'gift'" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="8" width="16" height="12" rx="2"></rect>
+              <path d="M12 8v12"></path>
+              <path d="M4 12h16"></path>
+              <path d="M7 8c0-2 3-2 5 0 2-2 5-2 5 0"></path>
+            </svg>
+            <span *ngSwitchDefault class="text-xs font-semibold uppercase">{{ item.initials }}</span>
+          </ng-container>
+        </span>
+        <span>{{ item.label }}</span>
+      </a>
+    </nav>
+    <div class="border-t border-slate-200 p-3">
+      <button
+        class="flex w-full items-center gap-3 rounded-xl border border-slate-200 px-3 py-2 text-sm font-medium text-slate-500 transition hover:border-rose-200 hover:bg-rose-50 hover:text-rose-600"
+        type="button"
+        (click)="logout()"
+      >
+        <span class="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white text-rose-500">
+          <svg
+            class="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.6"
+            viewBox="0 0 24 24"
+          >
+            <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"></path>
+          </svg>
+        </span>
+        Logout
+      </button>
+    </div>
+  </div>
+</div>

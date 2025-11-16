@@ -1,0 +1,63 @@
+﻿<div class="flex min-h-screen bg-[#FAF9F0] text-[#2F2F2F]">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-[#FFFFFF] border-r border-[#E5E5E5] flex flex-col fixed h-full">
+    <div class="flex items-center justify-center gap-2 h-16 border-b border-[#E5E5E5]">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="#D1B280" viewBox="0 0 24 24" class="w-7 h-7">
+        <path d="M12 2L2 7v6c0 5 4 9 10 9s10-4 10-9V7l-10-5z" />
+      </svg>
+      <span class="font-semibold text-lg uppercase tracking-wide">ThirdParty</span>
+    </div>
+
+    <nav class="flex-1 p-4 text-sm font-medium">
+      <a routerLink="/dashboard" routerLinkActive="text-[#D1B280] bg-[#FAF9F0]" class="block px-4 py-3 rounded-lg hover:bg-[#FAF9F0] transition">🏠 Dashboard</a>
+      <a routerLink="/orders" routerLinkActive="text-[#D1B280] bg-[#FAF9F0]" class="block px-4 py-3 rounded-lg hover:bg-[#FAF9F0] transition">📦 Orders</a>
+      <a routerLink="/profile" routerLinkActive="text-[#D1B280] bg-[#FAF9F0]" class="block px-4 py-3 rounded-lg hover:bg-[#FAF9F0] transition">👤 Profile</a>
+      <a routerLink="/settings" routerLinkActive="text-[#D1B280] bg-[#FAF9F0]" class="block px-4 py-3 rounded-lg hover:bg-[#FAF9F0] transition">⚙️ Settings</a>
+    </nav>
+
+    <div class="border-t border-[#E5E5E5] p-4 text-center">
+      <button class="w-full py-2 rounded-lg font-semibold text-[#2F2F2F] hover:text-[#D1B280] transition">
+        Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="flex-1 ml-64 flex flex-col min-h-screen">
+
+    <!-- Top Bar -->
+    <header class="flex items-center justify-between h-16 bg-[#FFFFFF] border-b border-[#E5E5E5] px-6 sticky top-0 z-30 shadow-sm">
+      <h1 class="text-lg font-semibold tracking-wide">Dashboard</h1>
+      <div class="flex items-center gap-4">
+        <button class="relative">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#2F2F2F" viewBox="0 0 24 24" class="w-6 h-6 hover:stroke-[#D1B280] transition">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14V11a6 6 0 10-12 0v3c0 .386-.146.757-.405 1.043L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+          </svg>
+        </button>
+
+        <!-- Profile Icon -->
+        <div class="dropdown dropdown-end">
+          <div tabindex="0" role="button" class="flex items-center gap-2 cursor-pointer">
+            <img src="/user.png" alt="User" class="w-8 h-8 rounded-full border border-[#E5E5E5]" />
+            <span class="text-sm font-medium">User</span>
+          </div>
+          <ul tabindex="0" class="dropdown-content bg-[#FFFFFF] border border-[#E5E5E5] rounded-xl w-44 p-2 shadow-md mt-2">
+            <li><a class="hover:text-[#D1B280]">Edit Profile</a></li>
+            <li><a class="hover:text-[#D1B280]">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="flex-1 p-6">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+</div>
+
+<!-- Global Chatbot -->
+<app-chatbot></app-chatbot>
+

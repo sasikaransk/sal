@@ -1,0 +1,50 @@
+<section class="sp-messages">
+  <aside>
+    <header>
+      <p class="eyebrow">Inbox</p>
+      <h3>Couple conversations</h3>
+    </header>
+    <ul>
+      <li
+        *ngFor="let conversation of conversations"
+        (click)="selectConversation(conversation)"
+        [class.active]="conversation === activeConversation"
+      >
+        <div>
+          <p class="name">{{ conversation.name }}</p>
+          <small>{{ conversation.event }}</small>
+        </div>
+        <div class="status">
+          <span [class.online]="conversation.status === 'online'"></span>
+          <span>{{ conversation.stage }}</span>
+          <strong *ngIf="conversation.unread">{{ conversation.unread }}</strong>
+        </div>
+      </li>
+    </ul>
+  </aside>
+
+  <div class="chat">
+    <header>
+      <div>
+        <p class="name">{{ activeConversation.name }}</p>
+        <small>{{ activeConversation.event }}</small>
+      </div>
+      <span>{{ activeConversation.stage }}</span>
+    </header>
+
+    <div class="thread">
+      <div
+        *ngFor="let message of activeConversation.thread"
+        class="bubble"
+        [class.studio]="message.from === 'studio'"
+      >
+        <p>{{ message.text }}</p>
+        <small>{{ message.time }}</small>
+      </div>
+    </div>
+
+    <div class="quick-replies">
+      <button type="button" *ngFor="let reply of quickReplies">{{ reply }}</button>
+    </div>
+  </div>
+</section>

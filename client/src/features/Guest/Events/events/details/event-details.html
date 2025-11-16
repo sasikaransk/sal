@@ -1,0 +1,133 @@
+<!-- Load fonts (add Bodoni Moda for elegant display H1 while keeping existing styles) -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,700;6..96,900&family=Montserrat:wght@600;800&family=Playfair+Display:wght@700;900&display=swap">
+<section class="event-details" *ngIf="item(); else notFound">
+  <!-- Move the decorative title into the top of the details section to eliminate extra space above -->
+  <div id="weddings">
+    <div class="page-title floral" id="fireworks-wrapper">
+      <canvas #fireworks id="fireworks"></canvas>
+      <!-- decorative florals (placed visually around the title) -->
+      <img src="/Events/floral-card-removebg.png" alt="" aria-hidden="true" class="floral-top">
+  <img src="/Events/floral-corner-arrangement.png" alt="" aria-hidden="true" class="floral-left">
+  <!-- right corner: original decorative floral -->
+  <img src="/Events/floral-removebg.png" alt="" aria-hidden="true" class="floral-right">
+      <h1>{{ item()?.title || 'Event' }}</h1>
+    </div>
+  </div>
+  <header class="hero">
+    <div class="copy">
+      <div class="eyebrow">Event</div>
+      <div class="hero-title-wrap">
+        <h2 class="hero-title">{{ item()?.title || 'Event' }}</h2>
+      </div>
+      <div class="summary">
+        <p>{{ item()?.description }}</p>
+      </div>
+      <div class="tags">
+        @for (t of item()!.tags; track t) {
+          <span class="tag">{{ t }}</span>
+        }
+      </div>
+      <div class="actions">
+        <a [routerLink]="['/create-event']" [queryParams]="{ type: item()!.id }" class="btn-primary">Book Now</a>
+      </div>
+    </div>
+    <div class="media">
+  <img [src]="item()?.image" alt="{{ item()?.title || 'Event image' }}" title="{{ item()?.title || 'Event image' }}" [attr.aria-label]="item()?.title || 'Event image'" loading="lazy" />
+      <div class="stats">
+        <div><strong>{{ item()!.providersCount }}</strong><span>Providers</span></div>
+        <div><strong>{{ item()!.servicesCount }}</strong><span>Services</span></div>
+        <div><strong>{{ item()!.reviewsCount }}</strong><span>Reviews</span></div>
+        <div><strong>{{ item()!.faqsCount }}</strong><span>FAQs</span></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="content">
+    <section class="block">
+      <div class="block-head">
+        <h2>Completed Galleries</h2>
+        <span class="count">{{ galleriesCount() }}</span>
+      </div>
+      <div class="gallery">
+        <!-- Skeleton shimmer while loading -->
+        <div *ngIf="galleryLoading()" class="skeleton-grid">
+          <div *ngFor="let i of [1,2,3,4,5,6]" class="skeleton-card" aria-hidden="true"></div>
+        </div>
+        <div *ngIf="!galleryLoading() && gallery().length === 0" class="empty">No galleries yet for this event.</div>
+        <div *ngIf="!galleryLoading() && gallery().length > 0">
+          @for (g of visibleGallery(); track g) {
+            <img [src]="g" alt="Event gallery image" loading="lazy" />
+          }
+        </div>
+      </div>
+      <div class="actions align-end" *ngIf="gallery().length > 0">
+        <button class="btn-primary" [disabled]="galleryLoading()" (click)="showMore()" *ngIf="visibleGallery().length < gallery().length">Show more ({{ gallery().length - visibleGallery().length }})</button>
+        <button class="btn-primary" [disabled]="galleryLoading()" (click)="showLess()" *ngIf="visibleGallery().length > 6">Show less</button>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <h2>Reviews</h2>
+        <span class="count">{{ item()!.reviewsCount }}</span>
+      </div>
+      <!-- Rating Summary Panel -->
+      <div class="rating-summary" *ngIf="ratingSummary() as rs">
+        <div class="avg">
+          <div class="avg-number">{{ rs.average | number:'1.1-1' }}</div>
+          <div class="avg-stars" aria-label="Average rating {{ rs.average | number:'1.1-1' }} out of 5">
+            @for (s of averageStars(); track $index) {
+              <div class="star" [class.full]="s==='full'" [class.half]="s==='half'" aria-hidden="true"></div>
+            }
+          </div>
+          <div class="total" aria-label="Total reviews">{{ rs.total | number }}</div>
+        </div>
+        <div class="distribution" aria-label="Rating distribution">
+          @for (d of distribution(); track d.stars) {
+            <div class="dist-row" [attr.aria-label]="d.stars + ' star reviews: ' + d.count">
+              <span class="label">{{ d.stars }}★</span>
+              <div class="bar">
+                <div class="fill" [style.width.%]="d.pct"></div>
+              </div>
+              <span class="count">{{ d.count }}</span>
+            </div>
+          }
+        </div>
+        <div class="review-actions">
+          <button class="btn-primary" type="button" (click)="openReviewModal()">Write a Review</button>
+        </div>
+      </div>
+      <div *ngIf="ratingLoading()" class="rating-loading" aria-hidden="true">Loading rating summary...</div>
+      <ul class="reviews" role="list">
+        @for (r of reviews(); track r.author) {
+          <li role="listitem" class="review-card">
+            <div class="avatar" [attr.aria-label]="r.author">{{ initials(r.author) }}</div>
+            <div class="review-main">
+              <div class="review-top">
+                <div class="stars" aria-label="Rating">
+                  @for (s of starsArray(r.rating); track $index) {
+                    <svg [class.filled]="s === 1" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M12 3.31 13.89 8.1l4.97.38-3.78 3.15 1.16 4.88-4.24-2.64-4.24 2.64 1.16-4.88L5.14 8.48l4.97-.38Z"/>
+                    </svg>
+                  }
+                </div>
+                <span class="author">{{ r.author }}</span>
+              </div>
+              <p class="text">“{{ r.text }}”</p>
+            </div>
+          </li>
+        }
+      </ul>
+      <div *ngIf="reviewsLoading()" class="reviews-loading" aria-hidden="true">Loading reviews...</div>
+      <app-add-review *ngIf="showReviewModal()" (cancel)="closeReviewModal()" (submitReview)="handleSubmitReview($event)"></app-add-review>
+    </section>
+
+    <app-faq-section class="block" [eventId]="id()"></app-faq-section>
+  </section>
+</section>
+
+<ng-template #notFound>
+  <section class="event-details">
+    <div class="empty">Event not found.</div>
+  </section>
+</ng-template>

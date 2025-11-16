@@ -1,0 +1,42 @@
+<section class="sp-bookings">
+  <header>
+    <div>
+      <p class="eyebrow">Pipeline view</p>
+      <h2>Each couple gets a crafted moment.</h2>
+    </div>
+    <div class="filter-group">
+      <button
+        type="button"
+        *ngFor="let filter of filters"
+        [class.active]="filter === activeFilter"
+        (click)="setFilter(filter)"
+      >
+        {{ filter }}
+      </button>
+    </div>
+  </header>
+
+  <div class="sp-bookings__summary">
+    <article *ngFor="let item of summary">
+      <p class="eyebrow">{{ item.label }}</p>
+      <h3>{{ item.value }}</h3>
+      <p>{{ item.meta }}</p>
+    </article>
+  </div>
+
+  <div class="sp-bookings__list">
+    <article *ngFor="let booking of bookings" [class]="'status-' + booking.status">
+      <div>
+        <p class="couple">{{ booking.couple }}</p>
+        <p class="service">{{ booking.service }} — {{ booking.city }}</p>
+      </div>
+      <div class="details">
+        <span>{{ booking.stage }}</span>
+        <span>{{ booking.investment }}</span>
+      </div>
+      <div class="date">
+        <strong>{{ booking.date }}</strong>
+      </div>
+    </article>
+  </div>
+</section>

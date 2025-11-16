@@ -1,0 +1,337 @@
+<div
+  class="min-h-screen w-full px-4 py-10 text-[#2F2F2F] sm:px-6 lg:px-8"
+  style="background: linear-gradient(145deg, #FAF9F0 0%, #FFFDF8 100%);"
+>
+  <div class="mx-auto flex max-w-6xl flex-col gap-8">
+    <section
+      class="rounded-[32px] border border-[#E5E5E5] bg-white/90 p-8 shadow-[0_8px_32px_rgba(209,178,128,0.15)] transition-all duration-300 ease-in-out"
+    >
+      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-[#D1B280]">Create Event · Step 2</p>
+      <h1 class="mt-4 text-3xl font-semibold text-[#2F2F2F] md:text-4xl">Select Services</h1>
+      <p class="mt-2 text-base text-[#6C6C6C]">Curate essentials for your celebration.</p>
+
+      <div class="mt-8 flex flex-col gap-5">
+        <div class="flex flex-wrap items-center gap-4">
+          @for (step of progressSteps; track step.step) {
+            <div class="flex items-center gap-4">
+              <span
+                class="flex h-12 w-12 items-center justify-center rounded-full border text-sm font-semibold shadow-[0_8px_24px_rgba(209,178,128,0.15)] transition-all duration-300 ease-in-out"
+                [ngClass]="{
+                  'border-[#D1B280] bg-[#D1B280] text-white': step.status === 'done',
+                  'border-[#D1B280] bg-[#F4EADA] text-[#D1B280]': step.status === 'active',
+                  'border-[#E5E5E5] bg-white text-[#6C6C6C]': step.status === 'upcoming'
+                }"
+                [attr.aria-label]="step.label"
+              >
+                @if (step.status === 'done') {
+                  ✓
+                } @else {
+                  {{ step.step }}
+                }
+              </span>
+              <div class="flex flex-col text-sm font-semibold text-[#6C6C6C]">
+                <span class="text-base text-[#2F2F2F]">{{ step.label }}</span>
+                @if (step.status === 'active') {
+                  <span class="text-xs text-[#D1B280]">In progress</span>
+                }
+              </div>
+            </div>
+            @if (step.step !== progressSteps.length) {
+              <span class="hidden h-px w-12 bg-[#E5E5E5] md:block"></span>
+            }
+          }
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="rounded-[32px] border border-[#E5E5E5] bg-white/95 p-6 shadow-[0_8px_32px_rgba(209,178,128,0.15)] transition-all duration-300 ease-in-out"
+    >
+      <div class="flex flex-col gap-6">
+       <!-- Selected event type display -->
+<div
+class="inline-flex items-center gap-2 rounded-full border border-[#E5E5E5] bg-[#FFF9EF] px-5 py-2 text-sm font-semibold text-[#2F2F2F] shadow-[0_4px_16px_rgba(209,178,128,0.1)]"
+>
+<svg
+  viewBox="0 0 24 24"
+  class="h-5 w-5 text-[#D1B280]"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path
+    d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8Z"
+  />
+</svg>
+<span
+  >You’re planning a
+  <strong class="text-[#D1B280]">{{ eventLabel }}</strong> — here are services perfect for
+  you.</span
+>
+</div>
+
+
+        <form
+          class="flex flex-col gap-3 md:flex-row"
+          (submit)="handleSearchSubmit(searchInput.value, $event)"
+          novalidate
+        >
+          <label for="serviceSearch" class="sr-only">Search services</label>
+          <div class="relative flex-1">
+            <input
+              #searchInput
+              id="serviceSearch"
+              type="search"
+              placeholder="Search services, tags, or descriptions"
+              (input)="setQuery(searchInput.value)"
+              class="w-full rounded-full border border-[#E5E5E5] bg-white py-3 pl-12 pr-4 text-sm text-[#2F2F2F] placeholder:text-[#B0AEA3] shadow-[0_8px_24px_rgba(209,178,128,0.1)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#D1B280]/35"
+            />
+            <svg
+              viewBox="0 0 24 24"
+              class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#D1B280]"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="m21 21-4.35-4.35" />
+            </svg>
+          </div>
+          <button
+            type="submit"
+            class="inline-flex min-h-[48px] items-center justify-center rounded-full bg-[#D1B280] px-6 py-3 text-sm font-semibold text-white shadow-[0_12px_30px_rgba(209,178,128,0.35)] transition-all duration-300 ease-in-out hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#D1B280]/35"
+          >
+            Search
+          </button>
+        </form>
+
+        <div class="rounded-2xl border border-[#E5E5E5] bg-[#FFFBF3] p-4 shadow-[0_12px_30px_rgba(209,178,128,0.15)]">
+          <div class="flex items-start gap-3">
+            <span
+              class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#E5E5E5] bg-white text-[#D1B280]"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                class="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 19v-7" />
+                <path d="M12 5h.01" />
+                <circle cx="12" cy="12" r="9" />
+              </svg>
+            </span>
+            <div class="text-sm text-[#6C6C6C]">
+              <p class="text-base font-semibold text-[#2F2F2F]">Curator tip</p>
+              @switch (activeType()) {
+                @case ('wedding') {
+                  <p>Secure venues, photography, and decor first&mdash;they book fast for peak wedding weekends.</p>
+                }
+                @case ('birthday') {
+                  <p>Blend catering with music or photo booths to keep the celebration lively for every age group.</p>
+                }
+                @case ('puberty') {
+                  <p>Prioritize traditional decor, transport, and seating to support ceremonial customs gracefully.</p>
+                }
+                @case ('housewarming') {
+                  <p>Create a cozy welcome with flexible catering slots and soft background music for guests.</p>
+                }
+                @case ('gettogether') {
+                  <p>Opt for modular services like casual venues and transport so plans can stay relaxed yet polished.</p>
+                }
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rounded-[32px] border border-[#E5E5E5] bg-white/95 p-6 shadow-[0_8px_32px_rgba(209,178,128,0.15)]">
+      <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        @for (item of filtered(); track item.id) {
+          <button
+            type="button"
+            (click)="toggle(item.id)"
+            role="checkbox"
+            [attr.aria-checked]="isSelected(item.id)"
+            class="group flex items-start gap-4 rounded-2xl border border-[#E5E5E5] bg-white p-5 text-left shadow-[0_8px_24px_rgba(209,178,128,0.12)] transition-all duration-300 ease-in-out focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#D1B280]/35 hover:-translate-y-0.5 hover:shadow-[0_16px_32px_rgba(209,178,128,0.2)]"
+            [ngClass]="{
+              'border-[#D1B280] bg-[#F4EADA] shadow-[0_20px_40px_rgba(209,178,128,0.25)]': isSelected(item.id)
+            }"
+          >
+            <span
+              class="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#E5E5E5] bg-[#F9F6EE] text-[#D1B280] transition-transform duration-300 ease-in-out group-hover:scale-105"
+            >
+              @switch (item.icon) {
+                @case ('venue') {
+                  <svg
+                    viewBox="0 0 24 24"
+                    class="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M3 21h18" />
+                    <path d="M5 21V9l7-4 7 4v12" />
+                    <path d="M9 21v-6h6v6" />
+                  </svg>
+                }
+                @case ('catering') {
+                  <svg
+                    viewBox="0 0 24 24"
+                    class="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M4 14h16" />
+                    <path d="M7 14a5 5 0 0 1 10 0" />
+                    <path d="M12 3v2" />
+                  </svg>
+                }
+                @case ('decor') {
+                  <svg
+                    viewBox="0 0 24 24"
+                    class="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M12 3v18" />
+                    <path d="M8 8c2 2 6 2 8 0" />
+                    <path d="M8 16c2-2 6-2 8 0" />
+                    <path d="M5 12h14" />
+                  </svg>
+                }
+                @case ('photo') {
+                  <svg
+                    viewBox="0 0 24 24"
+                    class="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M4 7h4l2-2h4l2 2h4v12H4z" />
+                    <circle cx="12" cy="13" r="3" />
+                  </svg>
+                }
+                @case ('music') {
+                  <svg
+                    viewBox="0 0 24 24"
+                    class="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M9 18V5l10-2v13" />
+                    <circle cx="6" cy="18" r="3" />
+                    <circle cx="18" cy="16" r="3" />
+                  </svg>
+                }
+                @case ('transport') {
+                  <svg
+                    viewBox="0 0 24 24"
+                    class="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M3 11h18l-1.5-4.5A2 2 0 0 0 17.6 5H6.4a2 2 0 0 0-1.9 1.5Z" />
+                    <path d="M5 11v6" />
+                    <path d="M19 11v6" />
+                    <circle cx="7.5" cy="17" r="1.5" />
+                    <circle cx="16.5" cy="17" r="1.5" />
+                  </svg>
+                }
+              }
+            </span>
+
+            <div class="flex-1">
+              <p class="text-base font-semibold text-[#2F2F2F]">{{ item.name }}</p>
+              <p class="text-sm text-[#6C6C6C]">{{ item.desc }}</p>
+              @if (item.tags?.length) {
+                <div class="mt-2 flex flex-wrap gap-2">
+                  @for (t of item.tags; track $index) {
+                    <span class="rounded-full border border-[#E5E5E5] bg-white px-3 py-1 text-xs text-[#6C6C6C]">
+                      {{ t }}
+                    </span>
+                  }
+                </div>
+              }
+            </div>
+
+            <span
+              class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full border text-xs font-semibold"
+              [ngClass]="
+                isSelected(item.id)
+                  ? 'border-[#D1B280] bg-[#D1B280] text-white'
+                  : 'border-[#E5E5E5] bg-white text-transparent'
+              "
+            >
+              ✓
+            </span>
+          </button>
+        }
+      </div>
+
+      @if (!filtered().length) {
+        <div
+          class="mt-6 rounded-2xl border border-dashed border-[#E5E5E5] bg-white p-8 text-center text-[#6C6C6C] shadow-[0_4px_16px_rgba(209,178,128,0.08)]"
+        >
+          No services match your search. Try different keywords.
+        </div>
+      }
+
+      <div
+        class="mt-8 flex flex-col gap-3 border-t border-dashed border-[#E5E5E5] pt-6 md:flex-row md:items-center md:justify-between"
+      >
+        <p class="text-sm text-[#6C6C6C]">
+          @if (selected().size > 0) {
+            {{ selected().size }} services selected
+          } @else {
+            Select services to continue
+          }
+        </p>
+        <button
+          type="button"
+          (click)="confirmSelection()"
+          [disabled]="selected().size === 0"
+          class="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-[#D1B280] px-8 py-3 text-sm font-semibold text-white shadow-[0_20px_40px_rgba(209,178,128,0.45)] transition-all duration-300 ease-in-out hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#D1B280]/35 disabled:translate-y-0 disabled:bg-[#E6DDCC] disabled:text-[#9C8F7A]"
+        >
+          Continue
+          <svg
+            viewBox="0 0 24 24"
+            class="h-5 w-5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M5 12h14" />
+            <path d="m12 5 7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </section>
+  </div>
+</div>

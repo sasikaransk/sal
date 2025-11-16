@@ -1,0 +1,117 @@
+{"q":"How do I create an account?","a":"Go to Register, choose your role (Customer or Service Provider), and complete the form."}
+{"q":"Can I sign in with Google?","a":"Yes, use ‘Continue with Google’ on the Login page."}
+{"q":"I forgot my password. What should I do?","a":"Use ‘Forgot password’ on the Login page to receive reset instructions by email."}
+{"q":"How do I change my email or name?","a":"Open your profile from the top-right menu and update details there."}
+{"q":"What is the difference between Customer, Service Provider, Third Party, and Admin?","a":"Customers plan and book services, Providers offer services, Third Party vendors handle specialized orders, and Admins manage the platform."}
+{"q":"I logged in but don’t see my dashboard.","a":"Your role determines the dashboard. Log out and sign in with the correct account, or contact support to update your role."}
+{"q":"What event types do you support?","a":"Common categories include weddings, corporate events, parties, and custom events. Browse Events for details."}
+{"q":"When should I start planning my event?","a":"We recommend starting 6–12 weeks ahead; for larger or custom events, plan 3–4 months ahead."}
+{"q":"Can I create an event without booking providers yet?","a":"Yes. Create your event first, then add services at any time."}
+{"q":"How do I find service providers?","a":"Go to Services or Providers by category. Filter by location, budget, ratings, and availability."}
+{"q":"What’s shown on a provider profile?","a":"Overview, services, pricing, portfolio, reviews, FAQs, and policies so you can compare options."}
+{"q":"How do I contact a provider?","a":"Use the ‘Message’ or ‘Request Quote’ button on the provider profile."}
+{"q":"How do bookings work?","a":"Request a quote from a provider. Once accepted, confirm the booking and follow payment instructions in your dashboard."}
+{"q":"Can I edit a booking after confirmation?","a":"Minor changes may be allowed depending on the provider’s policy. Use the booking page or message the provider."}
+{"q":"Where do I pay for bookings?","a":"Open the booking’s Payments section in your dashboard to see payment options and status."}
+{"q":"Do you offer refunds?","a":"Refunds are defined by each provider’s cancellation policy. Check the policy on the provider profile and during checkout."}
+{"q":"How do I cancel a booking?","a":"Open the booking and select Cancel. Review the provider’s cancellation policy before confirming."}
+{"q":"Can I reschedule my booking?","a":"Yes, if the provider has availability. Use the booking’s change request or message the provider."}
+{"q":"When can I leave a review?","a":"After your event is completed. Open the completed booking and choose ‘Leave a review’."}
+{"q":"Can I upload photos with my review?","a":"Yes, attach images when submitting your review from the booking page."}
+{"q":"Where are my messages?","a":"In the Messages section of your dashboard. New replies also show in notifications."}
+{"q":"I’m not receiving notifications.","a":"Check browser/site notification permissions and your profile notification settings."}
+{"q":"Is my data secure?","a":"We use HTTPS and follow best practices for authentication and data handling."}
+{"q":"How do I delete my account?","a":"Use Account Settings if available or contact support. Data removal follows our policy."}
+{"q":"What is the Third Party role?","a":"Vendors handling specialized orders (e.g., logistics, printing, rentals) with their own dashboard."}
+{"q":"How do I track third-party orders?","a":"Use the Third Party dashboard’s Orders section for status and details."}
+{"q":"I’m an admin. Where is the control panel?","a":"Go to /admin or use the Admin panel links if your account has the Admin role."}
+{"q":"How do I manage FAQs or event categories?","a":"Use the Admin dashboard sections for FAQs and event categories/types."}
+{"q":"The site can’t reach the server. What should I do?","a":"Ensure your internet is stable. If issues persist, try again later or contact support with the time and action attempted."}
+{"q":"I get an ‘Unauthorized’ page.","a":"Your session may have expired or your role lacks access. Log in again or switch to an account with the required role."}
+{"q":"What payment methods are accepted?","a":"Payment methods depend on provider and region. See the Payments section at checkout for available options."}
+{"q":"How long is a quote valid?","a":"Quote validity is set by each provider. Check the quote details for the expiration date/time."}
+{"q":"What are provider booking limits?","a":"Providers can set max concurrent bookings and lead-time windows. Availability depends on those settings."}
+{"q":"How do service providers onboard?","a":"Register as a Service Provider, complete business details, upload documentation if required, and create service listings."}
+{"q":"Where can I find the cancellation policy?","a":"On the provider profile and during checkout; it’s also visible on your booking page."}
+{"q":"Can I get invoices for my payments?","a":"Yes. Invoices are available under the booking’s Payments section after each payment."}
+{"q":"Do you support multiple currencies?","a":"Currency support depends on regional settings. The checkout page shows the currency used for your booking."}
+{"q":"How do I contact support?","a":"Open Profile > Support or use the Help link in the footer. Include your booking or account ID if applicable."}
+{"q":"Is there a limit on review image uploads?","a":"Yes, limits may apply to file size and count. If an upload fails, reduce file size or the number of images."}
+{"q":"What’s the difference between a venue and a vendor?","a":"A venue is the event location; vendors (service providers) offer services like décor, catering, photography, etc."}
+{"q":"Hello","a":"Hi there! How can I help with your event today?"}
+{"q":"Thanks","a":"You’re welcome! Anything else I can help with?"}
+{"q":"Bye","a":"Goodbye! Have a great day."}
+{"q":"Where is the home page?","a":"Go to the root URL ‘/’. From there you can browse Events, Services, and Providers."}
+{"q":"How do I view event details?","a":"Open Events and click an event. The details page shows description, galleries, reviews, and related services."}
+{"q":"What is the Events page for?","a":"It lists event categories and popular event types so you can explore ideas and providers for each category."}
+{"q":"How do I start creating an event?","a":"Go to Create Event. You can start with basics and add services later."}
+{"q":"Where do I pick services for my event?","a":"After creating your event, go to Create Event > Services to select categories and providers."}
+{"q":"What is the overview step in create event?","a":"The overview shows a summary of your selected categories and preferences before you confirm your plan."}
+{"q":"How do I browse providers by category?","a":"Use the Providers listing for a specific category from Services or the Events page and apply filters like location and budget."}
+{"q":"How do I open a provider profile?","a":"Click a provider card to see their profile with services, pricing, reviews, FAQs, and policies."}
+{"q":"Where is the gallery?","a":"Open the Gallery page to see curated images and event showcases for inspiration."}
+{"q":"How do I access the customer dashboard?","a":"Navigate to /customer/dashboard after logging in as a Customer."}
+{"q":"How do I access the service provider dashboard?","a":"Navigate to /service-provider after logging in as a Service Provider."}
+{"q":"How do I access the third-party dashboard?","a":"Navigate to /thirdparty after logging in with a Third Party account."}
+{"q":"How do I access the admin panel?","a":"Use /admin for the panel. If you need to log in, go to /adminlogin first."}
+{"q":"Where is the admin login page?","a":"Go to /adminlogin to sign in as an Admin."}
+{"q":"Why do I see ‘Unauthorized’?","a":"Your role doesn’t meet the page’s requirement or your session expired. Log in again with the correct role."}
+{"q":"Why was I logged out automatically?","a":"Sessions expire for security. Log back in to continue."}
+{"q":"Can I use the site without an account?","a":"Yes, you can browse events, providers, and galleries. You’ll need an account to book or message providers."}
+{"q":"How do I switch roles?","a":"Roles are tied to your account. Log out and sign in with an account that has the desired role, or contact support."}
+{"q":"How do I search for services?","a":"Use the Services section or the search bar to find providers by name, category, or keywords."}
+{"q":"How can I compare providers?","a":"Open provider profiles and compare pricing, inclusions, portfolio images, and reviews."}
+{"q":"How do I request a quote?","a":"Click ‘Request Quote’ on a provider profile and share your event date, location, and requirements."}
+{"q":"What information helps get accurate quotes?","a":"Provide your event date, venue/location, expected guests, budget range, and any style/themes you prefer."}
+{"q":"How do I confirm a booking?","a":"Accept an approved quote and follow the payment instructions on the booking page."}
+{"q":"Where can I see my booking status?","a":"Open the booking page or the dashboard’s bookings list to review current status and next steps."}
+{"q":"How do I message a provider after booking?","a":"Open the booking or the provider’s profile and use the Messages feature to continue the conversation."}
+{"q":"Why is my provider not replying?","a":"Providers may be busy. Give them time or send a polite follow-up. If urgent, consider messaging another provider."}
+{"q":"Can I add multiple providers to one event?","a":"Yes. You can book multiple providers (e.g., décor, photography, catering) for a single event plan."}
+{"q":"How do I change my event date?","a":"Request a date change from the booking page or message the provider to confirm availability."}
+{"q":"Where can I see provider policies?","a":"On each provider profile and during checkout. Policies include cancellation, rescheduling, and payment terms."}
+{"q":"How do I add a review?","a":"After your event, open the completed booking and click ‘Leave a review’. Rate and add comments; photos are optional."}
+{"q":"What rating scale do you use?","a":"Ratings are on a 1 to 5 star scale. You can include a short text review and optional photos."}
+{"q":"Can I edit my review?","a":"Reviews can be edited within a limited time window. If you need help, contact support with your booking ID."}
+{"q":"Where do I upload event inspiration images?","a":"You can add images in messages to providers or attach them when requesting quotes if supported by the provider."}
+{"q":"How do I see provider availability?","a":"Ask for a quote with your date or message the provider directly to check availability for your event day."}
+{"q":"Do you support installment payments?","a":"Installments depend on each provider. Review payment terms on the provider profile or the checkout page."}
+{"q":"Can I get a pro-forma invoice?","a":"Some providers offer pro-forma invoices with quotes. Ask the provider when requesting a quote."}
+{"q":"What happens after I cancel?","a":"You’ll see the booking marked as canceled. Any refund depends on the provider’s cancellation policy."}
+{"q":"Can I transfer a booking to another date or person?","a":"Transfers depend on provider policy and availability. Contact the provider via the booking page."}
+{"q":"How do I report a provider issue?","a":"Use the booking page or Profile > Support with your booking ID and a brief description of the issue."}
+{"q":"How do I become a service provider?","a":"Register as a Service Provider, complete your profile, add services and pricing, and publish your listings."}
+{"q":"What should providers include in listings?","a":"Clear descriptions, inclusions, pricing ranges, portfolio images, FAQs, and policies to set expectations."}
+{"q":"How do providers manage messages?","a":"Use the Messages section in the Service Provider dashboard to view and reply to client inquiries."}
+{"q":"How do providers get paid?","a":"Payments are handled through the booking’s Payments section. Payout schedules depend on provider settings and policies."}
+{"q":"Where can third-party vendors see orders?","a":"In the Third Party dashboard under Orders. You can view status, details, and update progress."}
+{"q":"How do I update an order’s status (Third Party)?","a":"Open the order in the Third Party dashboard and set the current status with any notes if required."}
+{"q":"What is the Admin Event Management section?","a":"It’s for admins to manage event categories, metadata, and related content displayed to users."}
+{"q":"How do Admins manage FAQs?","a":"Use the Admin FAQs section to add, edit, or archive frequently asked questions shown across the app."}
+{"q":"Where do Admins manage offers and promotions?","a":"In the Admin dashboard’s Offers section, you can create and schedule promotional items."}
+{"q":"How do I enable notifications in my browser?","a":"Allow notifications for this site in your browser settings, then check your profile notification preferences."}
+{"q":"Why don’t images load?","a":"Check your internet connection and try again. If the issue persists, clear cache or contact support with the page URL."}
+{"q":"Does Google Sign-In create a new account?","a":"If your email isn’t registered, a new account is created. Otherwise, Google Sign-In connects to your existing account."}
+{"q":"Can I change my registered email?","a":"Email updates may require verification. Open Profile settings; if unavailable, contact support."}
+{"q":"Do you support multiple events per account?","a":"Yes. You can create and manage multiple events from your dashboard."}
+{"q":"Can I duplicate a past event?","a":"Yes, if the feature is available. Check your event list for a ‘Duplicate’ option or ask support to assist."}
+{"q":"How do I set a budget range?","a":"Use filters when browsing providers or include your budget in the quote request for tailored proposals."}
+{"q":"Where can I see FAQs for a specific event type?","a":"Open the event details page; FAQs are shown alongside reviews and key details if available."}
+{"q":"Where can I see provider FAQs?","a":"Provider profiles often include a FAQs section that addresses services, timelines, and policies."}
+{"q":"How do I upload required documents (providers)?","a":"Use your provider profile or onboarding steps to upload documents like licenses or IDs if requested."}
+{"q":"How do I update my business availability (providers)?","a":"Update your availability and booking limits in your provider settings or calendar if supported."}
+{"q":"Can providers set minimum lead time?","a":"Yes. Providers can set minimum lead-time and booking window days in their settings to manage requests."}
+{"q":"I see a blank page after login.","a":"Refresh the page or try logging out and in again. If it continues, contact support with time and browser details."}
+{"q":"How do I change my password?","a":"Use Profile settings or the Reset Password option if you’re logged out."}
+{"q":"Does the platform support custom themes for events?","a":"Yes. Many providers support custom themes. Mention your theme in quotes or messages to get tailored proposals."}
+{"q":"Can I attach files in messages?","a":"Attachment support may vary. If you can’t attach files, send links or reduce file size and try again."}
+{"q":"Can I hide my profile information from providers?","a":"Only necessary contact details are shared for bookings. Review the privacy policy for specifics."}
+{"q":"Where do I see my invoices and receipts?","a":"Open each booking’s Payments section to download invoices and receipts for completed transactions."}
+{"q":"How do I contact support urgently?","a":"Use Profile > Support and mark the request as urgent with your booking ID and a brief summary."}
+{"q":"Can I book a provider outside my city?","a":"Yes, many providers travel. Travel fees or availability may vary—confirm in the quote request."}
+{"q":"What if my event date changes?","a":"Request a reschedule. If the provider isn’t available, you can cancel based on their policy and rebook another provider."}
+{"q":"Do you store my payment details?","a":"Payment processing follows security standards. Refer to the payment provider’s policy for how details are stored."}
+{"q":"Are there platform service fees?","a":"Fees may apply depending on region and payment method. The checkout shows any applicable fees before you confirm."}
+{"q":"Can I chat with support in-app?","a":"If live chat is enabled, use the chat widget. Otherwise, use Profile > Support or email support."}
+{"q":"What browsers are supported?","a":"Recent versions of Chrome, Edge, Firefox, and Safari are supported. Update your browser if you encounter issues."}
+{"q":"How do I clear cache to fix UI issues?","a":"Use your browser’s clear cache option, then reload the app. Try an incognito window to rule out extensions."}

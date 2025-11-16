@@ -1,0 +1,38 @@
+:host {
+  display: block;
+}
+
+.accent-line {
+  width: 120px;
+  height: 4px;
+  margin-top: 1rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #d1b280 0%, rgba(209, 178, 128, 0));
+}
+
+.gallery-page {
+  font-family: 'Inter', 'Poppins', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.gallery-page img {
+  transition: transform 0.6s ease, filter 0.6s ease;
+}
+
+.gallery-page article:hover img {
+  filter: saturate(1.08);
+}
+
+.gallery-page .overlay-title {
+  text-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+}

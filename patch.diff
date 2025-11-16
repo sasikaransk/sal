@@ -1,0 +1,8 @@
+*** Begin Patch
+*** Update File: client/src/layout/ThirtParty_Layout/dashboard/dashboard.ts
+@@
+-export class Dashboard {
++export class ThirdPartyLayout {
+@@
+ }
+*** End Patch
